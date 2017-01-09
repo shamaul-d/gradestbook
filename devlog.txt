@@ -1,2 +1,7 @@
 ShamaulD -- 2017-01-04
-created devlog!
+  created devlog!
+
+NicoleC -- 2017-01-08
+  database.py init
+  databases set up: users, classes, grades
+  login started: adduser(), logincheck(), and gethash()
