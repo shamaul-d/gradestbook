@@ -62,6 +62,7 @@ def adduser(username,password):
     else:
         return False
 
+def gethash(username):
     f = "data/database.db"
     db = sqlite3.connect(f)
     c = db.cursor()
