@@ -49,12 +49,12 @@ def logincheck(username):
     return False
 
 # ret True if successfully added, False if username already exists
-def adduser(username,password):
+def adduser(username,password,teacher,name,id):
     f = "data/database.db"
     db = sqlite3.connect(f)
     if(not check(author)):
         c = db.cursor()
-        q = "INSERT INTO users VALUES ('"+username+"','"+password+"');" 
+        q = "INSERT INTO users VALUES ('"+username+"','"+password+"','"+teacher+"','"+name+"','"+id+"');" 
         c.execute(q)
         db.commit()
         db.close()
