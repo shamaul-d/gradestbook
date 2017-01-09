@@ -62,7 +62,7 @@ def adduser(username,password,teacher,name,id):
     else:
         return False
 
-adduser("nicole","nicole","nicole","nicole",0)
+#adduser("nicole","nicole","nicole","nicole",0)
     
 def gethash(username):
     f = "data/database.db"

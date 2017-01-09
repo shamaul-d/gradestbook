@@ -52,9 +52,9 @@ def logincheck(username):
 def adduser(username,password,teacher,name,id):
     f = "data/database.db"
     db = sqlite3.connect(f)
-    if(not logincheck(username)):
+    if(not check(author)):
         c = db.cursor()
-        q = "INSERT INTO users VALUES ('"+username+"','"+password+"','"+teacher+"','"+name+"',"+str(id)+");" 
+        q = "INSERT INTO users VALUES ('"+username+"','"+password+"','"+teacher+"','"+name+"','"+id+"');" 
         c.execute(q)
         db.commit()
         db.close()
@@ -62,8 +62,6 @@ def adduser(username,password,teacher,name,id):
     else:
         return False
 
-adduser("nicole","nicole","nicole","nicole",0)
-    
 def gethash(username):
     f = "data/database.db"
     db = sqlite3.connect(f)
@@ -77,16 +75,7 @@ def gethash(username):
         db.close()
         return None
 
-def printusers():
-    f = "data/database.db"
-    db = sqlite3.connect(f)
-    c = db.cursor()
-    m = c.execute("SELECT * FROM users")
-    for a in m:
-        print a
 
-#printusers()
-    
 def go():
     users()
     classes()
