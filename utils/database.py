@@ -35,6 +35,45 @@ def grades():
 
 ##################################################################################################
 
+# checks if account username is found
+def logincheck(username):
+    f = "data/database.db"
+    db = sqlite3.connect(f)
+    c = db.cursor()
+    q = "SELECT username FROM users"
+    d = c.execute(q)
+    for n in d:
+        if(n[0] == username):
+            return True
+    db.close()
+    return False
+
+# ret True if successfully added, False if username already exists
+def adduser(username,password):
+    f = "data/database.db"
+    db = sqlite3.connect(f)
+    if(not check(author)):
+        c = db.cursor()
+        q = "INSERT INTO users VALUES ('"+username+"','"+password+"');" 
+        c.execute(q)
+        db.commit()
+        db.close()
+        return True
+    else:
+        return False
+
+    f = "data/database.db"
+    db = sqlite3.connect(f)
+    c = db.cursor()
+    m = c.execute("SELECT * FROM users")
+    for a in m:
+        if a[0]==username:
+            db.close()
+            return a[1]
+    else:
+        db.close()
+        return None
+
 
 def go():
     users()
