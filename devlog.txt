@@ -5,3 +5,6 @@ NicoleC -- 2017-01-08
   database.py init
   databases set up: users, classes, grades
   login started: adduser(), logincheck(), and gethash()
+
+ShamaulD -- 2017-01-09
+  started login functionality on app!
