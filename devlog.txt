@@ -8,3 +8,6 @@ NicoleC -- 2017-01-08
 
 ShamaulD -- 2017-01-09
   started login functionality on app!
+
+JamesY -- 2017-01-09
+  Started template.html
