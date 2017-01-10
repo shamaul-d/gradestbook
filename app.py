@@ -1,6 +1,6 @@
 from flask import Flask, redirect, request, render_template, session, url_for
 import os
-from utils import database
+#from utils import database
 import hashlib
 
 
@@ -32,7 +32,7 @@ def auth():
         if (request.form['user'] == '' or request.form['pass'] == ''):
             return render_template('login.html', msg = 'please fill in all forms of info')
         elif (db_builder.check(request.form['user'])):
-            return render_template('login.html', msg = 'username taken, please choose a new one'))
+            return render_template('login.html', msg = 'username taken, please choose a new one')
         else:
             user0 = request.form["username"]
             pass0 = hashp(request.form["password"])
@@ -42,7 +42,7 @@ def auth():
     ## login
     else:
         if (not (db_builder.check(request.form['username']))):
-            flash("username does not exist") 
+            flash("username does not exist")
             return redirect(url_for("login"))
         elif (db_builder.get_hash(request.form['username']) == hashp(request.form['password'])):
             user1 = request.form['username']
@@ -51,9 +51,13 @@ def auth():
             return redirect(url_for("home"))
         else:
             flash("incorrect username and password combination")
-return redirect(url_for("login"))    
+    return redirect(url_for("login"))
+
+#dev only
+@app.route('/seat')
+def seat():
+    return render_template('seat.html')
 
 if __name__ == '__main__':
     app.debug = True
     app.run()
-
