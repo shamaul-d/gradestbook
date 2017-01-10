@@ -20,3 +20,8 @@ ShamaulD -- 2017-01-09
   Finished basic login/register stuff
   Only deals with students, not teachers
   Check in with Nicole on why db file isn't working in order to test
+
+JamesY -- 2017-01-10
+  Finished template.html
+  Made login.html
+  Modified style.css
