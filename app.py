@@ -21,7 +21,9 @@ def login():
 @app.route('/home/')
 def home():
     if 'user' in session:
-        return render_template('home.html')
+        if 'student' in session:
+            return render_template('home.html', teach = False)
+        return render_template('home.html', teach = True)
     return redirect(url_for('login'))
 
 @app.route('/auth/')

@@ -10,11 +10,11 @@ ShamaulD -- 2017-01-09
   started login functionality on app!
 
 JamesY -- 2017-01-09
-  Started template.html
+  started template.html
 
 VannaM -- 2017-01-09
-  Started seating chart
-  Not permanent (can't be completed until desk id stuff done)
+  started seating chart
+  not permanent (can't be completed until desk id stuff done)
 
 ShamaulD -- 2017-01-09
   Finished basic login/register stuff
@@ -25,3 +25,8 @@ JamesY -- 2017-01-10
   Finished template.html
   Made login.html
   Modified style.css
+  
+NicoleC -- 2017-01-10
+  fixed database creating
+  making accounts working
+
