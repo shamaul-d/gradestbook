@@ -53,7 +53,7 @@ def adduser(username,password,teacher,name,id):
     db = sqlite3.connect(f)
     if(not logincheck(username)):
         c = db.cursor()
-        q = "INSERT INTO users VALUES ('"+username+"','"+password+"','"+teacher+"','"+name+"',"+str(id)+");"
+        q = "INSERT INTO users VALUES ('"+username+"','"+password+"','"+str(teacher)+"','"+name+"',"+str(id)+");"
         c.execute(q)
         db.commit()
         db.close()
@@ -61,7 +61,8 @@ def adduser(username,password,teacher,name,id):
     else:
         return False
 
-adduser("nicole","nicole","nicole","nicole",0)
+#adduser("nicole","nicole","nicole","nicole",0)
+#adduser("b","a",True,"a",2)
 
 def gethash(username):
     f = "utils/data/database.db"
