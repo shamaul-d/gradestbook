@@ -15,3 +15,8 @@ JamesY -- 2017-01-09
 VannaM -- 2017-01-09
   Started seating chart
   Not permanent (can't be completed until desk id stuff done)
+
+ShamaulD -- 2017-01-09
+  Finished basic login/register stuff
+  Only deals with students, not teachers
+  Check in with Nicole on why db file isn't working in order to test
