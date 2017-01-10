@@ -11,3 +11,7 @@ ShamaulD -- 2017-01-09
 
 JamesY -- 2017-01-09
   Started template.html
+
+VannaM -- 2017-01-09
+  Started seating chart
+  Not permanent (can't be completed until desk id stuff done)
