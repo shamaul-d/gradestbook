@@ -1,43 +1,42 @@
 import sqlite3   #enable control of an sqlite database
-import csv       #facilitates CSV I/O
 
-#f="data/database.db"
+#f="utils/data/database.db"
 
 #################################################################################################
 def users():
-    f = "data/database.db"
+    f = "utils/data/database.db"
     db = sqlite3.connect(f)
     c = db.cursor()
     q = "CREATE TABLE IF NOT EXISTS users (username TEXT, password TEXT, teacher BOOLEAN, name TEXT, id INTEGER)"
     c.execute(q)    #run SQL query
     db.commit()
-    
+
 
 ##################################################################################################
 def classes():
-    f = "data/database.db"
+    f = "utils/data/database.db"
     db = sqlite3.connect(f)
     c = db.cursor()
     q = "CREATE TABLE IF NOT EXISTS classes (classid INTEGER, teacherid INTEGER, studentid INTEGER, period INTEGER, seatid INTEGER, glasses BOOLEAN)"
     c.execute(q)
     db.commit()
 
-    
+
 ##################################################################################################
 def grades():
-    f = "data/database.db"
+    f = "utils/data/database.db"
     db = sqlite3.connect(f)
     c = db.cursor()
     q = "CREATE TABLE IF NOT EXISTS grades (classid INTEGER, studentid INTEGER, grade INTEGER, assignmentid INTEGER, assignmentname TEXT)"
     c.execute(q)
     db.commit()
-    
+
 
 ##################################################################################################
 
 # checks if account username is found
 def logincheck(username):
-    f = "data/database.db"
+    f = "utils/data/database.db"
     db = sqlite3.connect(f)
     c = db.cursor()
     q = "SELECT username FROM users"
@@ -50,11 +49,11 @@ def logincheck(username):
 
 # ret True if successfully added, False if username already exists
 def adduser(username,password,teacher,name,id):
-    f = "data/database.db"
+    f = "utils/data/database.db"
     db = sqlite3.connect(f)
-    if(not check(author)):
+    if(not logincheck(username)):
         c = db.cursor()
-        q = "INSERT INTO users VALUES ('"+username+"','"+password+"','"+teacher+"','"+name+"','"+id+"');" 
+        q = "INSERT INTO users VALUES ('"+username+"','"+password+"','"+teacher+"','"+name+"',"+str(id)+");"
         c.execute(q)
         db.commit()
         db.close()
@@ -62,8 +61,10 @@ def adduser(username,password,teacher,name,id):
     else:
         return False
 
+adduser("nicole","nicole","nicole","nicole",0)
+
 def gethash(username):
-    f = "data/database.db"
+    f = "utils/data/database.db"
     db = sqlite3.connect(f)
     c = db.cursor()
     m = c.execute("SELECT * FROM users")
@@ -75,6 +76,15 @@ def gethash(username):
         db.close()
         return None
 
+def printusers():
+    f = "utils/data/database.db"
+    db = sqlite3.connect(f)
+    c = db.cursor()
+    m = c.execute("SELECT * FROM users")
+    for a in m:
+        print a
+
+#printusers()
 
 def go():
     users()
@@ -84,11 +94,9 @@ def go():
 #go()
 
 def close():
-    f = "data/database.db"
+    f = "utils/data/database.db"
     db = sqlite3.connect(f)
     db.commit() #save changes
     db.close()  #close database
 
-    
 close()
-

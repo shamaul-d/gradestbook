@@ -1,5 +1,4 @@
 import sqlite3   #enable control of an sqlite database
-import csv       #facilitates CSV I/O
 
 #f="data/database.db"
 
@@ -11,7 +10,7 @@ def users():
     q = "CREATE TABLE IF NOT EXISTS users (username TEXT, password TEXT, teacher BOOLEAN, name TEXT, id INTEGER)"
     c.execute(q)    #run SQL query
     db.commit()
-    
+
 
 ##################################################################################################
 def classes():
@@ -22,7 +21,7 @@ def classes():
     c.execute(q)
     db.commit()
 
-    
+
 ##################################################################################################
 def grades():
     f = "data/database.db"
@@ -31,7 +30,7 @@ def grades():
     q = "CREATE TABLE IF NOT EXISTS grades (classid INTEGER, studentid INTEGER, grade INTEGER, assignmentid INTEGER, assignmentname TEXT)"
     c.execute(q)
     db.commit()
-    
+
 
 ##################################################################################################
 
@@ -54,7 +53,7 @@ def adduser(username,password,teacher,name,id):
     db = sqlite3.connect(f)
     if(not logincheck(username)):
         c = db.cursor()
-        q = "INSERT INTO users VALUES ('"+username+"','"+password+"','"+teacher+"','"+name+"',"+str(id)+");" 
+        q = "INSERT INTO users VALUES ('"+username+"','"+password+"','"+teacher+"','"+name+"',"+str(id)+");"
         c.execute(q)
         db.commit()
         db.close()
@@ -62,8 +61,8 @@ def adduser(username,password,teacher,name,id):
     else:
         return False
 
-#adduser("nicole","nicole","nicole","nicole",0)
-    
+adduser("nicole","nicole","nicole","nicole",0)
+
 def gethash(username):
     f = "data/database.db"
     db = sqlite3.connect(f)
@@ -86,7 +85,7 @@ def printusers():
         print a
 
 #printusers()
-    
+
 def go():
     users()
     classes()
@@ -100,6 +99,4 @@ def close():
     db.commit() #save changes
     db.close()  #close database
 
-    
 close()
-
