@@ -30,3 +30,6 @@ NicoleC -- 2017-01-10
   fixed database creating
   making accounts working
 
+VannaM -- 2017-01-10
+ seating bug should be gone
+ login stuff
