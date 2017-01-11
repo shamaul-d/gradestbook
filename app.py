@@ -17,7 +17,7 @@ def root():
 def login():
     if 'user' in session:
         return redirect(url_for('home'))
-    return render_template('login.html')
+    return render_template('login.html',register='blank')
 
 @app.route('/home/')
 def home():
@@ -34,25 +34,25 @@ def auth():
     #print request.form
     if 'register' in request.form:
         if (request.form['user'] == '' or request.form['pass'] == ''):
-            return render_template('login.html', msg = 'please fill in all forms of info')
+            return render_template('login.html', msg = 'please fill in all forms of info', register = False)
         elif (database.logincheck(request.form['user'])):
-            return render_template('login.html', msg = 'username taken, please choose a new one')
+            return render_template('login.html', msg = 'username taken, please choose a new one', register = False)
         else:
             user0 = request.form['user']
             pass0 = hashp(request.form['pass'])
             database.adduser(user0,pass0, "placeholder", "placeholder", 0)
             ## what are we doing here?
-            return render_template('login.html', msg = 'new account created')
+            return render_template('login.html', msg = 'new account created', register = True)
     ## login
     else:
         if (not (database.logincheck(request.form['user']))):
-            return render_template('login.html', msg = 'username does not exist')
+            return render_template('login.html', msg = 'username does not exist', register = False)
         elif (database.gethash(request.form['user']) == hashp(request.form['pass'])):
             user1 = request.form['user']
             session['user'] = user1
             return redirect(url_for('home'))
         else:
-            return render_template('login.html', msg = 'incorrect username and password combination')
+            return render_template('login.html', msg = 'incorrect username and password combination', register = False)
 
 def hashp(password):
     return hashlib.sha512(password).hexdigest()

@@ -33,3 +33,8 @@ NicoleC -- 2017-01-10
 VannaM -- 2017-01-10
  seating bug should be gone
  login stuff
+
+James -- 2017-01-11
+  Finished login.html
+  Working on home.html
+  Added some vars in render_template
