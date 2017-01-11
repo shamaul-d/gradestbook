@@ -11,24 +11,22 @@
   var oldEvent;
 
   function allowDrop(event) {
-  event.preventDefault();
+      event.preventDefault();
   }
 
   function dragStart(event) {
-  oldEvent = event.target;
-  event.dataTransfer.setData("student", event.target.innerHTML);
+      oldEvent = event.target;
+      event.dataTransfer.setData("student", event.target.innerHTML);
   }
 
   function drop(event){
-  event.preventDefault();
-  var data = event.dataTransfer.getData("student");
-  var data2 = event.target.innerHTML;
-  if (typeof oldEvent !=  'undefined' && typeof event.target != 'undefined'){
-  event.target.innerHTML = data;
-  oldEvent.innerHTML = data2;
-  console.log(data);
-  console.log(data2);
-  }
+      event.preventDefault();
+      var data = event.dataTransfer.getData("student");
+      var data2 = event.target.innerHTML;
+     if (typeof oldEvent !=  'undefined' && typeof event.target != 'undefined' && typeof data != 'undefined' && typeof data2 != 'undefined'){
+          event.target.innerHTML = data;
+          oldEvent.innerHTML = data2;
+    }
   }
 
 </script>

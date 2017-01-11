@@ -36,8 +36,10 @@ def grades():
 
 # checks if account username is found
 def logincheck(username):
+    print "called"
     f = "utils/data/database.db"
     db = sqlite3.connect(f)
+    print "connected"
     c = db.cursor()
     q = "SELECT username FROM users"
     d = c.execute(q)

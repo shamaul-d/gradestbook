@@ -5,6 +5,7 @@ import hashlib
 
 
 app = Flask(__name__)
+app.secret_key="fakeSecretKey"
 
 @app.route('/')
 def root():
@@ -26,9 +27,10 @@ def home():
         return render_template('home.html', teach = True)
     return redirect(url_for('login'))
 
-@app.route('/auth/')
+@app.route('/auth/', methods = ["GET","POST"])
 def auth():
-## register
+    print 'start'
+    ## register
     #print request.form
     if 'register' in request.form:
         if (request.form['user'] == '' or request.form['pass'] == ''):
