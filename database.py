@@ -140,10 +140,35 @@ def printteachers():
     for a in m:
         print a
         
-printstudents()
+#printstudents()
 
 # get next id
+'''
+# get next teacher id
+def gettid():
+    f = "utils/data/database.db"
+    db = sqlite3.connect(f)
+    c = db.cursor()
+    m = c.execute("SELECT * FROM teachers")
+    if(m.length>0):
+        id = m[m.length-1][3]
+    else:
+        id = 0
+    return id-1
 
+# get next student id
+def getsid():
+    f = "utils/data/database.db"
+    db = sqlite3.connect(f)
+    c = db.cursor()
+    m = c.execute("SELECT * FROM students")
+    if(m.length>0):
+        id = m[m.length-1][3]
+    else:
+        id = 0
+    return id+1
+print getsid()
+'''
 def go():
     teachers()
     students()
