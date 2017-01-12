@@ -19,6 +19,30 @@ def login():
         return redirect(url_for('home'))
     return render_template('login.html',register='blank')
 
+@app.route('/loginJ', methods=['POST','GET'])
+def loginJ():
+    if 'user' in session:
+        return "Already logged in"
+    else:
+        usr = request.form['username']
+        pas = request.form['password']
+        if (not (database.logincheck(usr))):
+            return 'Username does not exist'
+        elif (database.gethash(usr) == hashp(pas)):
+            session['user'] = usr
+            return 'Success!'
+        else:
+            return 'incorrect username and password combination'
+
+@app.route('/logoutJ/')
+def logoutJ():
+    print 'out'
+    if 'user' in session:
+        session.pop('user');
+        return 'Success! Logged out'
+    return 'Not logged in'
+
+
 @app.route('/home/')
 def home():
     if 'user' in session:

@@ -1,27 +1,77 @@
 <!DOCTYPE html>
 
 <html>
-  <head>
+<head>
     <link href="../static/css/bootstrap.css" rel="stylesheet">
     <link href="../static/css/style.css" rel="stylesheet">
-    <script src="../static/javascript/bootstrap.js"></script>
-    <title> {%block title%} {%endblock%} </title>
-  </head>
 
-  <body>
+    <!-- ajax src -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="../static/javascript/bootstrap.js"></script>
+
+    <title> {%block title%} {%endblock%} </title>
+
+</head>
+
+<body>
     <nav class="navbar navbar-inverse">
-      <div class="container-fluid">
-	<div class="navbar-header">
-	  <div class="container">
-	    <p class="title"> gradestbook  </p> 
-	  </div>
-	</div>
-	{%block navbar%}{%endblock%}
-      </div>
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <div class="container">
+                    <p class="title"> gradestbook</p>
+                </div>
+                <div class="dropdown">
+                    <button class="btn btn-primary dropdown-toggle pull-right" type="button" data-toggle="dropdown">Settings
+                        <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu pull-right">
+                        <li> <input type="text" class='pull-right' id="usr"></li>
+                        <li><input type="password" class='pull-right' id='pass'></li>
+                        <li><button id="in" class='pull-right'>Login!</button><button id="out" class='pull-right'>Log Out</button></li>
+                    </ul>
+                </div>
+            </div>
+            {%block navbar%}{%endblock%}
+        </div>
     </nav>
 
     {%block body%}{%endblock%}
 
-  </body>
+    <script>
+
+    var logIn = function(e){
+        var i = document.getElementById("usr").value;
+        var j = document.getElementById('pass').value;
+        var input = { 'username' : i, 'password': j};
+
+        $.ajax({
+            url: '/loginJ',
+            type: 'POST',
+            data: input,
+            success: function(d){
+                location.reload();
+            },
+        });
+
+    };
+
+    var logout = function(e){
+        $.ajax({
+            url: '/logoutJ',
+            success: function(d){
+                location.reload();
+            }
+        });
+    };
+
+    var b = document.getElementById('in');
+    b.addEventListener('click',logIn);
+
+    var c = document.getElementById('out');
+    c.addEventListener('click',logout);
+
+    </script>
+
+</body>
 
 </html>
