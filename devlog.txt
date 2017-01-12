@@ -48,3 +48,6 @@ NicoleC -- 2017-01-12
   Wrote addgrade()
   Reconfigured the database to have a teachers and students db
   Rewrote adduser() to be separated into addteacher() and addstudent()
+
+JamesY -- 2017-01-12
+  Modified html files
