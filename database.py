@@ -3,15 +3,25 @@ import sqlite3   #enable control of an sqlite database
 #f="utils/data/database.db"
 
 #################################################################################################
-def users():
+def teachers():
     f = "utils/data/database.db"
     db = sqlite3.connect(f)
     c = db.cursor()
-    q = "CREATE TABLE IF NOT EXISTS users (username TEXT, password TEXT, teacher BOOLEAN, name TEXT, id INTEGER)"
+    q = "CREATE TABLE IF NOT EXISTS teachers (username TEXT, password TEXT, name TEXT, id INTEGER)"
     c.execute(q)    #run SQL query
     db.commit()
 
+    
+#################################################################################################
+def students():
+    f = "utils/data/database.db"
+    db = sqlite3.connect(f)
+    c = db.cursor()
+    q = "CREATE TABLE IF NOT EXISTS students (username TEXT, password TEXT, name TEXT, id INTEGER)"
+    c.execute(q)    #run SQL query
+    db.commit()
 
+    
 ##################################################################################################
 def classes():
     f = "utils/data/database.db"
@@ -35,27 +45,34 @@ def grades():
 ##################################################################################################
 
 # checks if account username is found
-def logincheck(username):
-    print "called"
+def logincheck(username,teacher):
+    #print "called"
     f = "utils/data/database.db"
     db = sqlite3.connect(f)
-    print "connected"
+    #print "connected"
     c = db.cursor()
-    q = "SELECT username FROM users"
-    d = c.execute(q)
-    for n in d:
-        if(n[0] == username):
-            return True
+    if(teacher):
+        q = "SELECT username FROM teachers"
+        d = c.execute(q)
+        for n in d:
+            if(n[0] == username):
+                return True
+    else:
+        q = "SELECT username FROM students"
+        d = c.execute(q)
+        for n in d:
+            if(n[0] == username):
+                return True
     db.close()
     return False
 
 # ret True if successfully added, False if username already exists
-def adduser(username,password,teacher,name,id):
+def addteacher(username,password,name,id):
     f = "utils/data/database.db"
     db = sqlite3.connect(f)
-    if(not logincheck(username)):
+    if(not logincheck(username,True)):
         c = db.cursor()
-        q = "INSERT INTO users VALUES ('"+username+"','"+password+"','"+str(teacher)+"','"+name+"',"+str(id)+");"
+        q = "INSERT INTO teachers VALUES ('"+username+"','"+password+"','"+name+"',"+str(id)+");"
         c.execute(q)
         db.commit()
         db.close()
@@ -63,8 +80,21 @@ def adduser(username,password,teacher,name,id):
     else:
         return False
 
-#adduser("nicole","nicole","nicole","nicole",0)
-#adduser("b","a",True,"a",2)
+# ret True if successfully added, False if username already exists
+def addstudent(username,password,name,id):
+    f = "utils/data/database.db"
+    db = sqlite3.connect(f)
+    if(not logincheck(username,False)):
+        c = db.cursor()
+        q = "INSERT INTO students VALUES ('"+username+"','"+password+"','"+name+"',"+str(id)+");"
+        c.execute(q)
+        db.commit()
+        db.close()
+        return True
+    else:
+        return False
+    
+#addstudent("nicole","nicole","nicole",0)
 
 # grades (classid INTEGER, studentid INTEGER, grade INTEGER, assignmentid INTEGER, assignmentname TEXT)"
 def addgrade(classid, studentid, grade, assignmentid, assignmentname):
@@ -78,8 +108,7 @@ def addgrade(classid, studentid, grade, assignmentid, assignmentname):
         db.close()
         return True
     else:
-        return False
-    
+        return False  
     
 
 def gethash(username):
@@ -95,18 +124,54 @@ def gethash(username):
         db.close()
         return None
 
-def printusers():
+def printstudents():
     f = "utils/data/database.db"
     db = sqlite3.connect(f)
     c = db.cursor()
-    m = c.execute("SELECT * FROM users")
+    m = c.execute("SELECT * FROM students")
     for a in m:
         print a
 
-#printusers()
+def printteachers():
+    f = "utils/data/database.db"
+    db = sqlite3.connect(f)
+    c = db.cursor()
+    m = c.execute("SELECT * FROM teachers")
+    for a in m:
+        print a
+        
+#printstudents()
 
+# get next id
+'''
+# get next teacher id
+def gettid():
+    f = "utils/data/database.db"
+    db = sqlite3.connect(f)
+    c = db.cursor()
+    m = c.execute("SELECT * FROM teachers")
+    if(m.length>0):
+        id = m[m.length-1][3]
+    else:
+        id = 0
+    return id-1
+
+# get next student id
+def getsid():
+    f = "utils/data/database.db"
+    db = sqlite3.connect(f)
+    c = db.cursor()
+    m = c.execute("SELECT * FROM students")
+    if(m.length>0):
+        id = m[m.length-1][3]
+    else:
+        id = 0
+    return id+1
+print getsid()
+'''
 def go():
-    users()
+    teachers()
+    students()
     classes()
     grades()
 

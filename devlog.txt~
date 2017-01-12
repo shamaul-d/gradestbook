@@ -34,7 +34,7 @@ VannaM -- 2017-01-10
  seating bug should be gone
  login stuff
 
-JamesY -- 2017-01-11
+James -- 2017-01-11
   Finished login.html
   Working on home.html
   Added some vars in render_template
@@ -43,8 +43,3 @@ JamesY -- 2017-01-11
   Navbar login/logout
   Bugs (again)
   Known bugs: lack of aesthetic 
-
-NicoleC -- 2017-01-12
-  Wrote addgrade()
-  Reconfigured the database to have a teachers and students db
-  Rewrote adduser() to be separated into addteacher() and addstudent()
