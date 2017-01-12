@@ -19,21 +19,6 @@ def login():
         return redirect(url_for('home'))
     return render_template('login.html',register='blank')
 
-@app.route('/loginJ', methods=['POST','GET'])
-def loginJ():
-    if 'user' in session:
-        return "Already logged in"
-    else:
-        usr = request.form['username']
-        pas = request.form['password']
-        if (not (database.logincheck(usr))):
-            return 'Username does not exist'
-        elif (database.gethash(usr) == hashp(pas)):
-            session['user'] = usr
-            return 'Success!'
-        else:
-            return 'incorrect username and password combination'
-
 @app.route('/logoutJ/')
 def logoutJ():
     print 'out'
@@ -47,8 +32,8 @@ def logoutJ():
 def home():
     if 'user' in session:
         if 'student' in session:
-            return render_template('home.html', teach = False)
-        return render_template('home.html', teach = True)
+            return render_template('home.html', loggedIn="Logout", teach = False)
+        return render_template('home.html', loggedIn="Logout", teach = True)
     return redirect(url_for('login'))
 
 @app.route('/auth/', methods = ["GET","POST"])
