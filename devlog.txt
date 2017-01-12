@@ -38,3 +38,8 @@ James -- 2017-01-11
   Finished login.html
   Working on home.html
   Added some vars in render_template
+ 
+ VannaM -- 2017-01-11
+  Navbar login/logout
+  Bugs (again)
+  Known bugs: lack of aesthetic 
