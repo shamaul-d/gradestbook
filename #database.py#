@@ -1,4 +1,10 @@
-# creating databases: teachers(), students(), classes(), grades()
+# addteacher(username, password, name, id)
+# addstudent(username, password, name, id)
+# addgrade(classid, studentid, grade, assignmentid, assignmentname)
+# gethash(username) # use for authentication
+# gettid() # get next teacher id
+# getsid() # get next student id
+
 
 import sqlite3   #enable control of an sqlite database
 
