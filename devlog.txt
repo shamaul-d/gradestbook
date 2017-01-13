@@ -52,3 +52,7 @@ NicoleC -- 2017-01-12
 
 JamesY -- 2017-01-12
   Modified html files
+
+VannaM -- 2017-01-12
+  Deleted apparently irrelevant javascript features
+  Hopefully actually fixed seating bugs this time
