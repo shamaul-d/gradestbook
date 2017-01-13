@@ -29,17 +29,7 @@ def classes():
     f = "utils/data/database.db"
     db = sqlite3.connect(f)
     c = db.cursor()
-    q = "CREATE TABLE IF NOT EXISTS classes (classid INTEGER, teacherid INTEGER, studentid INTEGER, name TEXT, period INTEGER, seatid INTEGER, glasses BOOLEAN, row INTEGER, col INTEGER)"
-    c.execute(q)
-    db.commit()
-
-
-##################################################################################################
-def periods():
-    f = "utils/data/database.db"
-    db = sqlite3.connect(f)
-    c = db.cursor()
-    q = "CREATE TABLE IF NOT EXISTS periods (classid INTEGER, teacherid INTEGER, period INTEGER, rows INTEGER, cols INTEGER)"
+    q = "CREATE TABLE IF NOT EXISTS classes (classid INTEGER, teacherid INTEGER, studentid INTEGER, period INTEGER, seatid INTEGER, glasses BOOLEAN)"
     c.execute(q)
     db.commit()
 
@@ -107,61 +97,6 @@ def addstudent(username,password,name,id):
         return False
 
 #addstudent("nicole","nicole","nicole",0)
-
-def classcheck(classid, studentid):
-    f = "utils/data/database.db"
-    db = sqlite3.connect(f)
-    c = db.cursor()
-    q = "SELECT * FROM classes WHERE classid = "+str(classid)
-    d = c.execute(q)
-    for a in d:
-        if (a[2]==studentid):
-            return False
-    return True
-        
-
-#"CREATE TABLE IF NOT EXISTS classes (classid INTEGER, teacherid INTEGER, studentid INTEGER, name TEXT, period INTEGER, seatid INTEGER, glasses BOOLEAN, row INTEGER, col INTEGER)"
-# add student to class
-def addclass(classid, teacherid, studentid, name, period, seatid, glasses, row, col):
-    f = "utils/data/database.db"
-    db = sqlite3.connect(f)
-    if(classcheck(classid,studentid)):
-        c = db.cursor()
-        q = "INSERT INTO classes VALUES ('"+str(classid)+"','"+str(teacherid)+"','"+str(studentid)+"','"+name+"',"+str(period)+"',"+str(seatid)+"',"+str(glasses)+"',"+str(row)+"',"+str(col)+");"
-        c.execute(q)
-        db.commit()
-        db.close()
-        return True
-    else:
-        return False
-
-def periodcheck(classid):
-    f = "utils/data/database.db"
-    db = sqlite3.connect(f)
-    c = db.cursor()
-    q = "SELECT * FROM periods WHERE classid = "+str(classid)
-    d = c.execute(q)
-    for a in d:
-        if (a[0]==classid):
-            return False
-    return True
-    
-
-# "CREATE TABLE IF NOT EXISTS periods (classid INTEGER, teacherid INTEGER, period INTEGER, rows INTEGER, cols INTEGER)"
-# add a class (period)
-def addperiod(classid,teacherid,period,rows,cols):
-    f = "utils/data/database.db"
-    db = sqlite3.connect(f)
-    if(periodcheck(classid)):
-        c = db.cursor()
-        q = "INSERT INTO classes VALUES ('"+str(classid)+"','"+str(teacherid)+"',"+str(period)+"',"+str(rows)+"',"+str(cols)+");"
-        c.execute(q)
-        db.commit()
-        db.close()
-        return True
-    else:
-        return False
-
 
 # grades (classid INTEGER, studentid INTEGER, grade INTEGER, assignmentid INTEGER, assignmentname TEXT)"
 def addgrade(classid, studentid, grade, assignmentid, assignmentname):
@@ -241,26 +176,6 @@ def getsid():
 #print getsid()
 #print gettid()
 
-def getstudents(classid):
-    f = "utils/data/database.db"
-    db = sqlite3.connect(f)
-    c = db.cursor()
-    m = c.execute("SELECT * FROM classes WHERE classid = "+str(classid))
-    j = []
-    for a in m:
-        j.append([a[2],a[5]])
-    return j
-
-# get rows and cols in a class
-def getdims(classid):
-    f = "utils/data/database.db"
-    db = sqlite3.connect(f)
-    c = db.cursor()
-    m = c.execute("SELECT * FROM periods WHERE classid = "+str(classid))
-    j = []
-    for a in m:
-        j.append([a[3],a[4]])
-    return j
 
 def go():
     teachers()
