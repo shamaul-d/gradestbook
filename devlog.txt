@@ -63,5 +63,11 @@ VannaM -- 2017-01-12
   Deleted apparently irrelevant javascript features
   Hopefully actually fixed seating bugs this time
 
+<<<<<<< HEAD
 ShamaulD -- 2017-01-13
   Login and Auth functions are fully working now! Until we change stuff, that is
+=======
+JamesY -- 2017-01-12
+  did absolutely nothing
+  fix stuff later
+>>>>>>> 682629d559aeb449a019fabed9d5aa50f8fc4ac9
