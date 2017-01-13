@@ -1,8 +1,9 @@
 <!DOCTYPE html>
 
 <html>
-<head>
+  <head>
     <link href="../static/css/bootstrap.css" rel="stylesheet">
+    <link href="../static/css/bootstrap.min.css" rel="stylesheet">
     <link href="../static/css/style.css" rel="stylesheet">
 
     <!-- ajax src -->
@@ -11,48 +12,54 @@
 
     <title> {%block title%} {%endblock%} </title>
 
-</head>
+  </head>
 
-<body>
+  <body>
 
     <style>
-        #out{
-            background-color: white;
-            float: right;
-            border: .2em black;
-        }
+      #out{
+      background-color: white;
+      float: right;
+      border: .2em black;
+      }
     </style>
 
     <nav class="navbar navbar-inverse">
-        <div class="container-fluid">
-            <div class="navbar-header">
-                <div class="container">
-                    <p class="title"> gradestbook</p>
-                </div>
-                <p id="out">{{ loggedIn }}<p>
-                </div>
-                {%block navbar%}{%endblock%}
-            </div>
-        </nav>
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <div class="container">
+            <p class="title"> gradestbook</p>
+          </div>
+          <p id="out">{{ loggedIn }}<p>
+        </div>
+        {%block navbar%}{%endblock%}
+      </div>
+    </nav>
 
-        {%block body%}{%endblock%}
+    {%block body%}{%endblock%}
 
-        <script>
+    <script>
 
-        var logout = function(e){
-            $.ajax({
-                url: '/logoutJ',
-                success: function(d){
-                    location.reload();
-                }
-            });
-        };
+      var logout = function(e){
+      $.ajax({
+      url: '/logoutJ',
+      success: function(d){
+      location.reload();
+      }
+      });
+      };
 
-        var b = document.getElementById('out');
-        b.addEventListener('click',logout);
+      var b = document.getElementById('out');
+      b.addEventListener('click',logout);
 
-        </script>
+    </script>
 
-    </body>
+  </body>
 
-    </html>
+  <footer class="bs-docs-footer">
+    <div class="container">
+      <p> &copy; </p>	
+    </div>
+  </footer>
+
+</html>
