@@ -52,26 +52,7 @@ function drop(event){
 
 </style>
 
-<center>
-    <div class="seat" ondrop="drop(event)"><p draggable="true" ondragstart="dragStart(event)" ondragover="allowDrop(event)">Student 1</p></div>
-    <div class="seat" ondrop="drop(event)"><p draggable="true" ondragstart="dragStart(event)" ondragover="allowDrop(event)">Student 2</p></div>
-    <div class="seat" ondrop="drop(event)"><p draggable="true" ondragstart="dragStart(event)" ondragover="allowDrop(event)">Student 3</p></div>
-    <div class="seat" ondrop="drop(event)"><p draggable="true" ondragstart="dragStart(event)" ondragover="allowDrop(event)">Student 4</p></div>
-</center>
-<br>
-<center>
-    <div class="seat" ondrop="drop(event)"><p draggable="true" ondragstart="dragStart(event)" ondragover="allowDrop(event)">Student 5</p></div>
-    <div class="seat" ondrop="drop(event)"><p draggable="true" ondragstart="dragStart(event)" ondragover="allowDrop(event)">Student 6</p></div>
-    <div class="seat" ondrop="drop(event)"><p draggable="true" ondragstart="dragStart(event)" ondragover="allowDrop(event)">Student 7</p></div>
-    <div class="seat" ondrop="drop(event)"><p draggable="true" ondragstart="dragStart(event)" ondragover="allowDrop(event)">Student 8</p></div>
-</center>
-<br>
-<center>
-    <div class="seat" ondrop="drop(event)"><p draggable="true" ondragstart="dragStart(event)" ondragover="allowDrop(event)">Student 9</p></div>
-    <div class="seat" ondrop="drop(event)"><p draggable="true" ondragstart="dragStart(event)" ondragover="allowDrop(event)">Student 10</p></div>
-    <div class="seat" ondrop="drop(event)"><p draggable="true" ondragstart="dragStart(event)" ondragover="allowDrop(event)">Student 11</p></div>
-    <div class="seat" ondrop="drop(event)"><p draggable="true" ondragstart="dragStart(event)" ondragover="allowDrop(event)">Student 12</p></div>
-</center>
+{{ seats | safe }}
 
 {%endblock%}
 

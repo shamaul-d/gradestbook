@@ -1,6 +1,6 @@
 from flask import Flask, redirect, request, render_template, session, url_for
 import os
-from utils import database
+from utils import database, seat
 import hashlib
 
 
@@ -71,9 +71,10 @@ def hashp(password):
     return hashlib.sha512(password).hexdigest()
 
 #dev only
-@app.route('/seat/')
-def seat():
-    return render_template('seat.html')
+@app.route('/seating/')
+def seating():
+    htmlString = seat.seatHtml(3,5)
+    return render_template('seat.html', seats=htmlString)
 
 if __name__ == '__main__':
     app.debug = True

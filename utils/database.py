@@ -13,7 +13,7 @@ def teachers():
     c.execute(q)    #run SQL query
     db.commit()
 
-    
+
 #################################################################################################
 def students():
     f = "utils/data/database.db"
@@ -23,7 +23,7 @@ def students():
     c.execute(q)    #run SQL query
     db.commit()
 
-    
+
 ##################################################################################################
 def classes():
     f = "utils/data/database.db"
@@ -95,7 +95,7 @@ def addstudent(username,password,name,id):
         return True
     else:
         return False
-    
+
 #addstudent("nicole","nicole","nicole",0)
 
 # grades (classid INTEGER, studentid INTEGER, grade INTEGER, assignmentid INTEGER, assignmentname TEXT)"
@@ -110,8 +110,8 @@ def addgrade(classid, studentid, grade, assignmentid, assignmentname):
         db.close()
         return True
     else:
-        return False  
-    
+        return False
+
 
 def gethash(username):
     f = "utils/data/database.db"
@@ -141,7 +141,7 @@ def printteachers():
     m = c.execute("SELECT * FROM teachers")
     for a in m:
         print a
-        
+
 #printstudents()
 
 
