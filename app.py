@@ -47,9 +47,13 @@ def auth():
         elif (database.logincheck(request.form['user'])):
             return render_template('login.html', msg = 'username taken, please choose a new one', register = False)
         else:
+            name = request.form['name']
             user0 = request.form['user']
             pass0 = hashp(request.form['pass'])
-            database.adduser(user0,pass0, "placeholder", "placeholder", 0)
+            if (request.form['person']  == 'teacher'):
+                database.adduser(user0,pass0,name,0)
+            else:
+                database
             ## what are we doing here?
             return render_template('login.html', msg = 'new account created', register = True)
     ## login
