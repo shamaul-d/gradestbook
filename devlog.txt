@@ -56,3 +56,7 @@ JamesY -- 2017-01-12
 VannaM -- 2017-01-12
   Deleted apparently irrelevant javascript features
   Hopefully actually fixed seating bugs this time
+
+JamesY -- 2017-01-12
+  did absolutely nothing
+  fix stuff later
