@@ -32,9 +32,7 @@ def logoutJ():
 @app.route('/home/')
 def home():
     if 'user' in session:
-        if 'student' in session:
-            return render_template('home.html', loggedIn="Logout", teach = False)
-        return render_template('home.html', loggedIn="Logout", teach = True)
+        return render_template('home.html', loggedIn="Logout", teach = session['teach'])
     return redirect(url_for('login'))
 
 @app.route('/auth/', methods = ["GET","POST"])
