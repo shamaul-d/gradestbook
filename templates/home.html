@@ -6,44 +6,79 @@
 
 <div class="container">
 
-  <div class="col-lg-4">
-    <div class="panel panel-default">
-      <div class="panel-heading">
-	<h1><center> Grades <center></h1>
-      </div>
-      <div class="panel-body">
-	<a type="button" class="btn btn-default btn-lg btn-block" href="#">Test</a>
-      </div>
+    <div class="col-lg-4">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h1><center> Grades <center></h1>
+                </div>
+                <div class="panel-body">
+                    We might need classes first
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-4">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h1><center> Current Classes </center></h1>
+                </div>
+                <div class="panel-body">
+                    Own page?
+                </div>
+            </div>
+        </div>
+
+        {%if teach%}
+
+        <div class="col-lg-4">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h1><center> Seating </center></h1>
+                </div>
+                <div class="panel-body">
+                    <a type="button" class="btn btn-default btn-lg btn-block" href="/seating">Each period</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-4">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h1><center> Create New Class </center></h1>
+                </div>
+                <div class="panel-body">
+                    <a type="button" class="btn btn-default btn-lg btn-block" href="/createClass">Create a new class</a>
+                </div>
+            </div>
+        </div>
+
+        {%else%}
+
+        <div class="col-lg-4">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h1><center> Join New Class </center></h1>
+                </div>
+                <div class="panel-body">
+                    Probably some search bar thing?
+                </div>
+            </div>
+        </div>
+
+        {%endif%}
+
+        <div class="col-lg-4">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h1><center> Attendance </center></h1>
+                </div>
+                <div class="panel-body">
+                    <a type="button" class="btn btn-default btn-lg btn-block" href="/absence">Attendance</a>
+                </div>
+            </div>
+        </div>
+
     </div>
-  </div>
-
-  {%if teach%}
-
-  <div class="col-lg-4">
-    <div class="panel panel-default">
-      <div class="panel-heading">
-	<h1><center> Seating </center></h1>
-      </div>
-      <div class="panel-body">
-	<a type="button" class="btn btn-default btn-lg btn-block" href="/seating">Test2</a>
-      </div>
-    </div>
-  </div>
-
-  {%endif%}
-
-   <div class="col-lg-4">
-    <div class="panel panel-default">
-      <div class="panel-heading">
-	<h1><center> Attendance </center></h1>
-      </div>
-      <div class="panel-body">
-	<a type="button" class="btn btn-default btn-lg btn-block" href="#">Test3</a>
-      </div>
-    </div>
-  </div>
-
-</div>
 
 
-{%endblock%}
+    {%endblock%}

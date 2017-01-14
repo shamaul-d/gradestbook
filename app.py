@@ -32,7 +32,7 @@ def logoutJ():
 @app.route('/home/')
 def home():
     if 'user' in session:
-        return render_template('home.html', loggedIn="Logout", teach = session['teach'])
+        return render_template('home.html', loggedIn=True, teach = session['teach'])
     return redirect(url_for('login'))
 
 @app.route('/auth/', methods = ["GET","POST"])
@@ -82,14 +82,21 @@ def auth():
 def hashp(password):
     return hashlib.sha512(password).hexdigest()
 
-#dev only
 @app.route('/seating/')
 def seating():
-    if (session['teach']):
+    if 'teach' in session:
         htmlString = seat.seatHtml(3,5)
-        return render_template('seat.html', seats=htmlString)
+        return render_template('seat.html', seats=htmlString, loggedIn = True)
     else:
         return redirect(url_for('home'))
+
+@app.route('/absence')
+def absence():
+    return render_template('absence.html')
+
+@app.route('/createClass')
+def createClass():
+    return render_template('newClass.html')
 
 if __name__ == '__main__':
     app.debug = True
