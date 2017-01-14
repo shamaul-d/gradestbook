@@ -5,9 +5,36 @@
 
 {%block body%}
 
+<style>
+
+.seat{
+    background-color: #A9E2F3;
+    border: solid black .15em;
+    padding: 1em;
+
+    text-align: center;
+    vertical-align: middle;
+    line-height: 4em;
+    display: inline-block;
+
+
+}
+
+</style>
+
+{{ seats | safe }}
+
+<center><button id="butt">Edit</button>
+
+<!---------------------------------------------------------------------->
+
 <script>
 
-var s = document.getElementsByClassName("seat");
+//The #1 Global Variable
+var seat = document.getElementsByClassName('seat');
+
+
+//--------drag and drop-------
 var oldEvent;
 
 function allowDrop(event) {
@@ -31,28 +58,76 @@ function drop(event){
     }
 }
 
-</script>
 
+//------editing seat mode v class mode----------
 
-<style>
+var butt = document.getElementById('butt');
+var edit = false;
 
-.seat{
-    background-color: #A9E2F3;
-    border: solid black .15em;
-    padding: 1em;
-
-    text-align: center;
-    vertical-align: middle;
-    line-height: 4em;
-    display: inline-block;
-
-    cursor: move;
-
+//TODO: edit db w/new seat ids
+var save = function(event){
+    butt.innerHTML = "Edit"
+    butt.removeEventListener('click', save);
+    butt.addEventListener('click', editSeats);
+    var student = document.getElementsByClassName('student');
+    for (var i = 0; i < student.length; i++){
+        student[i].setAttribute('draggable',false);
+        student[i].style.cursor = 'default';
+        edit = false;
+    }
 }
 
-</style>
+var editSeats = function(event){
+    butt.innerHTML = "Save";
+    butt.removeEventListener('click', editSeats);
+    butt.addEventListener('click',save);
+    var student = document.getElementsByClassName('student');
+    for (var i = 0; i < student.length; i++){
+        student[i].setAttribute('draggable',true);
+        student[i].style.cursor = 'pointer';
+        edit = true;
+    }
+}
 
-{{ seats | safe }}
+//--------attendance stuff-------------
+
+var showAttendance = function(event){
+    if (!edit){
+        var attend = event.target.getElementsByClassName('attend')[0];
+        attend.style.display = 'block';
+    }
+}
+
+var hideAttendance = function(event){
+    var attend = event.target.getElementsByClassName('attend')[0];
+    attend.style.display = 'none';
+}
+
+//Todo: actually change attendance of student
+var attendance = function(event){
+    student = event.target.parentNode.parentNode.getElementsByClassName('student')[0].innerHTML;
+    if (event.target.checked){
+        console.log(student + ' absent');
+    }
+    else{
+        console.log(student + ' not absent')
+    }
+}
+
+//-----------set up stuff------------
+
+butt.addEventListener('click',editSeats);
+
+for (i = 0; i < seat.length; i++){
+    seat[i].addEventListener('mouseenter',showAttendance);
+    seat[i].addEventListener('mouseleave',hideAttendance);
+    var attend = document.getElementsByClassName('attend')[i];
+    attend.style.display = 'none';
+    attend.getElementsByClassName('check')[0].addEventListener('change',attendance);
+}
+
+</script>
+
 
 {%endblock%}
 
