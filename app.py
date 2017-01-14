@@ -85,8 +85,11 @@ def hashp(password):
 #dev only
 @app.route('/seating/')
 def seating():
-    htmlString = seat.seatHtml(3,5)
-    return render_template('seat.html', seats=htmlString)
+    if (session['teach']):
+        htmlString = seat.seatHtml(3,5)
+        return render_template('seat.html', seats=htmlString)
+    else:
+        return redirect(url_for('home'))
 
 if __name__ == '__main__':
     app.debug = True
