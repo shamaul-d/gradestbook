@@ -58,12 +58,12 @@ def auth():
             return render_template('login.html', msg = 'new account created', register = True)
     ## login
     else:
-        if (not (database.logincheck(request.form['user'], True)) or (database.logincheck(request.form['user'], False)):
+        if not database.logincheck(request.form['user'], True) or database.logincheck(request.form['user'], False):
             return render_template('login.html', msg = 'username does not exist', register = False)
         elif (database.gethash(request.form['user']) == hashp(request.form['pass'])):
             user1 = request.form['user']
             session['user'] = user1
-            if request.form['person']  == 'teacher'):
+            if request.form['person']  == 'teacher':
                 session['teach'] = True;
             else:
                 session['teach'] = False;
