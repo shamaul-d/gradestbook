@@ -34,6 +34,9 @@ VannaM -- 2017-01-10
  seating bug should be gone
  login stuff
 
+ShamaulD -- 2017-01-10
+ finished login? coordinated data flow with others
+
 JamesY -- 2017-01-11
   Finished login.html
   Working on home.html
@@ -53,6 +56,18 @@ NicoleC -- 2017-01-12
 JamesY -- 2017-01-12
   Modified html files
 
+ShamaulD -- 2017-01-12
+  Code breaking, as well as starting changes on login
+
 VannaM -- 2017-01-12
   Deleted apparently irrelevant javascript features
   Hopefully actually fixed seating bugs this time
+
+<<<<<<< HEAD
+ShamaulD -- 2017-01-13
+  Login and Auth functions are fully working now! Until we change stuff, that is
+=======
+JamesY -- 2017-01-12
+  did absolutely nothing
+  fix stuff later
+>>>>>>> 682629d559aeb449a019fabed9d5aa50f8fc4ac9
