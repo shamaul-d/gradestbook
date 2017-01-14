@@ -39,13 +39,12 @@ def home():
 
 @app.route('/auth/', methods = ["GET","POST"])
 def auth():
-    print 'start'
     ## register
     #print request.form
     if 'register' in request.form:
-        if (request.form['user'] == '' or request.form['pass'] == ''):
-            return render_template('login.html', msg = 'please fill in all forms of info', register = False)
-        elif (database.logincheck(request.form['user'], True) or (database.logincheck(request.form['user'], False))):
+        #if (request.form['userl'] == '' or request.form['passl'] == ''):
+        #    return render_template('login.html', msg = 'please fill in all forms of info', register = False)
+        if (database.logincheck(request.form['user'], True) or (database.logincheck(request.form['user'], False))):
             return render_template('login.html', msg = 'username taken, please choose a new one', register = False)
         else:
             name = request.form['name']
@@ -58,18 +57,29 @@ def auth():
             return render_template('login.html', msg = 'new account created', register = True)
     ## login
     else:
-        if not database.logincheck(request.form['user'], True) or database.logincheck(request.form['user'], False):
-            return render_template('login.html', msg = 'username does not exist', register = False)
-        elif (database.gethash(request.form['user']) == hashp(request.form['pass'])):
-            user1 = request.form['user']
-            session['user'] = user1
-            if request.form['person']  == 'teacher':
-                session['teach'] = True;
-            else:
-                session['teach'] = False;
-            return redirect(url_for('home'))
+        user1 = request.form['userl'];
+        passw = request.form['passl'];
+
+        if request.form['personl']  == 'teacher':
+            teacher = True
         else:
-            return render_template('login.html', msg = 'incorrect username and password combination', register = False)
+            teacher = False
+
+        if (teacher):
+            if not database.logincheck(user1, True):
+                return render_template('login.html', msg = 'username does not exist', register = False)
+            elif database.gethash(user1, True) == hashp(passw):
+                session['user'] = user1
+                session['teach'] = True
+                return redirect(url_for('home'))
+        else:
+            if not database.logincheck(user1, False):
+                return render_template('login.html', msg = 'username does not exist', register = False)
+            elif database.gethash(user1, False) == hashp(passw):
+                session['user'] = user1
+                session['teach'] = False
+                return redirect(url_for('home'))
+        return render_template('login.html', msg = 'incorrect username and password combination', register = False)
 
 def hashp(password):
     return hashlib.sha512(password).hexdigest()

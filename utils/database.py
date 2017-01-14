@@ -57,7 +57,7 @@ def grades():
 ##################################################################################################
 
 # checks if account username is found
-def logincheck(username,teacher):
+def logincheck(username, teacher):
     #print "called"
     f = "utils/data/database.db"
     db = sqlite3.connect(f)
@@ -66,12 +66,14 @@ def logincheck(username,teacher):
     if(teacher):
         q = "SELECT username FROM teachers"
         d = c.execute(q)
+
         for n in d:
             if(n[0] == username):
                 return True
     else:
         q = "SELECT username FROM students"
         d = c.execute(q)
+
         for n in d:
             if(n[0] == username):
                 return True
@@ -118,7 +120,7 @@ def classcheck(classid, studentid):
         if (a[2]==studentid):
             return False
     return True
-        
+
 
 #"CREATE TABLE IF NOT EXISTS classes (classid INTEGER, teacherid INTEGER, studentid INTEGER, name TEXT, period INTEGER, seatid INTEGER, glasses BOOLEAN, row INTEGER, col INTEGER)"
 # add student to class
@@ -145,7 +147,7 @@ def periodcheck(classid):
         if (a[0]==classid):
             return False
     return True
-    
+
 
 # "CREATE TABLE IF NOT EXISTS periods (classid INTEGER, teacherid INTEGER, period INTEGER, rows INTEGER, cols INTEGER)"
 # add a class (period)
@@ -178,18 +180,24 @@ def addgrade(classid, studentid, grade, assignmentid, assignmentname):
         return False
 
 
-def gethash(username):
+def gethash(username, teacher):
     f = "utils/data/database.db"
     db = sqlite3.connect(f)
     c = db.cursor()
-    m = c.execute("SELECT * FROM users")
-    for a in m:
-        if a[0]==username:
-            db.close()
-            return a[1]
+    if (teacher):
+        m = c.execute("SELECT * FROM teachers")
+        for a in m:
+            if a[0]==username:
+                db.close()
+                return a[1]
     else:
-        db.close()
-        return None
+        m = c.execute("SELECT * FROM students")
+        for a in m:
+            if a[0]==username:
+                db.close()
+                return a[1]
+    db.close()
+    return None
 
 def printstudents():
     f = "utils/data/database.db"
