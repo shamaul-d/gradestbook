@@ -45,11 +45,11 @@ def auth():
     if 'register' in request.form:
         if (request.form['user'] == '' or request.form['pass'] == ''):
             return render_template('login.html', msg = 'please fill in all forms of info', register = False)
-        elif (database.logincheck(request.form['user'], True) or (database.logincheck(request.form['user'], False))):
+        elif (database.logincheck(request.form['user'].casefold(), True) or (database.logincheck(request.form['user'].casefold(), False))):
             return render_template('login.html', msg = 'username taken, please choose a new one', register = False)
         else:
             name = request.form['name']
-            user0 = request.form['user']
+            user0 = request.form['user'].casefold()
             pass0 = hashp(request.form['pass'])
             if (request.form['person']  == 'teacher'):
                 database.addteacher(user0,pass0,name,database.gettid())
@@ -58,10 +58,10 @@ def auth():
             return render_template('login.html', msg = 'new account created', register = True)
     ## login
     else:
-        if (not (database.logincheck(request.form['user'], True)) or (database.logincheck(request.form['user'], False)):
+        if (not (database.logincheck(request.form['user'].casefold(), True)) or (database.logincheck(request.form['user'].casefold(), False)):
             return render_template('login.html', msg = 'username does not exist', register = False)
-        elif (database.gethash(request.form['user']) == hashp(request.form['pass'])):
-            user1 = request.form['user']
+        elif (database.gethash(request.form['user'].casefold()) == hashp(request.form['pass'])):
+            user1 = request.form['user'].casefold()
             session['user'] = user1
             if request.form['person']  == 'teacher'):
                 session['teach'] = True;
