@@ -5,35 +5,6 @@
 
 {%block body%}
 
-<script>
-
-var s = document.getElementsByClassName("seat");
-var oldEvent;
-
-function allowDrop(event) {
-    event.preventDefault();
-}
-
-function dragStart(event) {
-    oldEvent = event.target;
-    event.dataTransfer.setData("student", event.target.innerHTML);
-}
-
-function drop(event){
-    event.preventDefault();
-    var data = event.dataTransfer.getData("student");
-    var data2 = event.target.innerHTML;
-    if (data2 && data){
-        if (!(data === 'undefined' || data2 === 'undefined')){
-            event.target.innerHTML = data;
-            oldEvent.innerHTML = data2;
-        }
-    }
-}
-
-</script>
-
-
 <style>
 
 .seat{
@@ -46,13 +17,16 @@ function drop(event){
     line-height: 4em;
     display: inline-block;
 
-    cursor: move;
 
 }
 
 </style>
 
 {{ seats | safe }}
+
+<center><button id="butt">Edit</button>
+
+<script src="../static/javascript/seats.js"></script>
 
 {%endblock%}
 

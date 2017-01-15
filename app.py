@@ -32,20 +32,23 @@ def logoutJ():
 @app.route('/home/')
 def home():
     if 'user' in session:
-        if 'student' in session:
-            return render_template('home.html', loggedIn="Logout", teach = False)
-        return render_template('home.html', loggedIn="Logout", teach = True)
+        return render_template('home.html', loggedIn=True, teach = session['teach'])
     return redirect(url_for('login'))
 
 @app.route('/auth/', methods = ["GET","POST"])
 def auth():
-    print 'start'
     ## register
     #print request.form
     if 'register' in request.form:
+<<<<<<< HEAD
         if (request.form['user'] == '' or request.form['pass'] == ''):
             return render_template('login.html', msg = 'please fill in all forms of info', register = False)
         elif (database.logincheck(request.form['user'].casefold(), True) or (database.logincheck(request.form['user'].casefold(), False))):
+=======
+        #if (request.form['userl'] == '' or request.form['passl'] == ''):
+        #    return render_template('login.html', msg = 'please fill in all forms of info', register = False)
+        if (database.logincheck(request.form['user'], True) or (database.logincheck(request.form['user'], False))):
+>>>>>>> 6ee1131dcf04b1ae99d8cf138337a0553909e732
             return render_template('login.html', msg = 'username taken, please choose a new one', register = False)
         else:
             name = request.form['name']
@@ -58,6 +61,7 @@ def auth():
             return render_template('login.html', msg = 'new account created', register = True)
     ## login
     else:
+<<<<<<< HEAD
         if (not (database.logincheck(request.form['user'].casefold(), True)) or (database.logincheck(request.form['user'].casefold(), False)):
             return render_template('login.html', msg = 'username does not exist', register = False)
         elif (database.gethash(request.form['user'].casefold()) == hashp(request.form['pass'])):
@@ -68,17 +72,50 @@ def auth():
             else:
                 session['teach'] = False;
             return redirect(url_for('home'))
+=======
+        user1 = request.form['userl'];
+        passw = request.form['passl'];
+
+        if request.form['personl']  == 'teacher':
+            teacher = True
         else:
-            return render_template('login.html', msg = 'incorrect username and password combination', register = False)
+            teacher = False
+
+        if (teacher):
+            if not database.logincheck(user1, True):
+                return render_template('login.html', msg = 'username does not exist', register = False)
+            elif database.gethash(user1, True) == hashp(passw):
+                session['user'] = user1
+                session['teach'] = True
+                return redirect(url_for('home'))
+>>>>>>> 6ee1131dcf04b1ae99d8cf138337a0553909e732
+        else:
+            if not database.logincheck(user1, False):
+                return render_template('login.html', msg = 'username does not exist', register = False)
+            elif database.gethash(user1, False) == hashp(passw):
+                session['user'] = user1
+                session['teach'] = False
+                return redirect(url_for('home'))
+        return render_template('login.html', msg = 'incorrect username and password combination', register = False)
 
 def hashp(password):
     return hashlib.sha512(password).hexdigest()
 
-#dev only
 @app.route('/seating/')
 def seating():
-    htmlString = seat.seatHtml(3,5)
-    return render_template('seat.html', seats=htmlString)
+    if 'teach' in session:
+        htmlString = seat.seatHtml(3,5)
+        return render_template('seat.html', seats=htmlString, loggedIn = True)
+    else:
+        return redirect(url_for('home'))
+
+@app.route('/absence')
+def absence():
+    return render_template('absence.html')
+
+@app.route('/createClass')
+def createClass():
+    return render_template('newClass.html')
 
 if __name__ == '__main__':
     app.debug = True

@@ -70,5 +70,18 @@ JamesY -- 2017-01-12
   did absolutely nothing
   fix stuff later
 
+<<<<<<< HEAD
 ShamaulD -- 2017-01-14
   fixed minor case-sensitivity username issue
+=======
+VannaM -- 2017-01-13
+  added editing mode v viewing mode in seats
+  started attendance stuff for seats (just prints; doesn't change attendance yet)
+  
+VannaM -- 2017-01-14
+  cooler login (register v login split)
+  teacher-only zones
+  separate js files
+  added some people, html pages
+  gen. bug fixes
+>>>>>>> 6ee1131dcf04b1ae99d8cf138337a0553909e732
