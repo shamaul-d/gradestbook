@@ -48,7 +48,7 @@ def auth():
             name = request.form['name']
             user0 = request.form['user'].lower()
             pass0 = hashp(request.form['pass'])
-            if (request.form['person1']  == 'teacher'):
+            if (request.form['person']  == 'teacher'):
                 database.addteacher(user0,pass0,name,database.gettid())
             else:
                 database.addstudent(user0,pass0,name,database.getsid())
