@@ -44,6 +44,8 @@ def auth():
             return render_template('login.html', msg = 'please fill in all forms of info', register = False)
         elif (database.logincheck(request.form['user'].lower(), True) or (database.logincheck(request.form['user'].lower(), False))):
            return render_template('login.html', msg = 'username taken, please choose a new one', register = False)
+        elif (request.form['pass'] != request.form['pass2']):
+            return render_template('login.html', msg = 'passwords do not match')
         else:
             name = request.form['name']
             user0 = request.form['user'].lower()
@@ -55,13 +57,13 @@ def auth():
             return render_template('login.html', msg = 'new account created', register = True)
     ## login
     else:
-        user1 = request.form['userl'].lower();
-        passw = request.form['passl'];
+        user1 = request.form['userl'].lower()
+        passw = request.form['passl']
 
-        if request.form['person1']  == 'teacher':
-            session['teach'] = True;
+        if request.form['personl']  == 'teacher':
+            session['teach'] = True
         else:
-            session['teach'] = False;
+            session['teach'] = False
         teacher = session['teach']
 
         if (teacher):
