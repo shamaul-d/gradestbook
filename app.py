@@ -40,61 +40,41 @@ def auth():
     ## register
     #print request.form
     if 'register' in request.form:
-<<<<<<< HEAD
         if (request.form['user'] == '' or request.form['pass'] == ''):
             return render_template('login.html', msg = 'please fill in all forms of info', register = False)
         elif (database.logincheck(request.form['user'].casefold(), True) or (database.logincheck(request.form['user'].casefold(), False))):
-=======
-        #if (request.form['userl'] == '' or request.form['passl'] == ''):
-        #    return render_template('login.html', msg = 'please fill in all forms of info', register = False)
-        if (database.logincheck(request.form['user'], True) or (database.logincheck(request.form['user'], False))):
->>>>>>> 6ee1131dcf04b1ae99d8cf138337a0553909e732
-            return render_template('login.html', msg = 'username taken, please choose a new one', register = False)
+           return render_template('login.html', msg = 'username taken, please choose a new one', register = False)
         else:
             name = request.form['name']
             user0 = request.form['user'].casefold()
             pass0 = hashp(request.form['pass'])
-            if (request.form['person']  == 'teacher'):
+            if (request.form['person1']  == 'teacher'):
                 database.addteacher(user0,pass0,name,database.gettid())
             else:
                 database.addstudent(user0,pass0,name,database.getsid())
             return render_template('login.html', msg = 'new account created', register = True)
     ## login
     else:
-<<<<<<< HEAD
-        if (not (database.logincheck(request.form['user'].casefold(), True)) or (database.logincheck(request.form['user'].casefold(), False)):
-            return render_template('login.html', msg = 'username does not exist', register = False)
-        elif (database.gethash(request.form['user'].casefold()) == hashp(request.form['pass'])):
-            user1 = request.form['user'].casefold()
-            session['user'] = user1
-            if request.form['person']  == 'teacher'):
-                session['teach'] = True;
-            else:
-                session['teach'] = False;
-            return redirect(url_for('home'))
-=======
-        user1 = request.form['userl'];
+        user1 = request.form['userl'].casefold();
         passw = request.form['passl'];
 
-        if request.form['personl']  == 'teacher':
-            teacher = True
+        if request.form['person1']  == 'teacher':
+            session['teach'] = True;
         else:
-            teacher = False
+            session['teach'] = False;
+        teacher = session['teach']
 
         if (teacher):
             if not database.logincheck(user1, True):
                 return render_template('login.html', msg = 'username does not exist', register = False)
             elif database.gethash(user1, True) == hashp(passw):
                 session['user'] = user1
-                session['teach'] = True
                 return redirect(url_for('home'))
->>>>>>> 6ee1131dcf04b1ae99d8cf138337a0553909e732
         else:
             if not database.logincheck(user1, False):
                 return render_template('login.html', msg = 'username does not exist', register = False)
             elif database.gethash(user1, False) == hashp(passw):
                 session['user'] = user1
-                session['teach'] = False
                 return redirect(url_for('home'))
         return render_template('login.html', msg = 'incorrect username and password combination', register = False)
 
