@@ -1,4 +1,11 @@
-user        pass
-hpotter     forgotten...(sorry)
-levans      flowers
-minnieM      kittycat
+Name                    user           pass
+Harry Potter(s)         hpotter         forgotten...(sorry)
+Lily Evans(s)           levans          flowers
+Minerva McGonogall(t)   minnieM         kittycat
+Severus Snape(t)        jerkface        creepystalker
+Hermione Granger(s)     grangerDanger   crookshanks123
+Ronald Weasley(s)       theKing         redheadsRock
+James Potter(s)         prongs          myDeerest
+Sirius Black(s)         padfoot         password123
+Remus Lupin(t)          moony           moonlighting
+Neville Longbottom(t)   theMan          theLegend
