@@ -91,11 +91,36 @@ def seating():
     else:
         return redirect(url_for('home'))
 
-@app.route('/absence')
+@app.route('/adds/')
+def adds():
+    cid = request.form["cid"]
+    tid =
+    sid =
+    nm =
+    pd =
+    seid =
+    glasses =
+    r =
+    c =
+    
+@app.route('/addt/')
+def addt():
+    cid =
+    cn = request.form['']
+    tid =
+    pd =
+    r =
+    c = 
+
+@app.route('/joinClass/')
+def join():
+    return render_template('joinClass.html')
+    
+@app.route('/absence/')
 def absence():
     return render_template('absence.html')
 
-@app.route('/createClass')
+@app.route('/createClass/')
 def createClass():
     return render_template('newClass.html')
 

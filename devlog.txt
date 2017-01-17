@@ -90,3 +90,8 @@ VannaM -- 2017-01-14
 
 ShamaulD -- 2017-01-15
   cleanup in app! (ahem thanks Vanna)
+
+ShamaulD -- 2017-01-17
+  realized I need functions! 
+  like tid, sid, nm, seid. 
+  also realized doing class stuff should precede student work 
