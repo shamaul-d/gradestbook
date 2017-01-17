@@ -165,6 +165,7 @@ def addperiod(classid,teacherid,period,rows,cols):
         return False
 
 
+
 # grades (classid INTEGER, studentid INTEGER, grade INTEGER, assignmentid INTEGER, assignmentname TEXT)"
 def addgrade(classid, studentid, grade, assignmentid, assignmentname):
     f = "utils/data/database.db"
@@ -249,14 +250,15 @@ def getsid():
 #print getsid()
 #print gettid()
 
+# returns {studentid: seatid}
 def getstudents(classid):
     f = "utils/data/database.db"
     db = sqlite3.connect(f)
     c = db.cursor()
     m = c.execute("SELECT * FROM classes WHERE classid = "+str(classid))
-    j = []
+    j = {}
     for a in m:
-        j.append([a[2],a[5]])
+        j[a[2]]=a[5]
     return j
 
 # get rows and cols in a class
