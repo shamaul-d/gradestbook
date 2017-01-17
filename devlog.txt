@@ -17,14 +17,14 @@ VannaM -- 2017-01-09
   not permanent (can't be completed until desk id stuff done)
 
 ShamaulD -- 2017-01-09
-  Finished basic login/register stuff
-  Only deals with students, not teachers
-  Check in with Nicole on why db file isn't working in order to test
+  finished basic login/register stuff
+  only deals with students, not teachers
+  check in with Nicole on why db file isn't working in order to test
 
 JamesY -- 2017-01-10
-  Finished template.html
-  Made login.html
-  Modified style.css
+  finished template.html
+  made login.html
+  modified style.css
   
 NicoleC -- 2017-01-10
   fixed database creating
@@ -38,37 +38,41 @@ ShamaulD -- 2017-01-10
  finished login? coordinated data flow with others
 
 JamesY -- 2017-01-11
-  Finished login.html
-  Working on home.html
-  Added some vars in render_template
+  finished login.html
+  working on home.html
+  added some vars in render_template
  
  VannaM -- 2017-01-11
-  Navbar login/logout
-  Bugs (again)
-  Known bugs: lack of aesthetic 
+  navbar login/logout
+  bugs (again)
+  known bugs: lack of aesthetic 
 
 NicoleC -- 2017-01-12
-  Wrote addgrade()
-  Reconfigured the database to have a teachers and students db
-  Rewrote adduser() to be separated into addteacher() and addstudent()
-  Finished gettid() and getsid() -- returns next id number
+  wrote addgrade()
+  reconfigured the database to have a teachers and students db
+  rewrote adduser() to be separated into addteacher() and addstudent()
+  finished gettid() and getsid() -- returns next id number
 
 JamesY -- 2017-01-12
-  Modified html files
+  modified html files
 
 ShamaulD -- 2017-01-12
-  Code breaking, as well as starting changes on login
+  code breaking, as well as starting changes on login
 
 VannaM -- 2017-01-12
-  Deleted apparently irrelevant javascript features
-  Hopefully actually fixed seating bugs this time
+  deleted apparently irrelevant javascript features
+  hopefully actually fixed seating bugs this time
 
 ShamaulD -- 2017-01-13
-  Login and Auth functions are fully working now! Until we change stuff, that is
+  login and auth functions are fully working now! Until we change stuff, that is
 
-JamesY -- 2017-01-12
+JamesY -- 2017-01-13
   did absolutely nothing
   fix stuff later
+  
+NicoleC -- 2017-01-13
+  separated classes and periods
+  rewrote teachers and students databases
 
 ShamaulD -- 2017-01-14
   fixed minor case-sensitivity username issue
