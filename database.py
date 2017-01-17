@@ -314,4 +314,3 @@ close()
 
 # TO DO
 # add class name to periods table
-# wipe out database and reset 
