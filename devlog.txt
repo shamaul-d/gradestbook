@@ -112,3 +112,7 @@ NicoleC -- 2017-01-18
   getclassest(tid) returns list of classes of a teacher
   getclassess(sid) returns list of classes of a student
   getcid() gets the next class id to be used
+
+JamesY -- 2017-01-18
+  fixed formatting for some html pages
+  changed some css in bootstrap files.
