@@ -39,7 +39,7 @@ def periods():
     f = "utils/data/database.db"
     db = sqlite3.connect(f)
     c = db.cursor()
-    q = "CREATE TABLE IF NOT EXISTS periods (classid INTEGER, teacherid INTEGER, period INTEGER, rows INTEGER, cols INTEGER)"
+    q = "CREATE TABLE IF NOT EXISTS periods (classid INTEGER, teacherid INTEGER, period INTEGER, rows INTEGER, cols INTEGER, classname TEXT)"
     c.execute(q)
     db.commit()
 
@@ -150,14 +150,14 @@ def periodcheck(classid):
     return True
 
 # add a secret code!!!!
-# "CREATE TABLE IF NOT EXISTS periods (classid INTEGER, teacherid INTEGER, period INTEGER, rows INTEGER, cols INTEGER)"
+# "CREATE TABLE IF NOT EXISTS periods (classid INTEGER, teacherid INTEGER, period INTEGER, rows INTEGER, cols INTEGER, classname TEXT)"
 # add a class (period)
-def addperiod(classid,teacherid,period,rows,cols):
+def addperiod(classid,teacherid,period,rows,cols,classname):
     f = "utils/data/database.db"
     db = sqlite3.connect(f)
     if(periodcheck(classid)):
         c = db.cursor()
-        q = "INSERT INTO periods VALUES ('"+str(classid)+"','"+str(teacherid)+"','"+str(period)+"','"+str(rows)+"','"+str(cols)+"');"
+        q = "INSERT INTO periods VALUES ('"+str(classid)+"','"+str(teacherid)+"','"+str(period)+"','"+str(rows)+"','"+str(cols)+"','"+classname+"');"
         c.execute(q)
         db.commit()
         db.close()
@@ -315,7 +315,7 @@ def getclassess(sid):
     m = c.execute("SELECT * FROM classes WHERE studentid = "+str(sid))
     j = []
     for a in m:
-        j.append([a[0])
+        j.append(a[0])
     return j
 
 def go():
