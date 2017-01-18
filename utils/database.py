@@ -93,7 +93,7 @@ def addteacher(username,password,name,id):
         return True
     else:
         return False
-
+    
 # ret True if successfully added, False if username already exists
 def addstudent(username,password,name,id):
     f = "utils/data/database.db"
@@ -108,7 +108,7 @@ def addstudent(username,password,name,id):
     else:
         return False
 
-#addstudent("nicole","nicole","nicole",0)
+#addstudent("nicole","nicole","nicole",1)
 
 def classcheck(classid, studentid):
     f = "utils/data/database.db"
@@ -124,12 +124,12 @@ def classcheck(classid, studentid):
 
 #"CREATE TABLE IF NOT EXISTS classes (classid INTEGER, teacherid INTEGER, studentid INTEGER, name TEXT, period INTEGER, seatid INTEGER, glasses BOOLEAN, row INTEGER, col INTEGER)"
 # add student to class
-def addclass(classid, teacherid, studentid, name, period, seatid, glasses, row, col):
+def addtoclass(classid, teacherid, studentid, name, period, seatid, glasses, row, col):
     f = "utils/data/database.db"
     db = sqlite3.connect(f)
     if(classcheck(classid,studentid)):
         c = db.cursor()
-        q = "INSERT INTO classes VALUES ('"+str(classid)+"','"+str(teacherid)+"','"+str(studentid)+"','"+name+"',"+str(period)+"',"+str(seatid)+"',"+str(glasses)+"',"+str(row)+"',"+str(col)+");"
+        q = "INSERT INTO classes VALUES ('"+str(classid)+"','"+str(teacherid)+"','"+str(studentid)+"','"+name+"','"+str(period)+"','"+str(seatid)+"','"+str(glasses)+"','"+str(row)+"','"+str(col)+"');"
         c.execute(q)
         db.commit()
         db.close()
@@ -137,6 +137,7 @@ def addclass(classid, teacherid, studentid, name, period, seatid, glasses, row, 
     else:
         return False
 
+    
 def periodcheck(classid):
     f = "utils/data/database.db"
     db = sqlite3.connect(f)
@@ -148,7 +149,7 @@ def periodcheck(classid):
             return False
     return True
 
-
+# add a secret code!!!!
 # "CREATE TABLE IF NOT EXISTS periods (classid INTEGER, teacherid INTEGER, period INTEGER, rows INTEGER, cols INTEGER)"
 # add a class (period)
 def addperiod(classid,teacherid,period,rows,cols):
@@ -156,13 +157,16 @@ def addperiod(classid,teacherid,period,rows,cols):
     db = sqlite3.connect(f)
     if(periodcheck(classid)):
         c = db.cursor()
-        q = "INSERT INTO classes VALUES ('"+str(classid)+"','"+str(teacherid)+"',"+str(period)+"',"+str(rows)+"',"+str(cols)+");"
+        q = "INSERT INTO periods VALUES ('"+str(classid)+"','"+str(teacherid)+"','"+str(period)+"','"+str(rows)+"','"+str(cols)+"');"
         c.execute(q)
         db.commit()
         db.close()
         return True
     else:
         return False
+
+#addperiod(1,-1,1,4,4)
+#addtoclass(0,-1,1,"nicole",1,1,True,3,4)
 
 
 # grades (classid INTEGER, studentid INTEGER, grade INTEGER, assignmentid INTEGER, assignmentname TEXT)"
@@ -217,6 +221,27 @@ def printteachers():
 
 #printstudents()
 
+#addperiod(00,-1,2,6,5)
+#addtoclass(00, -1, 14, "nikkita", 2, 4, False, 3, 4)
+
+def printclass():
+    f = "utils/data/database.db"
+    db = sqlite3.connect(f)
+    c = db.cursor()
+    m = c.execute("SELECT * FROM classes")
+    for a in m:
+        print a
+
+def printperiods():
+    f = "utils/data/database.db"
+    db = sqlite3.connect(f)
+    c = db.cursor()
+    m = c.execute("SELECT * FROM periods")
+    for a in m:
+        print a
+
+#printclass()
+#printperiods()
 
 # get next teacher id
 def gettid():
@@ -249,14 +274,15 @@ def getsid():
 #print getsid()
 #print gettid()
 
+# returns {studentid: seatid}
 def getstudents(classid):
     f = "utils/data/database.db"
     db = sqlite3.connect(f)
     c = db.cursor()
     m = c.execute("SELECT * FROM classes WHERE classid = "+str(classid))
-    j = []
+    j = {}
     for a in m:
-        j.append([a[2],a[5]])
+        j[a[2]]=a[5]
     return j
 
 # get rows and cols in a class
@@ -273,6 +299,7 @@ def getdims(classid):
 def go():
     teachers()
     students()
+    periods()
     classes()
     grades()
 
@@ -285,3 +312,7 @@ def close():
     db.close()  #close database
 
 close()
+
+# TO DO
+# add class name to periods table
+# wipe out database and reset
