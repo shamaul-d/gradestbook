@@ -148,8 +148,7 @@ def periodcheck(classid):
             return False
     return True
 
-
-# add a secret code!!!! 
+# add a secret code!!!!
 # "CREATE TABLE IF NOT EXISTS periods (classid INTEGER, teacherid INTEGER, period INTEGER, rows INTEGER, cols INTEGER)"
 # add a class (period)
 def addperiod(classid,teacherid,period,rows,cols):
@@ -166,7 +165,7 @@ def addperiod(classid,teacherid,period,rows,cols):
         return False
 
 
-    
+
 
 # grades (classid INTEGER, studentid INTEGER, grade INTEGER, assignmentid INTEGER, assignmentname TEXT)"
 def addgrade(classid, studentid, grade, assignmentid, assignmentname):
@@ -220,14 +219,14 @@ def printteachers():
 
 #printstudents()
 
-addperiod(00,-1,2,6,5)
-addtoclass(00, -1, 14, "nikkita", 2, 4, False, 3, 4)
+#addperiod(00,-1,2,6,5)
+#addtoclass(00, -1, 14, "nikkita", 2, 4, False, 3, 4)
 
 def printclass():
     f = "utils/data/database.db"
     db = sqlite3.connect(f)
     c = db.cursor()
-    m - c.execute("SELECT * FROM classes")
+    m = c.execute("SELECT * FROM classes")
     for a in m:
         print a
 
@@ -235,13 +234,13 @@ def printperiods():
     f = "utils/data/database.db"
     db = sqlite3.connect(f)
     c = db.cursor()
-    m - c.execute("SELECT * FROM periods")
+    m = c.execute("SELECT * FROM periods")
     for a in m:
         print a
 
 printclass()
 printperiods()
-        
+
 # get next teacher id
 def gettid():
     f = "utils/data/database.db"
@@ -314,4 +313,4 @@ close()
 
 # TO DO
 # add class name to periods table
-# wipe out database and reset 
+# wipe out database and reset

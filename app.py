@@ -91,31 +91,35 @@ def seating():
     else:
         return redirect(url_for('home'))
 
-@app.route('/adds/')
-def adds():
-    cid = request.form["cid"]
-    tid =
-    sid =
-    nm =
-    pd =
-    seid =
-    glasses =
-    r =
-    c =
-    
-@app.route('/addt/')
-def addt():
-    cid =
-    cn = request.form['']
-    tid =
-    pd =
-    r =
-    c = 
 
-@app.route('/joinClass/')
-def join():
-    return render_template('joinClass.html')
-    
+@app.route('/checkClass')
+def check():
+    cid = request.args.get("cid")
+    if not isinstance(cid,int) or not database.periodCheck(cid):
+        return 'Class does not exist'
+    return addt(cid)
+
+def addt(cid):
+    cid = 0
+    cn = request.form['']
+    tid = 0
+    pd = 0
+    r = 0
+    c = 0
+    return 'Joined!'
+
+
+@app.route('/addt/')
+def adds():
+    tid = 0
+    sid = 0
+    nm = 0
+    pd = 0
+    seid = 0
+    glasses = 0
+    r = 0
+    c = 0
+
 @app.route('/absence/')
 def absence():
     return render_template('absence.html')

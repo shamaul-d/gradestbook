@@ -4,7 +4,16 @@
 
 {%block body%}
 
-<form>
-</form>
+<center>
+    <form action="/addt/">
 
+        <p><input type="text" placeholder="Class Name" name="name"></p>
+        <p><input type="number" placeholder="Period Number" name="pd"></p>
+        <h4>Size of Room</h4>
+        <p><input type="number" placeholder="Rows" name="rows"> x <input type="number" placeholder="columns" name="cols"></p>
+
+        <button type="submit" name="submit"> Create! </button>
+
+    </form>
+</center>
 {%endblock%}

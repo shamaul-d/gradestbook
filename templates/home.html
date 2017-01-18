@@ -4,6 +4,8 @@
 
 {%block body%}
 
+<center><h2 id='joinMsg'></h2></center>
+
 <div class="container">
 
     <div class="col-lg-4">
@@ -60,7 +62,14 @@
                     <h1><center> Join New Class </center></h1>
                 </div>
                 <div class="panel-body">
-                    Probably some search bar thing?
+
+                    <form>
+
+                        <input type="text" id="cid" placeholder="Class ID">
+                        <button id="searchClass" type="button">Join</button>
+
+                    </form>
+
                 </div>
             </div>
         </div>
@@ -80,5 +89,30 @@
 
     </div>
 
+<script>
+
+    var addToClass = function(event){
+        var cid = document.getElementById('cid').value;
+        if (cid){
+            $.ajax({
+                url: '/checkClass',
+                type: 'GET',
+                data: {'cid':cid},
+                success: function(data){
+                    var msg = document.getElementById('joinMsg');
+                    msg.innerHTML = data;
+                }
+
+            });
+        }
+        else{
+
+        }
+    }
+
+    var sub = document.getElementById('searchClass');
+    sub.addEventListener('click', addToClass);
+
+</script>
 
     {%endblock%}
