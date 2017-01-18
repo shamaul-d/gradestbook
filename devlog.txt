@@ -109,3 +109,5 @@ NicoleC -- 2017-01-17
 NicoleC -- 2017-01-18
   reset database
   adding everything works
+  getclassest(tid) returns list of classes of a teacher
+  getclassess(sid) returns list of classes of a student

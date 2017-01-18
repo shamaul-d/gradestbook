@@ -296,6 +296,28 @@ def getdims(classid):
         j.append([a[3],a[4]])
     return j
 
+# given teacher id, returns list of classids that the teacher has
+def getclassest(tid):
+    f = "utils/data/database.db"
+    db = sqlite3.connect(f)
+    c = db.cursor()
+    m = c.execute("SELECT * FROM periods WHERE teacherid = "+str(tid))
+    j = []
+    for a in m:
+        j.append(a[0])
+    return j
+
+# given student id, returns a list of classids that the student has
+def getclassess(sid):
+    f = "utils/data/database.db"
+    db = sqlite3.connect(f)
+    c = db.cursor()
+    m = c.execute("SELECT * FROM classes WHERE studentid = "+str(sid))
+    j = []
+    for a in m:
+        j.append([a[0])
+    return j
+
 def go():
     teachers()
     students()
