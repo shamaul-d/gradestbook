@@ -93,7 +93,7 @@ def addteacher(username,password,name,id):
         return True
     else:
         return False
-
+    
 # ret True if successfully added, False if username already exists
 def addstudent(username,password,name,id):
     f = "utils/data/database.db"
@@ -108,7 +108,7 @@ def addstudent(username,password,name,id):
     else:
         return False
 
-#addstudent("nicole","nicole","nicole",0)
+#addstudent("nicole","nicole","nicole",1)
 
 def classcheck(classid, studentid):
     f = "utils/data/database.db"
@@ -137,6 +137,7 @@ def addtoclass(classid, teacherid, studentid, name, period, seatid, glasses, row
     else:
         return False
 
+    
 def periodcheck(classid):
     f = "utils/data/database.db"
     db = sqlite3.connect(f)
@@ -164,7 +165,8 @@ def addperiod(classid,teacherid,period,rows,cols):
     else:
         return False
 
-
+#addperiod(1,-1,1,4,4)
+#addtoclass(0,-1,1,"nicole",1,1,True,3,4)
 
 
 # grades (classid INTEGER, studentid INTEGER, grade INTEGER, assignmentid INTEGER, assignmentname TEXT)"
@@ -238,8 +240,8 @@ def printperiods():
     for a in m:
         print a
 
-printclass()
-printperiods()
+#printclass()
+#printperiods()
 
 # get next teacher id
 def gettid():

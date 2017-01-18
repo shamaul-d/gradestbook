@@ -100,3 +100,12 @@ VannaM -- 2017-01-17
   realized (again) that some of my stuff is irrelevant, deleted
   joinClass works from frontend
   it doesn't actually add you to a class though, bc we don't have classes yet
+
+NicoleC -- 2017-01-17
+  print functions
+  checking functions to verify existence
+  distinction between classes and periods
+
+NicoleC -- 2017-01-18
+  reset database
+  adding everything works

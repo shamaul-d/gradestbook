@@ -93,7 +93,7 @@ def addteacher(username,password,name,id):
         return True
     else:
         return False
-
+    
 # ret True if successfully added, False if username already exists
 def addstudent(username,password,name,id):
     f = "utils/data/database.db"
@@ -108,7 +108,7 @@ def addstudent(username,password,name,id):
     else:
         return False
 
-#addstudent("nicole","nicole","nicole",0)
+addstudent("nicole","nicole","nicole",1)
 
 def classcheck(classid, studentid):
     f = "utils/data/database.db"
@@ -137,6 +137,7 @@ def addtoclass(classid, teacherid, studentid, name, period, seatid, glasses, row
     else:
         return False
 
+    
 def periodcheck(classid):
     f = "utils/data/database.db"
     db = sqlite3.connect(f)
@@ -148,8 +149,7 @@ def periodcheck(classid):
             return False
     return True
 
-
-# add a secret code!!!! 
+# add a secret code!!!!
 # "CREATE TABLE IF NOT EXISTS periods (classid INTEGER, teacherid INTEGER, period INTEGER, rows INTEGER, cols INTEGER)"
 # add a class (period)
 def addperiod(classid,teacherid,period,rows,cols):
@@ -165,8 +165,9 @@ def addperiod(classid,teacherid,period,rows,cols):
     else:
         return False
 
+addperiod(1,-1,1,4,4)
+addtoclass(0,-1,1,"nicole",1,1,True,3,4)
 
-    
 
 # grades (classid INTEGER, studentid INTEGER, grade INTEGER, assignmentid INTEGER, assignmentname TEXT)"
 def addgrade(classid, studentid, grade, assignmentid, assignmentname):
@@ -220,14 +221,14 @@ def printteachers():
 
 #printstudents()
 
-addperiod(00,-1,2,6,5)
-addtoclass(00, -1, 14, "nikkita", 2, 4, False, 3, 4)
+#addperiod(00,-1,2,6,5)
+#addtoclass(00, -1, 14, "nikkita", 2, 4, False, 3, 4)
 
 def printclass():
     f = "utils/data/database.db"
     db = sqlite3.connect(f)
     c = db.cursor()
-    m - c.execute("SELECT * FROM classes")
+    m = c.execute("SELECT * FROM classes")
     for a in m:
         print a
 
@@ -235,13 +236,13 @@ def printperiods():
     f = "utils/data/database.db"
     db = sqlite3.connect(f)
     c = db.cursor()
-    m - c.execute("SELECT * FROM periods")
+    m = c.execute("SELECT * FROM periods")
     for a in m:
         print a
 
 printclass()
 printperiods()
-        
+
 # get next teacher id
 def gettid():
     f = "utils/data/database.db"
@@ -314,3 +315,4 @@ close()
 
 # TO DO
 # add class name to periods table
+# wipe out database and reset
