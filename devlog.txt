@@ -111,3 +111,4 @@ NicoleC -- 2017-01-18
   adding everything works
   getclassest(tid) returns list of classes of a teacher
   getclassess(sid) returns list of classes of a student
+  getcid() gets the next class id to be used
