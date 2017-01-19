@@ -1,16 +1,20 @@
+# PSA: the students database now has a new column: whether they wear glasses
+
 # creating databases: teachers(), students(), classes(), grades()
 # addteacher(user,pass,name,id)
-# addstudent(user,pass,name,id)
+# addstudent(user,pass,name,id,glasses)
 # addtoclass(classid,teacherid,studentid,name,pd,seatid,glasses,row,col)
 # addperiod(classid,teacherid,pd,rows,cols,classname)
 # addgrade(classid,studentid,grade,assignmentid,asignmentname)
 # gethash(username,isteacher?) returns hashed pass
 # gettid(),getsid(),getcid() -- gets next id to use
 # getstudents(classid) -- returns dict of {studentid: seatid} in given class
+# getstudentname(studentid) -- returns name of student w given studentid
 # getdims(classid) -- returns [rows,cols] of a class
 # getclassest(tid) -- returns list of classids that the teacher has
 # getclassess(sid) -- returns list of classids that the student has
 # getgrades(sid) -- returns dictionary of {assignmentname: grade}
+# getscores(assignmentid) -- returns dict of {studentid: grade} for assignment
 # getteacher(username) -- returns tid of teacher w given username
 # changeseat(classid,studentid,seatid,row,col)
 # changegrade(classid,studentid,assignmentid,grade)
@@ -268,6 +272,17 @@ def getstudents(classid):
         j[a[2]]=a[5]
     return j
 
+# returns name of student w the given student id
+def getstudentname(studentid):
+    f = "utils/data/database.db"
+    db = sqlite3.connect(f)
+    c = db.cursor()
+    m = c.execute("SELECT * FROM students WHERE id = "+str(studentid))
+    for a in m:
+        return a[2]
+
+#print getstudentname(1)
+
 # get rows and cols in a class
 def getdims(classid):
     f = "utils/data/database.db"
@@ -312,6 +327,17 @@ def getgrades(sid):
         d[m[3]] = m[2]
     return d
 
+# given assignment id, returns {studentid: grade} for that assignment
+def getscores(assignmentid):
+    d = {}
+    f = "utils/data/database.db"
+    db = sqlite3.connect(f)
+    c = db.cursor()
+    m = c.execute("SELECT * FROM grades WHERE assignmentid = "+str(assignmentid))
+    for a in m:
+        d[m[1]] = m[2]
+    return d
+
 # given username, get teacherid
 def getteacher(username):
     f = "utils/data/database.db"
@@ -329,6 +355,28 @@ def getseatid(classid,studentid):
     return b[studentid]
 
 #print getseatid(00,1)
+
+# returns list of student ids of kids who wear glasses
+def getglasses(classid):
+    f = "utils/data/database.db"
+    db = sqlite3.connect(f)
+    c = db.cursor()
+    m = c.execute("SELECT * FROM classes WHERE classid = "+str(classid))
+    g = []
+    for a in m:
+        g.append(a[2])
+    return g
+
+# returns boolean of whether the student wears glasses
+def glasses(studentid):
+    f = "utils/data/database.db"
+    db = sqlite3.connect(f)
+    c = db.cursor()
+    m = c.execute("SELECT * FROM students")
+    for a in m:
+        if(a[3]==studentid):
+            return a[4] 
+    return 0
 
 ##################################################################################################
 

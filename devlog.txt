@@ -122,3 +122,4 @@ NicoleC -- 2017-01-19
   list of all functions are at the top of the file for ref
   changeseat() and changegrade() working
   getseatid() functional
+  wrote a bunch of accessor methods
