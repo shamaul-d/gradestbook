@@ -123,3 +123,7 @@ NicoleC -- 2017-01-19
   changeseat() and changegrade() working
   getseatid() functional
   wrote a bunch of accessor methods
+
+ShamaulD -- 2017-01-19
+  make classes function done!
+  now focusing on adding students to classes
