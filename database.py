@@ -39,7 +39,7 @@ def students():
     f = "utils/data/database.db"
     db = sqlite3.connect(f)
     c = db.cursor()
-    q = "CREATE TABLE IF NOT EXISTS students (username TEXT, password TEXT, name TEXT, id INTEGER)"
+    q = "CREATE TABLE IF NOT EXISTS students (username TEXT, password TEXT, name TEXT, id INTEGER, glasses BOOLEAN)"
     c.execute(q)    #run SQL query
     db.commit()
 
@@ -133,12 +133,12 @@ def addteacher(username,password,name,id):
         return False
     
 # ret True if successfully added, False if username already exists
-def addstudent(username,password,name,id):
+def addstudent(username,password,name,id,glasses):
     f = "utils/data/database.db"
     db = sqlite3.connect(f)
     if(not logincheck(username,False)):
         c = db.cursor()
-        q = "INSERT INTO students VALUES ('"+username+"','"+password+"','"+name+"',"+str(id)+");"
+        q = "INSERT INTO students VALUES ('"+username+"','"+password+"','"+name+"',"+str(id)+",'"+str(glasses)+");"
         c.execute(q)
         db.commit()
         db.close()
@@ -146,7 +146,7 @@ def addstudent(username,password,name,id):
     else:
         return False
 
-#addstudent("nicole","nicole","nicole",1)
+#addstudent("nicole","nicole","nicole",1,True)
 
 # add student to class
 def addtoclass(classid, teacherid, studentid, name, period, seatid, glasses, row, col):
