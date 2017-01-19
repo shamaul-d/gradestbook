@@ -3,6 +3,7 @@
 # creating databases: teachers(), students(), classes(), grades()
 # addteacher(user,pass,name,id)
 # addstudent(user,pass,name,id,glasses)
+# addtoclass(classid,studentid) # SHAMAUL THIS IS FOR YOU
 # addtoclass(classid,teacherid,studentid,name,pd,seatid,glasses,row,col)
 # addperiod(classid,teacherid,pd,rows,cols,classname)
 # addgrade(classid,studentid,grade,assignmentid,asignmentname)
@@ -15,7 +16,8 @@
 # getclassess(sid) -- returns list of classids that the student has
 # getgrades(sid) -- returns dictionary of {assignmentname: grade}
 # getscores(assignmentid) -- returns dict of {studentid: grade} for assignment
-# getteacher(username) -- returns tid of teacher w given username
+# getteacherid(username) -- returns tid of teacher w given username
+# getstudentid(username) -- ^
 # changeseat(classid,studentid,seatid,row,col)
 # changegrade(classid,studentid,assignmentid,grade)
 # printstudents(),printteachers(),printclass(),printperiods(),printgrades()
@@ -162,6 +164,44 @@ def addtoclass(classid, teacherid, studentid, name, period, seatid, glasses, row
     else:
         return False
 
+def getstufffromclassid(classid):
+    f = "utils/data/database.db"
+    db = sqlite3.connect(f)
+    c = db.cursor()
+    m = c.execute("SELECT * FROM periods WHERE classid = '"+str(classid)+"'")
+    for a in m:
+        return a
+    
+def getstufffromstudentid(studentid):
+    f = "utils/data/database.db"
+    db = sqlite3.connect(f)
+    c = db.cursor()
+    m = c.execute("SELECT * FROM students WHERE id = '"+str(studentid)+"'")
+    for a in m:
+        return a    
+
+def addtoclass(classid, studentid):
+    f = "utils/data/database.db"
+    db = sqlite3.connect(f)
+    if(classcheck(classid,studentid)):
+        c = db.cursor()
+        n = getstufffromclassid(classid)
+        teacherid = n[1]
+        period = n[2]
+        m = getstufffromstudentid(student)
+        name = m[2]
+        glasses = m[4]
+        seatid = 0
+        row = 0
+        col = 0
+        addtoclass(classid,teacherid,studentid,name,period,seatid,glasses,row,col)
+        db.commit()
+        db.close()
+        return True
+    else:
+        return False
+    
+    
 # add a secret code!!!!
 # "CREATE TABLE IF NOT EXISTS periods (classid INTEGER, teacherid INTEGER, period INTEGER, rows INTEGER, cols INTEGER, classname TEXT)"
 # add a class (period)
@@ -339,11 +379,22 @@ def getscores(assignmentid):
     return d
 
 # given username, get teacherid
-def getteacher(username):
+def getteacherid(username):
     f = "utils/data/database.db"
     db = sqlite3.connect(f)
     c = db.cursor()
     m = c.execute("SELECT * FROM teachers")
+    for a in m:
+        if(a[0]==username):
+            return a[3] 
+    return 0
+
+# given username, get teacherid
+def getstudentid(username):
+    f = "utils/data/database.db"
+    db = sqlite3.connect(f)
+    c = db.cursor()
+    m = c.execute("SELECT * FROM students")
     for a in m:
         if(a[0]==username):
             return a[3] 
