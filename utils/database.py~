@@ -271,6 +271,20 @@ def getsid():
     else:
         return id[3]+1
 
+# get next class id
+def getcid():
+    f = "utils/data/database.db"
+    db = sqlite3.connect(f)
+    c = db.cursor()
+    m = c.execute("SELECT * FROM periods")
+    id = 1
+    for a in m:
+        id = a
+    if(id==1):
+        return id
+    else:
+        return id[0]+1
+
 #print getsid()
 #print gettid()
 
@@ -318,6 +332,19 @@ def getclassess(sid):
         j.append(a[0])
     return j
 
+# given student id, get list of {assignmentname: grade}
+def getgrades(sid):
+    d = {}
+    f = "utils/data/database.db"
+    db = sqlite3.connect(f)
+    c = db.cursor()
+    m = c.execute("SELECT * FROM grades WHERE studentid = "+str(sid))
+    for a in m:
+        d[m[3]] = m[2]
+    return d
+
+# given username, get teacherid
+
 def go():
     teachers()
     students()
@@ -336,5 +363,4 @@ def close():
 close()
 
 # TO DO
-# add class name to periods table
-# wipe out database and reset
+# checkglasses(studentid)
