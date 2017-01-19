@@ -92,7 +92,7 @@ def seating():
         return redirect(url_for('home'))
 
 
-@app.route('/checkClass' methods = ["GET"])
+@app.route('/checkClass/', methods = ["GET"])
 def check():
     cid = request.args.get("cid")
     if not isinstance(cid,int) or not database.periodCheck(cid):
@@ -100,11 +100,11 @@ def check():
     return adds(cid)
 
 
-@app.route('/addt/' methods = ["GET"])
+@app.route('/addt/', methods = ["GET"])
 def addt():
     cid = database.getcid()
     cn = request.form['name']
-    tid = database.getteacher(session['user'])
+    tid = database.getteacherid(session['user'])
     pd = request.form['pd']
     r = request.form['rows']
     c = request.form['cols']
@@ -113,16 +113,9 @@ def addt():
     return "Error!"
     
 
-@app.route('/adds/' methods = ["GET"])
+@app.route('/adds/', methods = ["GET"])
 def adds(cid):
-    tid = 0
     sid = 0
-    nm = 0
-    pd = 0
-    seid = 0
-    glasses = 0
-    r = 0
-    c = 0
     return 'Joined!'
 
 @app.route('/absence/')
