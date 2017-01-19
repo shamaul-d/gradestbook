@@ -323,6 +323,13 @@ def getteacher(username):
             return a[3] 
     return 0
 
+# returns seatid of student in class
+def getseatid(classid,studentid):
+    b = getstudents(classid)
+    return b[studentid]
+
+#print getseatid(00,1)
+
 ##################################################################################################
 
 # changes seat of student 
