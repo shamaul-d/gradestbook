@@ -6,10 +6,14 @@
 # addgrade(classid,studentid,grade,assignmentid,asignmentname)
 # gethash(username,isteacher?) returns hashed pass
 # gettid(),getsid(),getcid() -- gets next id to use
+# getstudents(classid) -- returns dict of {studentid: seatid} in given class
 # getdims(classid) -- returns [rows,cols] of a class
 # getclassest(tid) -- returns list of classids that the teacher has
 # getclassess(sid) -- returns list of classids that the student has
 # getgrades(sid) -- returns dictionary of {assignmentname: grade}
+# getteacher(username) -- returns tid of teacher w given username
+# changeseat(classid,studentid,seatid,row,col)
+# changegrade(classid,studentid,assignmentid,grade)
 # printstudents(),printteachers(),printclass(),printperiods(),printgrades()
 # go() sets up database from scratch if database has been deleted
 # close() commits changes and closes db
@@ -179,7 +183,7 @@ def addgrade(classid, studentid, grade, assignmentid, assignmentname):
     db = sqlite3.connect(f)
     if(isinstance(grade,int)):
         c = db.cursor()
-        q = "INSERT INTO grades VALUES ('"+str(classid)+"','"+str(studentid)+"','"+str(grade)+"','"+str(assignmentid)+"',"+str(assignmentname)+");"
+        q = "INSERT INTO grades VALUES ('"+str(classid)+"','"+str(studentid)+"','"+str(grade)+"','"+str(assignmentid)+"','"+str(assignmentname)+"');"
         c.execute(q)
         db.commit()
         db.close()
@@ -309,6 +313,40 @@ def getgrades(sid):
     return d
 
 # given username, get teacherid
+def getteacher(username):
+    f = "utils/data/database.db"
+    db = sqlite3.connect(f)
+    c = db.cursor()
+    m = c.execute("SELECT * FROM teachers")
+    for a in m:
+        if(a[0]==username):
+            return a[3] 
+    return 0
+
+##################################################################################################
+
+# changes seat of student 
+def changeseat(classid,studentid,seatid,row,col):
+    f = "utils/data/database.db"
+    db = sqlite3.connect(f)
+    c = db.cursor()
+    a = "UPDATE classes SET seatid = '"+str(seatid)+"', row = '"+str(row)+"', col = '"+str(col)+"' WHERE classid = '"+str(classid)+"' AND studentid = '"+str(studentid)+"';"
+    m = c.execute(a)
+    db.commit()
+    return True
+    
+# changes grade
+def changegrade(classid,studentid,assignmentid,grade):
+    f = "utils/data/database.db"
+    db = sqlite3.connect(f)
+    c = db.cursor()
+    a = "UPDATE grades SET grade = '"+str(grade)+"' WHERE classid = '"+str(classid)+"' AND studentid = '"+str(studentid)+"' AND assignmentid = '"+str(assignmentid)+"';"
+    m = c.execute(a)
+    db.commit()
+    return True
+
+#addstudent('nicole','nicole','nicole',1)
+#addgrade(00,1,90,12,"hw1")
 
 ##################################################################################################
 
@@ -320,6 +358,8 @@ def printstudents():
     for a in m:
         print a
 
+#printstudents()
+
 def printteachers():
     f = "utils/data/database.db"
     db = sqlite3.connect(f)
@@ -328,10 +368,8 @@ def printteachers():
     for a in m:
         print a
 
-#printstudents()
-
-#addperiod(00,-1,2,6,5)
-#addtoclass(00, -1, 14, "nikkita", 2, 4, False, 3, 4)
+#addperiod(00,-1,2,6,5,"thenicoleclass")
+#addtoclass(00, -1, 1, "nicole", 2, 4, False, 3, 4)
 
 def printclass():
     f = "utils/data/database.db"
@@ -340,7 +378,7 @@ def printclass():
     m = c.execute("SELECT * FROM classes")
     for a in m:
         print a
-
+        
 def printperiods():
     f = "utils/data/database.db"
     db = sqlite3.connect(f)
@@ -359,6 +397,9 @@ def printgrades():
         
 #printclass()
 #printperiods()
+#printgrades()
+#changegrade(00,1,12,80)
+#printgrades()
 
 ##################################################################################################
 

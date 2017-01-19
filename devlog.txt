@@ -120,3 +120,4 @@ JamesY -- 2017-01-18
 NicoleC -- 2017-01-19
   reformatted and reorganized database.py
   list of all functions are at the top of the file for ref
+  changeseat() and changegrade() working
