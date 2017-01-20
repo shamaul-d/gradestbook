@@ -10,5 +10,36 @@
 
 body {
     background-color: #D1D5DE;
-
 }
+
+#out{
+    background-color: white;
+    float: right;
+    border: .2em black;
+}
+
+#loginL{
+    display: inline;
+}
+
+#loginR{
+    display: inline;
+}
+
+.panel-heading h1{
+    font-size: 3em;
+    color: #586994;
+}
+
+.panel-title{
+    border: .1em solid black;
+    padding: .2em;
+    cursor: pointer;
+    background-color: #D1D5DE;
+}
+
+
+#registerElements{
+    display: none;
+}
+
