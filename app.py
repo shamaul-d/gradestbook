@@ -34,7 +34,7 @@ def home():
     if 'user' in session:
         classHTML = ""
         if session['teach']:
-            tid = database.getteacher(session['user'])
+            tid = database.getteacherid(session['user'])
             l = database.getclassest(tid)
             for i in l:
                 classHTML += '<a type="button" class="btn btn-default btn-lg btn-block" href="/seating'+i+'">'+i+'</a><br>'
