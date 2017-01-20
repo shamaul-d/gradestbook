@@ -102,7 +102,7 @@ def hashp(password):
 def seating(cid):
     if 'teach' in session:
         htmlString = seat.seatHtml(cid)
-        return render_template('seat.html', seats=htmlString, loggedIn = True, classid = cid,loggedIn=True)
+        return render_template('seat.html', seats=htmlString, loggedIn = True, classid = cid)
     else:
         return redirect(url_for('home'))
 
