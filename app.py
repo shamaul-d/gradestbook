@@ -64,7 +64,11 @@ def auth():
             if (request.form['person']  == 'teacher'):
                 database.addteacher(user0,pass0,name,database.gettid())
             else:
-                database.addstudent(user0,pass0,name,database.getsid())
+                gla = request.form['glasses']
+                if gla:
+                    database.addstudent(user0,pass0,name,database.getsid(),True)
+                else:
+                   database.addstudent(user0,pass0,name,database.getsid(),False)
             return render_template('login.html', msg = 'new account created', register = True)
     ## login
     else:
