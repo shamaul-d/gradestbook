@@ -5,6 +5,9 @@
 {%block body%}
 
 <center>
+
+    {{msg}}
+
     <form action="/addt/">
 
         <p><input type="text" placeholder="Class Name" name="name"></p>
@@ -13,7 +16,10 @@
         <p><input type="number" placeholder="Rows" name="rows"> x <input type="number" placeholder="columns" name="cols"></p>
 
         <button type="submit" name="submit"> Create! </button>
+        <button><a href="/home">Go Back</a></button>
 
     </form>
 </center>
+
+
 {%endblock%}

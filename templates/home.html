@@ -4,6 +4,7 @@
 
 {%block body%}
 
+
 <center><h2 id='joinMsg'></h2></center>
 
 <div class="container">
@@ -25,7 +26,7 @@
                     <h1><center> Current Classes </center></h1>
                 </div>
                 <div class="panel-body">
-                    Own page?
+                    {{classes}}
                 </div>
             </div>
         </div>
@@ -38,7 +39,7 @@
                     <h1><center> Seating </center></h1>
                 </div>
                 <div class="panel-body">
-                    <a type="button" class="btn btn-default btn-lg btn-block" href="/seating">Each period</a>
+                    {{classes}}
                 </div>
             </div>
         </div>
@@ -64,7 +65,7 @@
                 <div class="panel-body">
 
                     <form>
-
+                        <!--need to add in student info (glasses, etc.)-->
                         <input type="text" id="cid" placeholder="Class ID">
                         <button id="searchClass" type="button">Join</button>
 
@@ -89,30 +90,6 @@
 
     </div>
 
-<script>
-
-    var addToClass = function(event){
-        var cid = document.getElementById('cid').value;
-        if (cid){
-            $.ajax({
-                url: '/checkClass',
-                type: 'GET',
-                data: {'cid':cid},
-                success: function(data){
-                    var msg = document.getElementById('joinMsg');
-                    msg.innerHTML = data;
-                }
-
-            });
-        }
-        else{
-
-        }
-    }
-
-    var sub = document.getElementById('searchClass');
-    sub.addEventListener('click', addToClass);
-
-</script>
+    <script src="../static/javascript/home.js"></script>
 
     {%endblock%}

@@ -91,7 +91,7 @@ def logincheck(username, teacher):
         for n in d:
             if(n[0] == username):
                 return True
-    db.close() 
+    db.close()
     return False
 
 def classcheck(classid, studentid):
@@ -104,7 +104,7 @@ def classcheck(classid, studentid):
         if (a[2]==studentid):
             return False
     return True
-    
+
 def periodcheck(classid):
     f = "utils/data/database.db"
     db = sqlite3.connect(f)
@@ -131,7 +131,7 @@ def addteacher(username,password,name,id):
         return True
     else:
         return False
-    
+
 # ret True if successfully added, False if username already exists
 def addstudent(username,password,name,id,glasses):
     f = "utils/data/database.db"
@@ -346,7 +346,7 @@ def getteacher(username):
     m = c.execute("SELECT * FROM teachers")
     for a in m:
         if(a[0]==username):
-            return a[3] 
+            return a[3]
     return 0
 
 # returns seatid of student in class
@@ -375,12 +375,12 @@ def glasses(studentid):
     m = c.execute("SELECT * FROM students")
     for a in m:
         if(a[3]==studentid):
-            return a[4] 
+            return a[4]
     return 0
 
 ##################################################################################################
 
-# changes seat of student 
+# changes seat of student
 def changeseat(classid,studentid,seatid,row,col):
     f = "utils/data/database.db"
     db = sqlite3.connect(f)
@@ -389,7 +389,7 @@ def changeseat(classid,studentid,seatid,row,col):
     m = c.execute(a)
     db.commit()
     return True
-    
+
 # changes grade
 def changegrade(classid,studentid,assignmentid,grade):
     f = "utils/data/database.db"
@@ -433,7 +433,7 @@ def printclass():
     m = c.execute("SELECT * FROM classes")
     for a in m:
         print a
-        
+
 def printperiods():
     f = "utils/data/database.db"
     db = sqlite3.connect(f)
@@ -449,7 +449,7 @@ def printgrades():
     m = c.execute("SELECT * FROM grades")
     for a in m:
         print a
-        
+
 #printclass()
 #printperiods()
 #printgrades()

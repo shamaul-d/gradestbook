@@ -32,7 +32,18 @@ def logoutJ():
 @app.route('/home/')
 def home():
     if 'user' in session:
-        return render_template('home.html', loggedIn=True, teach = session['teach'])
+        classHTML = ""
+        if session['teach']:
+            tid = database.getteacher(session['user'])
+            l = database.getclassest(tid)
+            for i in l:
+                classHTML += '<a type="button" class="btn btn-default btn-lg btn-block" href="/seating'+i+'">'+i+'</a><br>'
+        else:
+            sid = database.getstudentname(session['user'])
+            l = database.getclassess(sid)
+            for i in l:
+                classHTML += i + '<br>'
+        return render_template('home.html', loggedIn=True, teach = session['teach'], classes=classHTML)
     return redirect(url_for('login'))
 
 @app.route('/auth/', methods = ["GET","POST"])
@@ -83,11 +94,11 @@ def auth():
 def hashp(password):
     return hashlib.sha512(password).hexdigest()
 
-@app.route('/seating/')
-def seating():
+@app.route('/seating/<int:cid>')
+def seating(cid):
     if 'teach' in session:
-        htmlString = seat.seatHtml(3,5)
-        return render_template('seat.html', seats=htmlString, loggedIn = True)
+        htmlString = seat.seatHtml(cid)
+        return render_template('seat.html', seats=htmlString, loggedIn = True, classid = cid)
     else:
         return redirect(url_for('home'))
 
@@ -102,16 +113,18 @@ def check():
 
 @app.route('/addt/', methods = ["GET"])
 def addt():
-    cid = database.getcid()
-    cn = request.form['name']
-    tid = database.getteacherid(session['user'])
-    pd = request.form['pd']
-    r = request.form['rows']
-    c = request.form['cols']
-    if database.addperiod(cid,cn,tid,pd,r,c):
-        return 'Added!'
-    return "Error!"
-    
+    if 'user' in session:
+        cid = database.getcid()
+        cn = request.args['name']
+        tid = database.getteacher(session['user'])
+        pd = request.args['pd']
+        r = request.args['rows']
+        c = request.args['cols']
+        if database.addperiod(cid,cn,tid,pd,r,c):
+            return redirect(url_for('home'))
+        return render_template('newClass.html', msg="failure")
+    return redirect(url_for('home'))
+
 
 @app.route('/adds/', methods = ["GET"])
 def adds(cid):
