@@ -93,7 +93,7 @@ def auth():
             elif database.gethash(user1, False) == hashp(passw):
                 session['user'] = user1
                 return redirect(url_for('home'))
-        return render_template('login.html', msg = 'incorrect username and password combination', register = False, loggedIn=True)
+        return render_template('login.html', msg = 'incorrect username and password combination', register = False, loggedIn=False)
 
 def hashp(password):
     return hashlib.sha512(password).hexdigest()
@@ -132,8 +132,12 @@ def addt():
 
 @app.route('/adds/', methods = ["GET"])
 def adds(cid):
-    sid = 0
-    return 'Joined!'
+    if 'user' in session:
+        sid = database.getstudentid(session['user'])
+        if addtoclass(cid,sid):
+            return redirect(url_for('home'))
+        return 0 #?????
+    return redirect(url_for('home'))
 
 @app.route('/absence/')
 def absence():
