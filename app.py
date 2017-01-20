@@ -17,7 +17,7 @@ def root():
 def login():
     if 'user' in session:
         return redirect(url_for('home'))
-    return render_template('login.html',register='blank')
+    return render_template('login.html',register='blank',loggedIn=True)
 
 @app.route('/logoutJ/')
 def logoutJ():
@@ -43,7 +43,7 @@ def home():
             l = database.getclassess(sid)
             for i in l:
                 classHTML += i + '<br>'
-        return render_template('home.html', teach = session['teach'], classes=classHTML)
+        return render_template('home.html', teach = session['teach'], classes=classHTML, loggedIn=True)
     return redirect(url_for('login'))
 
 @app.route('/auth/', methods = ["GET","POST"])
@@ -52,11 +52,11 @@ def auth():
     #print request.form
     if 'register' in request.form:
         if (request.form['user'] == '' or request.form['pass'] == ''):
-            return render_template('login.html', msg = 'please fill in all forms of info', register = False, loggedIn=True)
+            return render_template('login.html', msg = 'please fill in all forms of info', register = False, loggedIn=False)
         elif (database.logincheck(request.form['user'].lower(), True) or (database.logincheck(request.form['user'].lower(), False))):
-           return render_template('login.html', msg = 'username taken, please choose a new one', register = False, loggedIn=True)
+           return render_template('login.html', msg = 'username taken, please choose a new one', register = False, loggedIn=False)
         elif (request.form['pass'] != request.form['pass2']):
-            return render_template('login.html', msg = 'passwords do not match',register = False, loggedIn=True)
+            return render_template('login.html', msg = 'passwords do not match',register = False, loggedIn=False)
         else:
             name = request.form['name']
             user0 = request.form['user'].lower()
@@ -69,7 +69,7 @@ def auth():
                     database.addstudent(user0,pass0,name,database.getsid(),True)
                 else:
                    database.addstudent(user0,pass0,name,database.getsid(),False)
-            return render_template('login.html', msg = 'new account created', register = True, loggedIn=True)
+            return render_template('login.html', msg = 'new account created', register = True, loggedIn=False)
     ## login
     else:
         user1 = request.form['userl'].lower()
@@ -83,13 +83,13 @@ def auth():
 
         if (teacher):
             if not database.logincheck(user1, True):
-                return render_template('login.html', msg = 'username does not exist', register = False, loggedIn=True)
+                return render_template('login.html', msg = 'username does not exist', register = False, loggedIn=False)
             elif database.gethash(user1, True) == hashp(passw):
                 session['user'] = user1
                 return redirect(url_for('home'))
         else:
             if not database.logincheck(user1, False):
-                return render_template('login.html', msg = 'username does not exist', register = False, loggedIn=True)
+                return render_template('login.html', msg = 'username does not exist', register = False, loggedIn=False)
             elif database.gethash(user1, False) == hashp(passw):
                 session['user'] = user1
                 return redirect(url_for('home'))
@@ -126,7 +126,7 @@ def addt():
         c = request.args['cols']
         if database.addperiod(cid,cn,tid,pd,r,c):
             return redirect(url_for('home'))
-        return render_template('newClass.html', msg="failure")
+        return render_template('newClass.html', msg="failure", loggedIn=True)
     return redirect(url_for('home'))
 
 
@@ -137,11 +137,11 @@ def adds(cid):
 
 @app.route('/absence/')
 def absence():
-    return render_template('absence.html')
+    return render_template('absence.html',loggedIn=True)
 
 @app.route('/createClass/')
 def createClass():
-    return render_template('newClass.html')
+    return render_template('newClass.html',loggedIn=True)
 
 if __name__ == '__main__':
     app.debug = True
