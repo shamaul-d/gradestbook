@@ -516,7 +516,7 @@ def go():
     classes()
     grades()
 
-go()
+#go()
 
 def close():
     f = "utils/data/database.db"
