@@ -120,7 +120,7 @@ def addt():
     if 'user' in session:
         cid = database.getcid()
         cn = request.args['name']
-        tid = database.getteacherid(session['user'])
+        tid = database.getteacher(session['user'])
         pd = request.args['pd']
         r = request.args['rows']
         c = request.args['cols']
