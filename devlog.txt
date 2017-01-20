@@ -129,5 +129,8 @@ ShamaulD -- 2017-01-19
   now focusing on adding students to classes
 
 JamesY -- 2017-01-19
-  Making navbar for main template 
-  Starting different pages
+  making navbar for main template 
+  starting different pages
+
+NicoleC -- 2017-01-20
+  recovered database stuff (ahem vanna)
