@@ -36,16 +36,16 @@
 	    <li><a id="out">Logout</a></li>
 	  </ul>
 	</div>
-	
+
 	<p id="out">Logout</p>
         {%endif%}
       </div>
     </nav>
-    
+
     {%block body%}{%endblock%}
-    
+
     <script>
-      
+
       var logout = function(e){
       $.ajax({
       url: '/logoutJ',
@@ -55,12 +55,12 @@
       });
       };
 
-      var b = document.getElementById('out');
-      b.addEventListener('click',logout);
+      //var b = document.getElementById('out');
+      //b.addEventListener('click',logout);
 
     </script>
-    
-    
+
+
   </body>
 
 

@@ -40,6 +40,7 @@ def seatHtml(classid):
     # getstudents(classid) -- returns dict of {studentid: seatid} in given class
     students = database.getstudents(cid)
     d = {}
+
     for i in students:
         #seatid
         d[students[i]] = database.getstudentname(i)
