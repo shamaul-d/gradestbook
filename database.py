@@ -1,3 +1,4 @@
+# CREATE ATTENDANCE DATABASE (classid,studentid,date) # TELL SILLY TO RETRIEVE DATE OF ABSENCE
 # PSA: the students database now has a new column: whether they wear glasses
 
 # creating databases: teachers(), students(), classes(), grades()
@@ -18,6 +19,7 @@
 # getscores(assignmentid) -- returns dict of {studentid: grade} for assignment
 # getteacherid(username) -- returns tid of teacher w given username
 # getstudentid(username) -- ^
+# checkglasses(studentid) -- returns boolean of whether student wears glasses
 # changeseat(classid,studentid,seatid,row,col)
 # changegrade(classid,studentid,assignmentid,grade)
 # printstudents(),printteachers(),printclass(),printperiods(),printgrades()
@@ -419,7 +421,7 @@ def getglasses(classid):
     return g
 
 # returns boolean of whether the student wears glasses
-def glasses(studentid):
+def checkglasses(studentid):
     f = "utils/data/database.db"
     db = sqlite3.connect(f)
     c = db.cursor()
@@ -526,5 +528,3 @@ def close():
 
 close()
 
-# TO DO
-# checkglasses(studentid)

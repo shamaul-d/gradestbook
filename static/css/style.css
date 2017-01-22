@@ -13,9 +13,9 @@ body {
 }
 
 #out{
-    background-color: white;
     float: right;
     border: .2em black;
+    cursor: pointer;
 }
 
 #loginL{
