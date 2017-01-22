@@ -141,7 +141,7 @@ def addstudent(username,password,name,id,glasses):
     db = sqlite3.connect(f)
     if(not logincheck(username,False)):
         c = db.cursor()
-        q = "INSERT INTO students VALUES ('"+username+"','"+password+"','"+name+"',"+str(id)+",'"+str(glasses)+");"
+        q = "INSERT INTO students VALUES ('"+username+"','"+password+"','"+name+"',"+str(id)+",'"+str(glasses)+"');"
         c.execute(q)
         db.commit()
         db.close()

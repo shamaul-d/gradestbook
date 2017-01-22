@@ -32,7 +32,6 @@ def logoutJ():
 @app.route('/home/')
 def home():
     if 'user' in session:
-        print "start"
         classHTML = ""
         cL = ""
         if session['teach']:
@@ -42,7 +41,7 @@ def home():
                 classHTML += '<a type="button" class="btn btn-default btn-lg btn-block" href="/seating/'+str(i)+'">'+str(i)+'</a><br>'
                 cL += "<p> Period " + str(i) + "</p>"
         else:
-            sid = database.getstudentname(session['user'])
+            sid = database.getstudentid(session['user'])
             l = database.getclassess(sid)
             for i in l:
                 classHTML += i + '<br>'
@@ -67,13 +66,12 @@ def auth():
             if (request.form['person']  == 'teacher'):
                 database.addteacher(user0,pass0,name,database.gettid())
             else:
-                gla = request.form['glasses']
-                if gla:
+                if 'glasses' in request.form:
                     database.addstudent(user0,pass0,name,database.getsid(),True)
                 else:
-                   database.addstudent(user0,pass0,name,database.getsid(),False)
+                    database.addstudent(user0,pass0,name,database.getsid(),False)
             return render_template('login.html', msg = 'new account created', register = True, loggedIn=False)
-    ## login
+                    ## login
     else:
         user1 = request.form['userl'].lower()
         passw = request.form['passl']
