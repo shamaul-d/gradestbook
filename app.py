@@ -32,18 +32,21 @@ def logoutJ():
 @app.route('/home/')
 def home():
     if 'user' in session:
+        print "start"
         classHTML = ""
+        cL = ""
         if session['teach']:
             tid = database.getteacherid(session['user'])
             l = database.getclassest(tid)
             for i in l:
-                classHTML += '<a type="button" class="btn btn-default btn-lg btn-block" href="/seating'+i+'">'+i+'</a><br>'
+                classHTML += '<a type="button" class="btn btn-default btn-lg btn-block" href="/seating/'+str(i)+'">'+str(i)+'</a><br>'
+                cL += "<p> Period " + str(i) + "</p>"
         else:
             sid = database.getstudentname(session['user'])
             l = database.getclassess(sid)
             for i in l:
                 classHTML += i + '<br>'
-        return render_template('home.html', teach = session['teach'], classes=classHTML, loggedIn=True)
+        return render_template('home.html', teach = session['teach'], classes=classHTML, classList = cL, loggedIn=True)
     return redirect(url_for('login'))
 
 @app.route('/auth/', methods = ["GET","POST"])

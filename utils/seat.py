@@ -1,5 +1,7 @@
+from . import database
+
 def getRowCol(classid, seatNumber):
-    l = database.getDims(classid)
+    l = database.getdims(classid)
     rows = l[0]
     y = (seat - 1)/rows
     x = (seat - 1) % rows
@@ -10,7 +12,7 @@ def removeSeat(classid, studentid):
     d = database.getStudents(classid)
     seatid = d[studentid]
 
-    l = database.getDims(classid)
+    l = database.getdims(classid)
 
     database.changeseat(classid,studentid,0,l[0] + 1, l[1] + 1)
 
@@ -33,16 +35,18 @@ def switchSeats(classid, id1, id2):
 #actual; when we deal w/classes and students
 def seatHtml(classid):
 
-    l = database.getDims(classid)
+    l = database.getdims(classid)
     rows = l[0]
     cols = l[1]
 
     # getstudents(classid) -- returns dict of {studentid: seatid} in given class
-    students = database.getstudents(cid)
+    students = database.getstudents(classid)
     d = {}
 
+    print students
     for i in students:
         #seatid
+        print i
         d[students[i]] = database.getstudentname(i)
 
     html = "";
@@ -51,9 +55,10 @@ def seatHtml(classid):
         for y in range(cols):
 
             id = (rows*y) + x + 1
-            name = d[id]
 
-            if (name):
+            if id in d:
+
+                name = d[id]
 
                 #open div; seat
                 html += '<div class="seat" ondrop="drop(event)">'
