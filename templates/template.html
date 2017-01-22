@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <link href="../static/css/bootstrap.css" rel="stylesheet">
+    <link href="../static/css/bootstrap.min.css" rel="stylesheet">
+    <link href="../static/css/style.css" rel="stylesheet">
+
+
+
+    <!-- ajax src -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="../static/javascript/bootstrap.js"></script>
+
+    <title> {%block title%} {%endblock%} </title>
+
+  </head>
+
+  <body>
+
+    <nav class="navbar navbar-inverse">
+      <div class="container-fluid">
+	<div class="navbar-header">
+          <div class="container">
+            <p class="title"> gradestbook</p>
+          </div>
+	</div>
+        {%if not loggedIn%}
+        {%block navbar%}{%endblock%}
+	<div class="collapse navbar-collapse">
+	  <ul class="nav navbar-nav">
+	    <li><a href="#">Grades</a></li>
+	    <li><a href="/seating">Seating</a></li>
+	    <li><a href="/createClass">Create</a></li>
+	    <li><a href="/absence">Attendance</a><li>
+	    <li><a id="out">Logout</a></li>
+	  </ul>
+	</div>
+
+        {%endif%}
+      </div>
+    </nav>
+
+    {%block body%}{%endblock%}
+
+    <script>
+
+      var logout = function(e){
+      $.ajax({
+      url: '/logoutJ',
+      success: function(d){
+      location.reload();
+      }
+      });
+      };
+      var b = document.getElementById('out');
+      b.addEventListener('click',logout);
+    </script>
+
+
+  </body>
+
+
+</html>
