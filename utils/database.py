@@ -4,7 +4,7 @@
 # addteacher(user,pass,name,id)
 # addstudent(user,pass,name,id,glasses)
 # addtoclass(classid,studentid) # SHAMAUL THIS IS FOR YOU
-# addtoclass(classid,teacherid,studentid,name,pd,seatid,glasses,row,col)
+# addtoclass2(classid,teacherid,studentid,name,pd,seatid,glasses,row,col)
 # addperiod(classid,teacherid,pd,rows,cols,classname)
 # addgrade(classid,studentid,grade,assignmentid,asignmentname)
 # gethash(username,isteacher?) returns hashed pass
@@ -152,17 +152,19 @@ def addstudent(username,password,name,id,glasses):
 #addstudent("nicole","nicole","nicole",1,True)
 
 # add student to class
-def addtoclass(classid, teacherid, studentid, name, period, seatid, glasses, row, col):
+def addtoclass2(classid, teacherid, studentid, name, period, seatid, glasses, row, col):
     f = "utils/data/database.db"
     db = sqlite3.connect(f)
-    if(classcheck(classid,studentid)):
+    #if(classcheck(classid,studentid)):
+    try:
         c = db.cursor()
         q = "INSERT INTO classes VALUES ('"+str(classid)+"','"+str(teacherid)+"','"+str(studentid)+"','"+name+"','"+str(period)+"','"+str(seatid)+"','"+str(glasses)+"','"+str(row)+"','"+str(col)+"');"
         c.execute(q)
         db.commit()
         db.close()
         return True
-    else:
+    #else:
+    except:
         return False
 
 def getstufffromclassid(classid):
@@ -184,22 +186,24 @@ def getstufffromstudentid(studentid):
 def addtoclass(classid, studentid):
     f = "utils/data/database.db"
     db = sqlite3.connect(f)
-    if(classcheck(classid,studentid)):
+    #if(classcheck(classid,studentid)):
+    try:
         c = db.cursor()
         n = getstufffromclassid(classid)
         teacherid = n[1]
         period = n[2]
-        m = getstufffromstudentid(student)
+        m = getstufffromstudentid(studentid)
         name = m[2]
         glasses = m[4]
         seatid = 0
         row = 0
         col = 0
-        addtoclass(classid,teacherid,studentid,name,period,seatid,glasses,row,col)
+        addtoclass2(classid,teacherid,studentid,name,period,seatid,glasses,row,col)
         db.commit()
         db.close()
         return True
-    else:
+    #else:
+    except:
         return False
 
 

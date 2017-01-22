@@ -21,7 +21,6 @@ def login():
 
 @app.route('/logoutJ/')
 def logoutJ():
-    print 'out'
     if 'user' in session:
         session.pop('user')
         session.pop('teach')
@@ -44,7 +43,7 @@ def home():
             sid = database.getstudentid(session['user'])
             l = database.getclassess(sid)
             for i in l:
-                classHTML += i + '<br>'
+                classHTML += str(i) + '<br>'
         return render_template('home.html', teach = session['teach'], classes=classHTML, classList = cL, loggedIn=True)
     return redirect(url_for('login'))
 
@@ -111,9 +110,27 @@ def seating(cid):
 @app.route('/checkClass/', methods = ["GET"])
 def check():
     cid = request.args.get("cid")
-    if not isinstance(cid,int) or not database.periodCheck(cid):
+    if not intCheck(cid) or not database.periodcheck(cid):
         return 'Class does not exist'
     return adds(cid)
+
+def adds(cid):
+    if 'user' in session:
+        sid = database.getstudentid(session['user'])
+        print 'starting...'
+        print database.addtoclass(cid,sid)
+        if database.addtoclass(cid,sid):
+            #return redirect(url_for('home'))
+            return 'success'
+        return 'something went wrong'
+    return "error"
+
+def intCheck(s):
+    try:
+        int(s)
+        return True
+    except:
+        return False
 
 
 @app.route('/addt/', methods = ["GET"])
@@ -128,16 +145,6 @@ def addt():
         if database.addperiod(cid,cn,tid,pd,r,c):
             return redirect(url_for('home'))
         return render_template('newClass.html', msg="failure", loggedIn=True)
-    return redirect(url_for('home'))
-
-
-@app.route('/adds/', methods = ["GET"])
-def adds(cid):
-    if 'user' in session:
-        sid = database.getstudentid(session['user'])
-        if addtoclass(cid,sid):
-            return redirect(url_for('home'))
-        return 0 #?????
     return redirect(url_for('home'))
 
 @app.route('/absence/')
