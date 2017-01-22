@@ -43,7 +43,7 @@ def home():
             sid = database.getstudentid(session['user'])
             l = database.getclassess(sid)
             for i in l:
-                classHTML += str(i) + '<br>'
+                cL += i + '<br>'
         return render_template('home.html', teach = session['teach'], classes=classHTML, classList = cL, loggedIn=True)
     return redirect(url_for('login'))
 

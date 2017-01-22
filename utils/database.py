@@ -359,7 +359,7 @@ def getclassess(sid):
     m = c.execute("SELECT * FROM classes WHERE studentid = "+str(sid))
     j = []
     for a in m:
-        j.append(a[0])
+        j.append(a[1])
     return j
 
 # given student id, get dict of {assignmentname: grade}
