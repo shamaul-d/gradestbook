@@ -108,7 +108,9 @@ def classcheck(classid, studentid):
         if (a[2]==studentid):
             return False
     return True
-    
+
+#print classcheck(1,2)
+
 def periodcheck(classid):
     f = "utils/data/database.db"
     db = sqlite3.connect(f)
@@ -142,7 +144,8 @@ def addstudent(username,password,name,id,glasses):
     db = sqlite3.connect(f)
     if(not logincheck(username,False)):
         c = db.cursor()
-        q = "INSERT INTO students VALUES ('"+username+"','"+password+"','"+name+"',"+str(id)+",'"+str(glasses)+");"
+        q = "INSERT INTO students VALUES ('"+str(username)+"','"+str(password)+"','"+str(name)+"',"+str(id)+","+str(glasses)+");"
+        print q
         c.execute(q)
         db.commit()
         db.close()
@@ -165,6 +168,8 @@ def addtoclass(classid, teacherid, studentid, name, period, seatid, glasses, row
         return True
     else:
         return False
+
+#print addtoclass(3,'a',2,'ron',3,4,False,0,0)
 
 def getstufffromclassid(classid):
     f = "utils/data/database.db"
@@ -333,9 +338,10 @@ def getdims(classid):
     m = c.execute("SELECT * FROM periods WHERE classid = "+str(classid))
     j = []
     for a in m:
-        j.append([a[3],a[4]])
+        j.append(a[3])
+        j.append(a[4])
     return j
-
+    
 # given teacher id, returns list of classids that the teacher has
 def getclassest(tid):
     f = "utils/data/database.db"
@@ -502,12 +508,20 @@ def printgrades():
     m = c.execute("SELECT * FROM grades")
     for a in m:
         print a
-        
-#printclass()
-#printperiods()
-#printgrades()
-#changegrade(00,1,12,80)
-#printgrades()
+    
+def check():
+    print "students in classes:"
+    printclass()
+    print "periods:"
+    printperiods()
+    print "grades:"
+    printgrades()
+    #changegrade(00,1,12,80)
+    #printgrades()
+
+##################################################################################################
+
+
 
 ##################################################################################################
 
@@ -518,7 +532,9 @@ def go():
     classes()
     grades()
 
-go()
+#go()
+
+check()
 
 def close():
     f = "utils/data/database.db"
