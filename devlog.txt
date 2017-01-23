@@ -134,3 +134,6 @@ JamesY -- 2017-01-19
 
 NicoleC -- 2017-01-20
   recovered database stuff (ahem vanna)
+
+JamesY -- 2017-01-20
+  setup navbar for all pages

@@ -7,18 +7,26 @@
 <center>
 
     {{msg}}
-
-    <form action="/addt/">
-
-        <p><input type="text" placeholder="Class Name" name="name"></p>
-        <p><input type="number" placeholder="Period Number" name="pd"></p>
-        <h4>Size of Room</h4>
-        <p><input type="number" placeholder="Rows" name="rows"> x <input type="number" placeholder="columns" name="cols"></p>
-
-        <button type="submit" name="submit"> Create! </button>
-        <button><a href="/home">Go Back</a></button>
-
-    </form>
+    <div class="panel panel-default">
+      <div class="panel-heading">
+      </div>
+      <div class="panel-body">
+	<form action="/addt/">
+	  <div class="form-group">
+	    <label> Class Name </label>
+            <input type="text" placeholder="Class Name" name="name">
+	  </div>
+          <div class="form-group">
+	    <input type="number" placeholder="Period Number" name="pd">
+	    <h4>Size of Room</h4>
+	    <input type="number" placeholder="Rows" name="rows"> x <input type="number" placeholder="columns" name="cols">
+	    
+            <button type="submit" name="submit"> Create! </button>
+            <button><a href="/home">Go Back</a></button>
+	  </div>
+	</form>
+      </div>
+    </div>
 </center>
 
 

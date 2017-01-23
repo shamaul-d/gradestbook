@@ -25,12 +25,12 @@
             <p class="title"> gradestbook</p>
           </div>
 	</div>
-        {%if not loggedIn%}
+        {%if loggedIn%}
         {%block navbar%}{%endblock%}
 	<div class="collapse navbar-collapse">
 	  <ul class="nav navbar-nav">
 	    <li><a href="#">Grades</a></li>
-	    <li><a href="/seating">Seating</a></li>
+	    <li><a href="/seating/">Seating</a></li>
 	    <li><a href="/createClass">Create</a></li>
 	    <li><a href="/absence">Attendance</a><li>
 	    <li><a id="out">Logout</a></li>
