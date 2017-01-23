@@ -52,7 +52,7 @@ def auth():
     ## register
     #print request.form
     if 'register' in request.form:
-        if (request.form['user'] == '' or request.form['pass'] == ''):
+        if (request.form['user'] == '' or request.form['pass'] == '' or request.form['name'] == '' or request.form['pass2'] == '' or (not "person" in session)):
             return render_template('login.html', msg = 'please fill in all forms of info', register = False, loggedIn=False)
         elif (database.logincheck(request.form['user'].lower(), True) or (database.logincheck(request.form['user'].lower(), False))):
            return render_template('login.html', msg = 'username taken, please choose a new one', register = False, loggedIn=False)
@@ -66,9 +66,9 @@ def auth():
                 database.addteacher(user0,pass0,name,database.gettid())
             else:
                 if 'glasses' in request.form:
-                    database.addstudent(user0,pass0,name,database.getsid(),True)
+                    database.addstudent(user0,pass0,name,database.getsid(),1)
                 else:
-                    database.addstudent(user0,pass0,name,database.getsid(),False)
+                    database.addstudent(user0,pass0,name,database.getsid(),0)
             return render_template('login.html', msg = 'new account created', register = True, loggedIn=False)
                     ## login
     else:
