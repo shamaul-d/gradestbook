@@ -17,7 +17,7 @@ def root():
 def login():
     if 'user' in session:
         return redirect(url_for('home'))
-    return render_template('login.html',register='blank',loggedIn=True)
+    return render_template('login.html',register='blank',loggedIn=False)
 
 @app.route('/logoutJ/')
 def logoutJ():
