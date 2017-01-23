@@ -20,8 +20,17 @@ function drop(event){
     var data2 = event.target.innerHTML;
     if (data2 && data){
         if (!(data === 'undefined' || data2 === 'undefined')){
+
+            div1 = event.target.parentElement;
+            div2 = oldEvent.parentElement;
+
             event.target.innerHTML = data;
             oldEvent.innerHTML = data2;
+
+            class1 = div1.className;
+            class2 = div2.className;
+            div1.className = class2;
+            div2.className = class1;
         }
     }
 }

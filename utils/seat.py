@@ -46,7 +46,6 @@ def seatHtml(classid):
     print students
     for i in students:
         #seatid
-        print i
         d[students[i]] = database.getstudentname(i)
 
     html = "";
@@ -65,7 +64,7 @@ def seatHtml(classid):
 
                 #p; student
                 html +='<p class="student" ondragstart="dragStart(event)" ondragover="allowDrop(event)">'
-                html += 'Student ' + name
+                html += name
                 html += '</p>'
 
                 #attend; attendance box
@@ -79,5 +78,44 @@ def seatHtml(classid):
                 html += '</div>'
                 html += '&emsp;&emsp;'
 
+            else:
+                #open div; seat
+                html += '<div class="openseat" ondrop="drop(event)">'
+
+                #p; student
+                html +='<p class="student" ondragstart="dragStart(event)" ondragover="allowDrop(event)">'
+                html += "&emsp;&emsp;"
+                html += '</p>'
+
+                #close div, add aesthetic spaces
+                html += '</div>'
+                html += '&emsp;&emsp;'
+
         html += "</center><br>"
+
+    seatless = database.getseatless(classid)
+    if seatless:
+        html += "<center><p>The Unseated</p>"
+
+        for i in seatless:
+            #open div; seat
+            html += '<div class="seat" ondrop="drop(event)">'
+
+            #p; student
+            html +='<p class="student" ondragstart="dragStart(event)" ondragover="allowDrop(event)">'
+            html += i
+            html += '</p>'
+
+            #attend; attendance box
+            html += '<div class="attend">'
+            html += '<input class="check" type="checkbox">'
+            html += 'Absent?'
+            html += '</input>'
+            html += '</div>'
+
+            #close div, add aesthetic spaces
+            html += '</div>'
+            html += '&emsp;&emsp;'
+        html +="</center>"
+
     return html;

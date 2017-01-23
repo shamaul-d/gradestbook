@@ -317,6 +317,17 @@ def getstudents(classid):
         j[a[2]]=a[5]
     return j
 
+#returns list of students w/seatid 0 in classes
+def getseatless(classid):
+    f = "utils/data/database.db"
+    db = sqlite3.connect(f)
+    c = db.cursor()
+    m = c.execute("SELECT * FROM classes WHERE seatid=0 and classid = "+str(classid))
+    j = []
+    for a in m:
+        j.append(a[3])
+    return j
+
 # returns name of student w the given student id
 def getstudentname(studentid):
     f = "utils/data/database.db"
