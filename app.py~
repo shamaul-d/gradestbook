@@ -21,6 +21,7 @@ def login():
 
 @app.route('/logoutJ/')
 def logoutJ():
+    print 'out'
     if 'user' in session:
         session.pop('user')
         session.pop('teach')
@@ -32,19 +33,17 @@ def logoutJ():
 def home():
     if 'user' in session:
         classHTML = ""
-        cL = ""
         if session['teach']:
             tid = database.getteacherid(session['user'])
             l = database.getclassest(tid)
             for i in l:
-                classHTML += '<a type="button" class="btn btn-default btn-lg btn-block" href="/seating/'+str(i)+'">'+str(i)+'</a><br>'
-                cL += "<p> Period " + str(i) + "</p>"
+                classHTML += '<a type="button" class="btn btn-default btn-lg btn-block" href="/seating'+i+'">'+i+'</a><br>'
         else:
-            sid = database.getstudentid(session['user'])
+            sid = database.getstudentname(session['user'])
             l = database.getclassess(sid)
             for i in l:
-                cL += i + '<br>'
-        return render_template('home.html', teach = session['teach'], classes=classHTML, classList = cL, loggedIn=True)
+                classHTML += i + '<br>'
+        return render_template('home.html', teach = session['teach'], classes=classHTML, loggedIn=True)
     return redirect(url_for('login'))
 
 @app.route('/auth/', methods = ["GET","POST"])
@@ -65,12 +64,13 @@ def auth():
             if (request.form['person']  == 'teacher'):
                 database.addteacher(user0,pass0,name,database.gettid())
             else:
-                if 'glasses' in request.form:
+                gla = request.form['glasses']
+                if gla:
                     database.addstudent(user0,pass0,name,database.getsid(),True)
                 else:
-                    database.addstudent(user0,pass0,name,database.getsid(),False)
+                   database.addstudent(user0,pass0,name,database.getsid(),False)
             return render_template('login.html', msg = 'new account created', register = True, loggedIn=False)
-                    ## login
+    ## login
     else:
         user1 = request.form['userl'].lower()
         passw = request.form['passl']
@@ -93,7 +93,7 @@ def auth():
             elif database.gethash(user1, False) == hashp(passw):
                 session['user'] = user1
                 return redirect(url_for('home'))
-        return render_template('login.html', msg = 'incorrect username and password combination', register = False, loggedIn=False)
+        return render_template('login.html', msg = 'incorrect username and password combination', register = False, loggedIn=True)
 
 def hashp(password):
     return hashlib.sha512(password).hexdigest()
@@ -110,27 +110,9 @@ def seating(cid):
 @app.route('/checkClass/', methods = ["GET"])
 def check():
     cid = request.args.get("cid")
-    if not intCheck(cid) or not database.periodcheck(cid):
+    if not isinstance(cid,int) or not database.periodCheck(cid):
         return 'Class does not exist'
     return adds(cid)
-
-def adds(cid):
-    if 'user' in session:
-        sid = database.getstudentid(session['user'])
-        print 'starting...'
-        print database.addtoclass(cid,sid)
-        if database.addtoclass(cid,sid):
-            #return redirect(url_for('home'))
-            return 'success'
-        return 'something went wrong'
-    return "error"
-
-def intCheck(s):
-    try:
-        int(s)
-        return True
-    except:
-        return False
 
 
 @app.route('/addt/', methods = ["GET"])
@@ -138,7 +120,7 @@ def addt():
     if 'user' in session:
         cid = database.getcid()
         cn = request.args['name']
-        tid = database.getteacherid(session['user'])
+        tid = database.getteacher(session['user'])
         pd = request.args['pd']
         r = request.args['rows']
         c = request.args['cols']
@@ -146,6 +128,12 @@ def addt():
             return redirect(url_for('home'))
         return render_template('newClass.html', msg="failure", loggedIn=True)
     return redirect(url_for('home'))
+
+
+@app.route('/adds/', methods = ["GET"])
+def adds(cid):
+    sid = 0
+    return 'Joined!'
 
 @app.route('/absence/')
 def absence():

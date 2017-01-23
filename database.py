@@ -1,3 +1,4 @@
+# CREATE ATTENDANCE DATABASE (classid,studentid,date) # TELL SILLY TO RETRIEVE DATE OF ABSENCE
 # PSA: the students database now has a new column: whether they wear glasses
 
 # creating databases: teachers(), students(), classes(), grades()

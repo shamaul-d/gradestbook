@@ -1,5 +1,7 @@
+from . import database
+
 def getRowCol(classid, seatNumber):
-    l = database.getDims(classid)
+    l = database.getdims(classid)
     rows = l[0]
     y = (seat - 1)/rows
     x = (seat - 1) % rows
@@ -10,7 +12,7 @@ def removeSeat(classid, studentid):
     d = database.getStudents(classid)
     seatid = d[studentid]
 
-    l = database.getDims(classid)
+    l = database.getdims(classid)
 
     database.changeseat(classid,studentid,0,l[0] + 1, l[1] + 1)
 
@@ -30,16 +32,21 @@ def switchSeats(classid, id1, id2):
     xy = getRowCol(seat2)
     database.changeseat(classid,id2,seat1,xy[0],xy[1])
 
+def setSeat(classid, sid, seatid):
+    return
+
 #actual; when we deal w/classes and students
 def seatHtml(classid):
 
-    l = database.getDims(classid)
+    l = database.getdims(classid)
     rows = l[0]
     cols = l[1]
 
     # getstudents(classid) -- returns dict of {studentid: seatid} in given class
-    students = database.getstudents(cid)
+    students = database.getstudents(classid)
     d = {}
+
+    print students
     for i in students:
         #seatid
         d[students[i]] = database.getstudentname(i)
@@ -50,16 +57,17 @@ def seatHtml(classid):
         for y in range(cols):
 
             id = (rows*y) + x + 1
-            name = d[id]
 
-            if (name):
+            if id in d:
+
+                name = d[id]
 
                 #open div; seat
-                html += '<div class="seat" ondrop="drop(event)">'
+                html += '<div class="filledseat seat" ondrop="drop(event)">'
 
                 #p; student
                 html +='<p class="student" ondragstart="dragStart(event)" ondragover="allowDrop(event)">'
-                html += 'Student ' + name
+                html += name
                 html += '</p>'
 
                 #attend; attendance box
@@ -73,5 +81,37 @@ def seatHtml(classid):
                 html += '</div>'
                 html += '&emsp;&emsp;'
 
+            else:
+                #open div; seat
+                html += '<div class="openseat seat" ondrop="drop(event)">'
+
+                #p; student
+                html +='<p class="student" ondragstart="dragStart(event)" ondragover="allowDrop(event)">'
+                html += "&emsp;&emsp;"
+                html += '</p>'
+
+                #close div, add aesthetic spaces
+                html += '</div>'
+                html += '&emsp;&emsp;'
+
         html += "</center><br>"
+
+    seatless = database.getseatless(classid)
+    if seatless:
+        html += "<center><p>The Unseated</p>"
+
+        for i in seatless:
+            #open div; seat
+            html += '<div class="filledseat seat" ondrop="drop(event)">'
+
+            #p; student
+            html +='<p class="student" ondragstart="dragStart(event)" ondragover="allowDrop(event)">'
+            html += i
+            html += '</p>'
+
+            #close div, add aesthetic spaces
+            html += '</div>'
+            html += '&emsp;&emsp;'
+        html +="</center>"
+
     return html;
