@@ -32,6 +32,9 @@ def switchSeats(classid, id1, id2):
     xy = getRowCol(seat2)
     database.changeseat(classid,id2,seat1,xy[0],xy[1])
 
+def setSeat(classid, sid, seatid):
+    return
+
 #actual; when we deal w/classes and students
 def seatHtml(classid):
 
@@ -60,7 +63,7 @@ def seatHtml(classid):
                 name = d[id]
 
                 #open div; seat
-                html += '<div class="seat" ondrop="drop(event)">'
+                html += '<div class="filledseat seat" ondrop="drop(event)">'
 
                 #p; student
                 html +='<p class="student" ondragstart="dragStart(event)" ondragover="allowDrop(event)">'
@@ -80,7 +83,7 @@ def seatHtml(classid):
 
             else:
                 #open div; seat
-                html += '<div class="openseat" ondrop="drop(event)">'
+                html += '<div class="openseat seat" ondrop="drop(event)">'
 
                 #p; student
                 html +='<p class="student" ondragstart="dragStart(event)" ondragover="allowDrop(event)">'
@@ -99,19 +102,12 @@ def seatHtml(classid):
 
         for i in seatless:
             #open div; seat
-            html += '<div class="seat" ondrop="drop(event)">'
+            html += '<div class="filledseat seat" ondrop="drop(event)">'
 
             #p; student
             html +='<p class="student" ondragstart="dragStart(event)" ondragover="allowDrop(event)">'
             html += i
             html += '</p>'
-
-            #attend; attendance box
-            html += '<div class="attend">'
-            html += '<input class="check" type="checkbox">'
-            html += 'Absent?'
-            html += '</input>'
-            html += '</div>'
 
             #close div, add aesthetic spaces
             html += '</div>'

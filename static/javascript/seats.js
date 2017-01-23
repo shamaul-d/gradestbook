@@ -41,8 +41,10 @@ function drop(event){
 var butt = document.getElementById('butt');
 var edit = false;
 
+
 //TODO: edit db w/new seat ids
 var save = function(event){
+    console.log('savee');
     butt.innerHTML = "Edit"
     butt.removeEventListener('click', save);
     butt.addEventListener('click', editSeats);
@@ -51,6 +53,9 @@ var save = function(event){
         student[i].setAttribute('draggable',false);
         student[i].style.cursor = 'default';
         edit = false;
+    }
+    for (var i = 0; i < seat.length; ++i){
+        console.log(seat[i]);
     }
 }
 
