@@ -137,3 +137,6 @@ NicoleC -- 2017-01-20
 
 JamesY -- 2017-01-20
   setup navbar for all pages
+
+ShamaulD -- 2017-01-23
+  started cleanup in aisle app
