@@ -50,9 +50,9 @@ def seatHtml(classid):
     students = database.getstudents(classid)
     d = {}
 
-    for i in students:
-        #seatid
-        d[students[i]] = database.getstudentname(i)
+    for i in students.keys():
+        #seatid: name, sid
+        d[students[i]] = [database.getstudentname(i), i]
 
     html = "";
     for x in range(rows):
@@ -64,7 +64,8 @@ def seatHtml(classid):
 
             if id in d:
 
-                name = d[id]
+                name = d[id][0]
+                sid = d[id][1]
 
                 #open div; seat
                 html += '<div class="filledseat seat" ondrop="drop(event)">'
@@ -75,7 +76,10 @@ def seatHtml(classid):
                 html += '</p>'
 
                 #p; sid
-                html += '<p class="sid">' + str(id) + '</p>'
+                html += '<p class="sid">' + str(sid) + '</p>'
+
+                #p; seat
+                html += '<p class="seatid">' + str(id) + '</p>'
 
                 #attend; attendance box
                 html += '<div class="attend">'
@@ -92,9 +96,6 @@ def seatHtml(classid):
                 #open div; seat
                 html += '<div class="openseat seat" ondrop="drop(event)">'
 
-                #p; sid
-                html += '<p class="sid">' +  + '</p>'
-
                 #p; seatid
                 html += '<p class="sid">' + str(id) + '</p>'
 
@@ -110,20 +111,18 @@ def seatHtml(classid):
         html += "</center><br>"
 
     seatless = database.getseatless(classid)
+    #name: id
     if seatless:
         html += "<center><p>The Unseated</p>"
 
         for i in seatless:
+
+            sid = seatless[i]
             #open div; seat
             html += '<div class="filledseat seat" ondrop="drop(event)">'
 
-            #p; student
-            html +='<p class="student" ondragstart="dragStart(event)" ondragover="allowDrop(event)">'
-            html += str(i)
-            html += '</p>'
-
             #p; sid
-            html += '<p class="sid">' + str(id) + '</p>'
+            html += '<p class="sid">' + str(sid) + '</p>'
 
             #close div, add aesthetic spaces
             html += '</div>'
