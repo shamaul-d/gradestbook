@@ -165,17 +165,19 @@ def addt():
 
 @app.route('/absence/')
 def absence():
-    if 'user' in session:
-        if (session['teach']):
-            return render_template('absence.html',loggedIn=True,teacher=True)
-        return render_template('absence.html',loggedIn=True,teacher=False)
-    return redirect(url_for('home'))
+    if (not 'user' in session):
+        return redirect(url_for('home'))
+    if (session['teach']):
+        #remember to change the variables when time comes
+        return render_template('absence.html',loggedIn=True,teacher=True, gradeslist=database.getgrades(), classeslist=database.getclassestt(database.getteacherid(session['user'])))
+    return render_template('absence.html',loggedIn=True,teacher=False, gradeslist=database.getstudentgrade(database.getstudentid(session['user'])))
+    
 
 @app.route('/createClass/')
 def createClass():
-    if (session['teach']):
-        return render_template('newClass.html',loggedIn=True)
-    return redirect(url_for('home'))
+    if (not 'user' in session):
+        return redirect(url_for('home'))
+    return render_template('newClass.html',loggedIn=True)    
 
 @app.route('/grade/')
 def grade():
@@ -183,11 +185,21 @@ def grade():
         if (session['teach']):
             gradeslist=database.getgrades()
             classeslist=database.getclassestt(database.getteacherid(session['user']))
-            return render_template('grade.html', loggedIn=True, teacher=True, gradeslist=gradeslist, classeslist=classeslist)
+            studentslist = snamedict()
+            return render_template('grade.html', loggedIn=True, teacher=True, gradeslist=gradeslist, classeslist=classeslist, studentslist=studentslist)
         gradeslist=database.getstudentgrade(database.getstudentid(session['user']))
         print gradeslist
-        return render_template('grade.html', loggedIn=True, teacher=False, gradeslist=gradeslist)
+        return render_template('grade.html', loggedIn=True, teacher=False, gradeslist=gradeslist)    
     return redirect(url_for('home'))
+
+def snamedict():
+    d = {}
+    l = database.getsid()
+    i = 1
+    while (i < l):
+        d[i] = database.getstudentname(i)
+        i += 1
+    return d  
 
 if __name__ == '__main__':
     app.debug = True

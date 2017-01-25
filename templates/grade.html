@@ -26,7 +26,7 @@
 	</tr>
 	{%for studentid in gradeslist[dictkey]%} <!-- key = sid, value = grade -->
 	<tr>
-	  <td>{{studentid}}</td>
+	  <td>{{studentslist[studentid]}}</td>
 	  <td>{{gradeslist[dictkey][studentid]}}</td>
 	</tr>
 	{%endfor%}
