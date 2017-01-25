@@ -226,14 +226,11 @@ def addtoclass(classid, studentid):
     else:
         return False
 
-<<<<<<< HEAD
 # given student id, get dict of {classid: grade}
 def getgradesbystudents(sid):
     d = {}
-=======
 # return True if not already graded
 def gradecheck(classid,studentid,assignmentid):
->>>>>>> origin/master
     f = "utils/data/database.db"
     db = sqlite3.connect(f)
     c = db.cursor()
@@ -254,7 +251,7 @@ def getgrades():
     q = db.cursor()
     n = c.execute("SELECT * FROM classes")
     for a in m:
-        
+
         d[a[0]] = k
     return d
 
@@ -631,9 +628,7 @@ def check():
     printperiods()
     print "absences:"
     printabsences()
-<<<<<<< HEAD
-    
-=======
+
     #changegrade(00,1,12,80)
     #printgrades()
 
@@ -642,7 +637,6 @@ def check():
 #addgrade(1,1,98,23,"hw1")
 #printgrades()
 
->>>>>>> origin/master
 ##################################################################################################
 
 def go():
@@ -650,7 +644,7 @@ def go():
     students()
     periods()
     classes()
-    grades()
+    #grades()
     absences()
 
 go()
@@ -664,7 +658,6 @@ def close():
     db.close()  #close database
 
 close()
-<<<<<<< HEAD
 
 ##################################################################################################
 
@@ -777,5 +770,3 @@ def printgrades():
     for a in m:
         print a
 '''
-=======
->>>>>>> origin/master

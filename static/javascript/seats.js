@@ -95,7 +95,6 @@ var editSeats = function(event){
     var student = document.getElementsByClassName('student');
     for (var i = 0; i < student.length; i++){
         student[i].setAttribute('draggable',true);
-        student[i].style.cursor = 'pointer';
         edit = true;
     }
 }
