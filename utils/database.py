@@ -658,9 +658,9 @@ def go():
 #    grades()
     absences()
 
-#go()
+go()
 
-'''
+
 #id=1,classid=12,tid=-1,pd=8,5x5,grade=90
 addstudent("nicole","nicole","nIcole",1,1)
 addperiod(12,-1,8,5,5,"trig")
@@ -682,7 +682,7 @@ addtoclass(10,2)
 
 addteacher("teach1","teach","mr rogers",-1)
 addteacher("teach2","teach","dr who",-2)
-'''
+
 
 #check()
 
