@@ -488,22 +488,26 @@ def getgradesbyassignment(aid):
     m = c.execute("SELECT * FROM grades WHERE assignmentid = "+str(aid))
     q = db.cursor()
     for a in m:
-        print "HHHHHHHHHHH"+str(a)
         studentid = a[1]
         n = q.execute("SELECT name FROM students WHERE id = "+str(studentid))
         for b in n:
-            print "yes"+str(b)
             name = b[0]
-            print name
-        print name
         d[name] = a[2]
     return d
-addstudent("nikki","nicole","nIcole",1,1)
-addgrade(1,1,98,23,"hw1")
-print getgradesbyassignment(23)
-    #!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+#addstudent("nikki","nicole","nIcole",1,1)
+#addgrade(1,1,98,23,"hw1")
+#print getgradesbyassignment(23)
+
+# {assignmentname:assignmentid}
 def getassignments(classid):
-    return True
+    d = {}
+    f = "utils/data/database.db"
+    db = sqlite3.connect(f)
+    c = db.cursor()
+    m = c.execute("SELECT * FROM grades WHERE classid = "+str(classid))
+    for a in m:
+        d[a[] = a[2]
+    return d
 
 # given assignment id, returns {studentid: grade} for that assignment
 def getscores(assignmentid):
@@ -689,7 +693,7 @@ def check():
 #addtoclass(1,1)
 #addabsence(1,1,"012517")
 #addgrade(1,1,98,23,"hw1")
-printgrades()
+#printgrades()
     
 ##################################################################################################
 

@@ -35,7 +35,8 @@
 # GRADES
 # grades(): classid|studentid|grade|assignmentid|assignmentname
 # addgrade(classid,studentid,grade,assignmentid,asignmentname)
-# getgrades(sid) -- returns dictionary of {assignmentname: grade}
+# getgradesbystudent(sid) -- returns dictionary of {assignmentname: grade}
+# getgradesbyassignment(aid) -- return dict {studentname: grade}
 # getscores(assignmentid) -- returns dict of {studentid: grade} for assignment
 # changegrade(classid,studentid,assignmentid,grade)
 # printgrades()
@@ -43,8 +44,8 @@
 # ABSENCES
 # absences(): classid|studentid|date
 # addabsence(classid,studentid,date) -- date is a STRING
-# getabsences(classid,studentid) -- list of dates student was absent
-# getabsences(classid,date) -- list of students absent on given date
+# getabsencesbystudent(classid,studentid) -- list of dates student was absent
+# getabsencesbydate(classid,date) -- list of students absent on given date
 # printabsences()
 
 # MISC
@@ -103,7 +104,7 @@ def absences():
     f = "utils/data/database.db"
     db = sqlite3.connect(f)
     c = db.cursor()
-    q = "CREATE TABLE IF NOT EXISTS absences (classid INTEGER, studentid INTEGER, date TEXT)" # date is a STRING and must be formatted 'mmddyy'
+    q = "CREATE TABLE IF NOT EXISTS absences (classid INTEGER, studentid INTEGER, date TEXT)" # date is a STRING and must be formatted 'mmddyyyy'
     c.execute(q)
     db.commit()
 
@@ -295,7 +296,7 @@ def codecheck(code):
     c = db.cursor()
     m = c.execute("SELECT * FROM periods")
     for a in m:
-        if(periods[6]==code):
+        if(a[6]==code):
             return False
     return True
 
@@ -468,14 +469,45 @@ def getclassess(sid):
     return j
 
 # given student id, get dict of {assignmentname: grade}
-def getgrades(sid):
+def getgradesbystudents(sid):
     d = {}
     f = "utils/data/database.db"
     db = sqlite3.connect(f)
     c = db.cursor()
     m = c.execute("SELECT * FROM grades WHERE studentid = "+str(sid))
     for a in m:
-        d[m[3]] = m[2]
+        d[a[3]] = a[2]
+    return d
+
+# given assignment id, get dict of {studentname: grade}
+def getgradesbyassignment(aid):
+    d = {}
+    f = "utils/data/database.db"
+    db = sqlite3.connect(f)
+    c = db.cursor()
+    m = c.execute("SELECT * FROM grades WHERE assignmentid = "+str(aid))
+    q = db.cursor()
+    for a in m:
+        studentid = a[1]
+        n = q.execute("SELECT name FROM students WHERE id = "+str(studentid))
+        for b in n:
+            name = b[0]
+        d[name] = a[2]
+    return d
+#addstudent("nikki","nicole","nIcole",1,1)
+#addgrade(1,1,98,23,"hw1")
+#print getgradesbyassignment(23)
+
+# {assignmentname:assignmentid}
+def getassignments(classid):
+    d = {}
+    f = "utils/data/database.db"
+    db = sqlite3.connect(f)
+    c = db.cursor()
+    m = c.execute("SELECT * FROM grades WHERE assignmentid = "+str(aid))
+    for a in m:
+        studentid = a[1]
+        d[name] = a[2]
     return d
 
 # given assignment id, returns {studentid: grade} for that assignment
@@ -486,7 +518,7 @@ def getscores(assignmentid):
     c = db.cursor()
     m = c.execute("SELECT * FROM grades WHERE assignmentid = "+str(assignmentid))
     for a in m:
-        d[m[1]] = m[2]
+        d[a[1]] = a[2]
     return d
 
 # given username, get teacherid
@@ -550,7 +582,7 @@ def getseatless(classid):
             d[a[3]] = a[2]
     return d
 
-def getabsences(classid,studentid):
+def getabsencesbystudent(classid,studentid):
     f = "utils/data/database.db"
     db = sqlite3.connect(f)
     c = db.cursor()
@@ -561,7 +593,7 @@ def getabsences(classid,studentid):
             g.append(a[2])
     return g
 
-def getabsences(classid,date): # mmddyy
+def getabsencesbydate(classid,date): # mmddyy
     f = "utils/data/database.db"
     db = sqlite3.connect(f)
     c = db.cursor()
@@ -662,7 +694,7 @@ def check():
 #addtoclass(1,1)
 #addabsence(1,1,"012517")
 #addgrade(1,1,98,23,"hw1")
-
+#printgrades()
     
 ##################################################################################################
 
