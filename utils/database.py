@@ -360,9 +360,9 @@ def getgrades():
         d[a[0]] = g
     return d
 
-<<<<<<< HEAD
 
-id=1,classid=12,tid=-1,pd=8,5x5,grade=90
+
+#id=1,classid=12,tid=-1,pd=8,5x5,grade=90
 addstudent("nicole","nicole","nIcole",1,1)
 addperiod(12,-1,8,5,5,"trig")
 addtoclass(12,1)
@@ -381,8 +381,7 @@ print getgrades()
 print getstudentgrade(1)
 print getstudentgrade(2)
 
-=======
->>>>>>> a6c87381f3702b45a3b5286032a0f91a97fab0ea
+
 ##################################################################################################
 
 def gethash(username, teacher):
