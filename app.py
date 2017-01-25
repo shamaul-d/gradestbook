@@ -123,7 +123,7 @@ def changeseat():
 def check():
     if 'user' not in session:
         return redirect(url_for('home'))
-    cid = request.args.get("secretkey")
+    cid = int(database.classauth(request.args.get("secretkey")))
     if not intCheck(cid) or not database.periodcheck(cid):
         return 'Class does not exist'
     return adds(cid)
@@ -163,11 +163,6 @@ def addt():
             return render_template('newClass.html', msg="failure", loggedIn=True)
         return render_template('newClass.html', msg="failure", loggedIn=True)
 
-@app.route('/classauth/', methods =["GET"])
-def classauth():
-    key = request.args.get("secretkey")
-    cid = int(database.classauth(key))        
-    return cid
 
 @app.route('/absence/')
 def absence():
