@@ -25,7 +25,7 @@
 # getclassess(sid) -- returns list of classes by student {classid:classname
 # getseatless(classid) -- returns dict of {name:id} that do not have a seat yet
 # changeseat(classid,studentid,seatid,row,col)
-# getstudentgrade(sid) -- returns grade
+# getstudentgrade(sid) -- returns {classname:grade}
 # getgrades() -- master dict {classid: {studentid:grade, ... }, ... }
 # printclass()
 
@@ -229,14 +229,25 @@ def addtoclass(classid, studentid):
     else:
         return False
 
-# given student id, get dict of {classid: grade}
+def getclassname(cid):
+    f = "utils/data/database.db"
+    db = sqlite3.connect(f)
+    c = db.cursor()
+    m = c.execute("SELECT * FROM periods WHERE classid = "+str(classid))
+    for a in m:
+        return a[5]    
+    
+# given student id, get dict of {classname: grade}
 def getstudentgrade(sid):
+    d = {}
     f = "utils/data/database.db"
     db = sqlite3.connect(f)
     c = db.cursor()
     m = c.execute("SELECT * FROM classes WHERE studentid = "+str(sid))
     for a in m:
-        return a[9]
+        name = getclassname(a[0])
+        d[name] = a[9]
+    return d
 
 # return True if not already marked absent
 def absencecheck(classid,studentid,date):
@@ -333,7 +344,6 @@ def changegrade(classid,studentid,grade):
     db.commit()
     return True
 
-        
 # returns {classid: {studentid:grade, studentid:grade}, ... }
 def getgrades():
     d = {}
