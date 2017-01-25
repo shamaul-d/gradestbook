@@ -73,10 +73,9 @@ def seatHtml(classid):
                 #p; student
                 html +='<p class="student" ondragstart="dragStart(event)" ondragover="allowDrop(event)">'
                 html += name
-                html += '</p>'
-
                 #p; sid
                 html += '<p class="sid">' + str(sid) + '</p>'
+                html += '</p>'
 
                 #p; seat
                 html += '<p class="seatid">' + str(id) + '</p>'
@@ -121,12 +120,18 @@ def seatHtml(classid):
             #open div; seat
             html += '<div class="filledseat seat" ondrop="drop(event)">'
 
+            #p; student
+            html +='<p class="student" ondragstart="dragStart(event)" ondragover="allowDrop(event)">'
+            html += i
             #p; sid
             html += '<p class="sid">' + str(sid) + '</p>'
+            html += '</p>'
+
 
             #close div, add aesthetic spaces
             html += '</div>'
             html += '&emsp;&emsp;'
+
         html +="</center>"
 
     return html;

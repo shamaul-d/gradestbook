@@ -230,13 +230,41 @@ def addtoclass(classid, studentid):
         return False
 
 # given student id, get dict of {classid: grade}
+<<<<<<< HEAD
 def getstudentgrade(sid):
+=======
+def getgradesbystudents(sid):
+    d = {}
+# return True if not already graded
+def gradecheck(classid,studentid,assignmentid):
+>>>>>>> origin/master
     f = "utils/data/database.db"
     db = sqlite3.connect(f)
     c = db.cursor()
     m = c.execute("SELECT * FROM classes WHERE studentid = "+str(sid))
     for a in m:
+<<<<<<< HEAD
         return a[9]
+=======
+        d[a[0]] = a[9]
+    return d
+
+# returns {classid: [{studentid:grade}, {studentid:grade}, ...], ... }
+def getgrades():
+    d = {}
+    g = {}
+    k = []
+    f = "utils/data/database.db"
+    db = sqlite3.connect(f)
+    c = db.cursor()
+    m = c.execute("SELECT classid FROM classes")
+    q = db.cursor()
+    n = c.execute("SELECT * FROM classes")
+    for a in m:
+
+        d[a[0]] = k
+    return d
+>>>>>>> origin/master
 
 # return True if not already marked absent
 def absencecheck(classid,studentid,date):
@@ -646,7 +674,19 @@ def check():
     printperiods()
     print "absences:"
     printabsences()
+<<<<<<< HEAD
     
+=======
+
+    #changegrade(00,1,12,80)
+    #printgrades()
+
+#addtoclass(1,1)
+#addabsence(1,1,"012517")
+#addgrade(1,1,98,23,"hw1")
+#printgrades()
+
+>>>>>>> origin/master
 ##################################################################################################
 
 def go():
@@ -654,7 +694,11 @@ def go():
     students()
     periods()
     classes()
+<<<<<<< HEAD
 #    grades()
+=======
+    #grades()
+>>>>>>> origin/master
     absences()
 
 go()
