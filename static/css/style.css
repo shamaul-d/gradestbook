@@ -55,8 +55,7 @@ body {
 }
 
 .openseat{
-    border: solid gray .15em;
-    z-index: -1;
+    border: dashed gray .15em;
 }
 
 .filledseat{
