@@ -107,7 +107,7 @@ def hashp(password):
 def seating(cid):
     if 'teach' in session:
         htmlString = seat.seatHtml(cid);
-        return render_template('seat.html', seats=htmlString, loggedIn = True, cid = cid, key = getsecretcode(cid))
+        return render_template('seat.html', seats=htmlString, loggedIn = True, cid = cid, key = database.getsecretcode(cid))
     else:
         return redirect(url_for('home'))
 
