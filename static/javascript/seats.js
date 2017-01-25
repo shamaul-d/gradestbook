@@ -66,6 +66,7 @@ var save = function(event){
                     type: 'GET',
                     data: {'cid':cid, 'sid':thisSid, 'seatid':seatNum},
                     success: function(data){
+                        location.reload();
                     }
 
                 });

@@ -54,6 +54,11 @@ body {
 
 }
 
+.openseat{
+    border: solid gray .15em;
+    z-index: -1;
+}
+
 .filledseat{
 
     background-color: #A9E2F3;

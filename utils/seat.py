@@ -22,9 +22,8 @@ def seatHtml(classid):
         #seatid: name, sid
         d[students[i]] = [database.getstudentname(i), i]
 
-    html = "";
+    html = "<center>";
     for x in range(rows):
-        html += '<center>'
         for y in range(cols):
 
             #seatid
@@ -51,6 +50,7 @@ def seatHtml(classid):
                 html += 'Absent?'
                 html += '</input>'
                 html += '</div>'
+
                 html += '</div>'
 
                 #p; seat
@@ -58,7 +58,6 @@ def seatHtml(classid):
 
                 #close div, add aesthetic spaces
                 html += '</div>'
-                html += '&emsp;&emsp;'
 
             else:
                 #open div; seat
@@ -74,10 +73,10 @@ def seatHtml(classid):
 
                 #close div, add aesthetic spaces
                 html += '</div>'
-                html += '&emsp;&emsp;'
 
-        html += "</center><br>"
+        html += "<br>"
 
+    html += "</center>"
     seatless = database.getseatless(classid)
     #name: id
     if seatless:
