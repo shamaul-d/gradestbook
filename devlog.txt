@@ -161,3 +161,6 @@ ShamaulD -- 2017-01-25
 
 ShamaulD -- 2017-01-25
   adapted to secretkey idea
+
+ShamaulD -- 2017-01-25
+  passing grades to james, praying
