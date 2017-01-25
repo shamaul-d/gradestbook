@@ -1,13 +1,13 @@
-# CREATE ATTENDANCE DATABASE (classid,studentid,date) # TELL SILLY TO RETRIEVE DATE OF ABSENCE
-# PSA: the students database now has a new column: whether they wear glasses
+# PSA: new database!!! absence(classid,studentid,date) -- date=='mmddyy'
 
-# creating databases: teachers(), students(), classes(), grades()
+# creating databases: teachers(), students(), classes(), grades(), absences()
 # addteacher(user,pass,name,id)
 # addstudent(user,pass,name,id,glasses)
 # addtoclass(classid,studentid) # SHAMAUL THIS IS FOR YOU
 # addtoclass(classid,teacherid,studentid,name,pd,seatid,glasses,row,col)
 # addperiod(classid,teacherid,pd,rows,cols,classname)
 # addgrade(classid,studentid,grade,assignmentid,asignmentname)
+# addabsence(classid,studentid,date) -- date is a STRING
 # gethash(username,isteacher?) returns hashed pass
 # gettid(),getsid(),getcid() -- gets next id to use
 # getstudents(classid) -- returns dict of {studentid: seatid} in given class
@@ -20,10 +20,12 @@
 # getteacherid(username) -- returns tid of teacher w given username
 # getstudentid(username) -- ^
 # getseatless(classid) -- returns list of studentids that do not have a seat yet
+# getabsences(classid,studentid) -- returns a list of dates when student was absent from a class
+# getabsences(classid,date) -- returns a list of students who were absent on a particular day
 # checkglasses(studentid) -- returns boolean of whether student wears glasses
 # changeseat(classid,studentid,seatid,row,col)
 # changegrade(classid,studentid,assignmentid,grade)
-# printstudents(),printteachers(),printclass(),printperiods(),printgrades()
+# printstudents(),printteachers(),printclass(),printperiods(),printgrades(),printabsences()
 # go() sets up database from scratch if database has been deleted
 # close() commits changes and closes db
 
@@ -72,6 +74,13 @@ def grades():
     c.execute(q)
     db.commit()
 
+def absences():
+    f = "utils/data/database.db"
+    db = sqlite3.connect(f)
+    c = db.cursor()
+    q = "CREATE TABLE IF NOT EXISTS absences (classid INTEGER, studentid INTEGER, date TEXT)" # date is a STRING and must be formatted 'mmddyy'
+    c.execute(q)
+    db.commit()
 
 ##################################################################################################
 
@@ -99,6 +108,7 @@ def logincheck(username, teacher):
     db.close() 
     return False
 
+# returns True if student is NOT in the class
 def classcheck(classid, studentid):
     f = "utils/data/database.db"
     db = sqlite3.connect(f)
@@ -236,6 +246,19 @@ def addgrade(classid, studentid, grade, assignmentid, assignmentname):
     if(isinstance(grade,int)):
         c = db.cursor()
         q = "INSERT INTO grades VALUES ('"+str(classid)+"','"+str(studentid)+"','"+str(grade)+"','"+str(assignmentid)+"','"+str(assignmentname)+"');"
+        c.execute(q)
+        db.commit()
+        db.close()
+        return True
+    else:
+        return False
+
+def addabsence(classid,studentid,date):
+    f = "utils/data/database.db"
+    db = sqlite3.connect(f)
+    if(not classcheck(classid,studentid)): # if student is in class
+        c = db.cursor()
+        q = "INSERT INTO absences VALUES ('"+str(classid)+"','"+str(studentid)+"','"+str(assignmentname)+"');"
         c.execute(q)
         db.commit()
         db.close()
@@ -448,6 +471,31 @@ def getseatless(classid):
         if(a[5]==0):
             g.append(a[2])
     return g
+
+def dateconverter(date): # input mmddyy
+    return True
+
+def getabsences(classid,studentid):
+    f = "utils/data/database.db"
+    db = sqlite3.connect(f)
+    c = db.cursor()
+    m = c.execute("SELECT * FROM absences WHERE classid = "+str(classid))
+    g = []
+    for a in m:
+        if(a[1]==studentid):
+            g.append(a[2])
+    return g
+
+def getabsences(classid,date): # mmddyy
+    f = "utils/data/database.db"
+    db = sqlite3.connect(f)
+    c = db.cursor()
+    m = c.execute("SELECT * FROM absences WHERE classid = "+str(classid))
+    g = []
+    for a in m:
+        if(a[2]==date):
+            g.append(a[1])
+    return g
     
 ##################################################################################################
 
@@ -520,6 +568,14 @@ def printgrades():
     m = c.execute("SELECT * FROM grades")
     for a in m:
         print a
+
+def printabsences():
+    f = "utils/data/database.db"
+    db = sqlite3.connect(f)
+    c = db.cursor()
+    m = c.execute("SELECT * FROM absences")
+    for a in m:
+        print a
     
 def check():
     print "students in classes:"
@@ -533,20 +589,17 @@ def check():
 
 ##################################################################################################
 
-
-
-##################################################################################################
-
 def go():
     teachers()
     students()
     periods()
     classes()
     grades()
+    absences()
 
-#go()
+go()
 
-check()
+#check()
 
 def close():
     f = "utils/data/database.db"

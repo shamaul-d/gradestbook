@@ -138,8 +138,20 @@ NicoleC -- 2017-01-20
 JamesY -- 2017-01-20
   setup navbar for all pages
 
+NicoleC -- 2017-01-23
+  debugged getstufffromclassid()
+  dealing with addtoclass() discrepancies
+
 ShamaulD -- 2017-01-23
   started cleanup in aisle app
 
+NicoleC -- 2017-01-24
+  getseatless() returns a list of seatless kiddies
+
 ShamaulD -- 2017-01-25
   finally got bug on root screen
+
+NicoleC -- 2017-01-25
+  made absence database
+  absence accessors: getabsences(classid),getabsences(date
+  absence modifier: addabsence(cid,sid,date)
