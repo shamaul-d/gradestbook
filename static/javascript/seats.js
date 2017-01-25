@@ -15,6 +15,7 @@ function dragStart(event) {
 }
 
 function drop(event){
+
     event.preventDefault();
     var data = event.dataTransfer.getData("student");
     var data2 = event.target.innerHTML;
@@ -26,6 +27,11 @@ function drop(event){
 
             event.target.innerHTML = data;
             oldEvent.innerHTML = data2;
+
+            console.log(data);
+            console.log(data2);
+            console.log(event.target);
+            console.log(oldEvent);
 
             class1 = div1.className;
             class2 = div2.className;
@@ -61,7 +67,7 @@ var save = function(event){
         if (seat[i].className.includes('filled')){
             console.log(i);
             try{
-                var thisSid = seat[i].getElementsByClassName('sid')[0].innerHTML;
+                var thisSid = seat[i].getElementsByClassName('student')[0].getElementsByClassName('sid')[0].innerHTML;
                 console.log('cid: ' + cid + ' sid: ' + thisSid + ' seat: ' + i);
                 $.ajax({
                     url: '/changeseat/',
@@ -98,14 +104,20 @@ var editSeats = function(event){
 
 var showAttendance = function(event){
     if (!edit){
-        var attend = event.target.getElementsByClassName('attend')[0];
-        attend.style.display = 'block';
+        try{
+            var attend = event.target.getElementsByClassName('attend')[0];
+            attend.style.display = 'block';
+        }
+        catch(TypeError){}
     }
 }
 
 var hideAttendance = function(event){
-    var attend = event.target.getElementsByClassName('attend')[0];
-    attend.style.display = 'none';
+    try{
+        var attend = event.target.getElementsByClassName('attend')[0];
+        attend.style.display = 'none';
+    }
+    catch(TypeError){}
 }
 
 //Todo: actually change attendance of student
