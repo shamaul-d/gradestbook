@@ -190,11 +190,7 @@ def addstudent(username,password,name,id,glasses):
         return False
 
 # add student to class
-<<<<<<< HEAD
 def addtoclass2(classid, teacherid, studentid, name, period, seatid, glasses, row, col):
-=======
-def aaddtoclass(classid, teacherid, studentid, name, period, seatid, glasses, row, col):
->>>>>>> a770408e829f8ce107e480cf1cde76c2c3e875fa
     f = "utils/data/database.db"
     db = sqlite3.connect(f)
     if(classcheck(classid,studentid)):
