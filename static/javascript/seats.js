@@ -28,11 +28,6 @@ function drop(event){
             event.target.innerHTML = data;
             oldEvent.innerHTML = data2;
 
-            console.log(data);
-            console.log(data2);
-            console.log(event.target);
-            console.log(oldEvent);
-
             class1 = div1.className;
             class2 = div2.className;
 
@@ -65,22 +60,19 @@ var save = function(event){
 
     for (var i = 0; i < seat.length; ++i){
         if (seat[i].className.includes('filled')){
-            console.log(i);
             try{
                 var thisSid = seat[i].getElementsByClassName('student')[0].getElementsByClassName('sid')[0].innerHTML;
-                console.log('cid: ' + cid + ' sid: ' + thisSid + ' seat: ' + i);
+                seatNum = seat[i].getElementsByClassName('seatid')[0].innerHTML;
                 $.ajax({
                     url: '/changeseat/',
                     type: 'GET',
-                    data: {'cid':cid, 'sid':thisSid, 'seatid':i},
+                    data: {'cid':cid, 'sid':thisSid, 'seatid':seatNum},
                     success: function(data){
-                        console.log(data);
                     }
 
                 });
             }
             catch(TypeError){
-                console.log(seat[i]);
             }
 
         }
