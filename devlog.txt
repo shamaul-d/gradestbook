@@ -158,3 +158,6 @@ NicoleC -- 2017-01-25
 
 ShamaulD -- 2017-01-25
   made differentiations between students and teachers
+
+ShamaulD -- 2017-01-25
+  adapted to secretkey idea

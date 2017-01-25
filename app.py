@@ -39,12 +39,13 @@ def home():
             for i in l:
                 classHTML += '<a type="button" class="btn btn-default btn-lg btn-block" href="/seating/'+str(i)+'">'+str(i)+'</a><br>'
                 cL += "<p> Period " + str(i) + "</p>"
+            return render_template('home.html', teach = session['teach'], classes=classHTML, classList = cL, loggedIn=True,teacher=True)
         else:
             sid = database.getstudentid(session['user'])
             l = database.getclassess(sid)
             for i in l:
                 cL += str(i) + '<br>'
-        return render_template('home.html', teach = session['teach'], classes=classHTML, classList = cL, loggedIn=True)
+            return render_template('home.html', teach = session['teach'], classes=classHTML, classList = cL, loggedIn=True,teacher=False)
     return redirect(url_for('login'))
 
 @app.route('/auth/', methods = ["GET","POST"])
@@ -74,7 +75,7 @@ def auth():
     else:
         user1 = request.form['userl'].lower()
         passw = request.form['passl']
-        print request.form
+        #print request.form
 
         if (user1 == '' or passw == '' or len(request.form) == 7): #looking for person1 gave messed up results, kind of a copout here
             return render_template('login.html', msg = 'please fill in all forms of info', register = False, loggedIn=False)
@@ -106,7 +107,7 @@ def hashp(password):
 def seating(cid):
     if 'teach' in session:
         htmlString = seat.seatHtml(cid);
-        return render_template('seat.html', seats=htmlString, loggedIn = True, cid = cid)
+        return render_template('seat.html', seats=htmlString, loggedIn = True, cid = cid, key = getsecretcode(cid))
     else:
         return redirect(url_for('home'))
 
@@ -122,7 +123,7 @@ def changeseat():
 def check():
     if 'user' not in session:
         return redirect(url_for('home'))
-    cid = request.args.get("cid")
+    cid = request.args.get("secretkey")
     if not intCheck(cid) or not database.periodcheck(cid):
         return 'Class does not exist'
     return adds(cid)
@@ -150,17 +151,23 @@ def addt():
     if (not 'user' in session):
         return redirect(url_for('home'))
     else:
-        cid = database.getcid()
-        cn = request.args['name']
-        tid = database.getteacherid(session['user'])
-        pd = request.args['pd']
-        r = request.args['rows']
-        c = request.args['cols']
-        if database.addperiod(cid,tid,pd,r,c,cn):
-            return redirect(url_for('home'))
+        cid = classauth()
+        if (cid != 0):
+            cn = request.args['name']
+            tid = database.getteacherid(session['user'])
+            pd = request.args['pd']
+            r = request.args['rows']
+            c = request.args['cols']
+            if database.addperiod(cid,tid,pd,r,c,cn):
+                return redirect(url_for('home'))
+            return render_template('newClass.html', msg="failure", loggedIn=True)
         return render_template('newClass.html', msg="failure", loggedIn=True)
-    return redirect(url_for('home'))
 
+@app.route('/classauth/', methods =["GET"])
+def classauth():
+    key = request.args.get("secretkey")
+    cid = int(database.classauth(key))        
+    return cid
 
 @app.route('/absence/')
 def absence():

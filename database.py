@@ -239,32 +239,54 @@ def addtoclass(classid, studentid):
         return True
     else:
         return False
-
-def aaddgrade(classid, studentid, grade, assignmentid, assignmentname):
+    
+# return True if not already graded
+def gradecheck(classid,studentid,assignmentid):
     f = "utils/data/database.db"
     db = sqlite3.connect(f)
-    if(isinstance(grade,int)):
-        c = db.cursor()
-        q = "INSERT INTO grades VALUES ('"+str(classid)+"','"+str(studentid)+"','"+str(grade)+"','"+str(assignmentid)+"','"+str(assignmentname)+"');"
-        c.execute(q)
-        db.commit()
-        db.close()
-        return True
-    else:
-        return False
+    c = db.cursor()
+    m = c.execute("SELECT * FROM grades WHERE classid = "+str(classid)+" AND assignmentid = "+str(assignmentid))
+    for a in m:
+        if(a[1]==studentid):
+            return False
+    return True
 
+def addgrade(classid, studentid, grade, assignmentid, assignmentname):
+    if(gradecheck(classid,studentid,assignmentid)):
+        f = "utils/data/database.db"
+        db = sqlite3.connect(f)
+        if(isinstance(grade,int)):
+            c = db.cursor()
+            q = "INSERT INTO grades VALUES ('"+str(classid)+"','"+str(studentid)+"','"+str(grade)+"','"+str(assignmentid)+"','"+str(assignmentname)+"');"
+            c.execute(q)
+            db.commit()
+            db.close()
+            return True
+    return False
+
+# return True if not already marked absent
+def absencecheck(classid,studentid,date):
+    f = "utils/data/database.db"
+    db = sqlite3.connect(f)
+    c = db.cursor()
+    m = c.execute("SELECT * FROM absences WHERE classid = "+str(classid))
+    for a in m:
+        if(a[1]==studentid and a[2]==date):
+            return False
+    return True
+    
 def addabsence(classid,studentid,date):
     f = "utils/data/database.db"
     db = sqlite3.connect(f)
     if(not classcheck(classid,studentid)): # if student is in class
-        c = db.cursor()
-        q = "INSERT INTO absences VALUES ('"+str(classid)+"','"+str(studentid)+"','"+str(assignmentname)+"');"
-        c.execute(q)
-        db.commit()
-        db.close()
-        return True
-    else:
-        return False
+        if(absencecheck(classid,studentid,date)):
+            c = db.cursor()
+            q = "INSERT INTO absences VALUES ('"+str(classid)+"','"+str(studentid)+"','"+str(date)+"');"
+            c.execute(q)
+            db.commit()
+            db.close()
+            return True
+    return False
 
 # returns False if code already in use
 def codecheck(code):
@@ -622,15 +644,26 @@ def printabsences():
         print a
     
 def check():
+    print "students:"
+    printstudents()
+    print "teachers:"
+    printteachers()
     print "students in classes:"
     printclass()
     print "periods:"
     printperiods()
     print "grades:"
     printgrades()
+    print "absences:"
+    printabsences()
     #changegrade(00,1,12,80)
     #printgrades()
 
+#addtoclass(1,1)
+#addabsence(1,1,"012517")
+#addgrade(1,1,98,23,"hw1")
+
+    
 ##################################################################################################
 
 def go():
