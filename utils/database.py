@@ -19,7 +19,9 @@
 # addtoclass(classid,studentid) # SHAMAUL THIS IS FOR YOU
 # aaddtoclass(classid,teacherid,studentid,name,pd,seatid,glasses,row,col)
 # getclassest(tid) -- returns list of classids that the teacher has
+# getclassestt(tid) -- returns dict of classes by teacher {classname:classid}
 # getclassess(sid) -- returns list of classids that the student has
+# getclassess(sid) -- returns list of classes by student {classname:classid}
 # getseatless(classid) -- returns dict of {name:id} that do not have a seat yet
 # changeseat(classid,studentid,seatid,row,col)
 # printclass()
