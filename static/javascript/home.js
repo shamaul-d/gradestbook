@@ -1,6 +1,6 @@
 var addToClass = function(event){
     var secretKey = document.getElementById('secretKey').value;
-    if (cid){
+    if (secretKey){
         $.ajax({
             url: '/checkClass',
             type: 'GET',
