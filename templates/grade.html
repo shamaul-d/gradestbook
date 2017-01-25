@@ -5,22 +5,38 @@
 {%block body%}
 
 {%if teacher %}
-
 <div class="container">
   <div class="page-header">
-    <table class="table table-hover">
-      <tr>
-	<th> Class </th>
-	<th> Grade </th>
-      </tr>
-      <tr>
-	<td> Math</td>
-	<td> 39 </td>
-      </tr>
-    </table>
+    Assignments
+  </div>
+  <div class="col-lg-10 col-offset-lg-1">
+    <ul class="list-group">
+      {%for key, value in classeslist%}
+      {{key}}
+      {{value}}
+      <li class="list-group-item" data-toggle="collapse" data-target="#class{{key}}">{{value}}</li>
+      {% endfor %}
+    </ul>
+    {%for dictkey in gradeslist%}
+    <div id="class{{key}}" class="page-header collapse">
+      {{dictkey}} <!-- classid-->
+      <table class="table table-hover">
+	<tr>
+	  <th>Student</th>
+	  <th>Grade</th>
+	</tr>
+	{%for key in gradeslist[dict]%} <!-- key = sid, value = grade -->
+	<tr>
+	  <td>{{key}}</td>
+	  <td>{{dict[key]}}</td>
+	</tr>
+	{%endfor%}
+      </table>
+    </div>
+    {%endfor%}
+
   </div>
 </div>
-
 {%else%}
 
 <div class="container">
