@@ -237,11 +237,7 @@ def addtoclass(classid, studentid):
         seatid = 0
         row = 0
         col = 0
-<<<<<<< HEAD
         addtoclass2(classid,teacherid,studentid,name,period,seatid,glasses,row,col)
-=======
-        aaddtoclass(classid,teacherid,studentid,name,period,seatid,glasses,row,col)
->>>>>>> a770408e829f8ce107e480cf1cde76c2c3e875fa
         db.commit()
         db.close()
         return True
