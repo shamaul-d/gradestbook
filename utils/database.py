@@ -360,7 +360,7 @@ def getgrades():
         d[a[0]] = g
     return d
 
-
+'''
 
 #id=1,classid=12,tid=-1,pd=8,5x5,grade=90
 addstudent("nicole","nicole","nIcole",1,1)
@@ -381,7 +381,7 @@ print getgrades()
 print getstudentgrade(1)
 print getstudentgrade(2)
 
-
+'''
 ##################################################################################################
 
 def gethash(username, teacher):
@@ -496,7 +496,7 @@ def getclassestt(tid):
     m = c.execute("SELECT * FROM periods WHERE teacherid = "+str(tid))
     d = {}
     for a in m:
-        d[str(a[0])] = a[5]
+        d[a[0]] = a[5]
     return d
 
 # given student id, returns a list of classids that the student has

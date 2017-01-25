@@ -183,9 +183,10 @@ def grade():
         if (session['teach']):
             gradeslist=database.getgrades()
             classeslist=database.getclassestt(database.getteacherid(session['user']))
-            print gradeslist, classeslist
             return render_template('grade.html', loggedIn=True, teacher=True, gradeslist=gradeslist, classeslist=classeslist)
-        return render_template('grade.html', loggedIn=True, teacher=False, gradeslist=database.getstudentgrade(database.getstudentid(session['user'])))
+        gradeslist=database.getstudentgrade(database.getstudentid(session['user']))
+        print gradeslist
+        return render_template('grade.html', loggedIn=True, teacher=False, gradeslist=gradeslist)
     return redirect(url_for('home'))
 
 if __name__ == '__main__':
