@@ -20,7 +20,7 @@
 # aaddtoclass(classid,teacherid,studentid,name,pd,seatid,glasses,row,col)
 # getclassest(tid) -- returns list of classids that the teacher has
 # getclassess(sid) -- returns list of classids that the student has
-# getseatless(classid) -- returns list of studentids that do not have a seat yet
+# getseatless(classid) -- returns dict of {name:id} that do not have a seat yet
 # changeseat(classid,studentid,seatid,row,col)
 # printclass()
 
@@ -227,7 +227,7 @@ def addtoclass(classid, studentid):
         n = getstufffromclassid(classid)
         teacherid = n[1]
         period = n[2]
-        m = getstufffromstudentid(student)
+        m = getstufffromstudentid(studentid)
         name = m[2]
         glasses = m[4]
         seatid = 0
@@ -240,7 +240,7 @@ def addtoclass(classid, studentid):
     else:
         return False
 
-def addgrade(classid, studentid, grade, assignmentid, assignmentname):
+def aaddgrade(classid, studentid, grade, assignmentid, assignmentname):
     f = "utils/data/database.db"
     db = sqlite3.connect(f)
     if(isinstance(grade,int)):
@@ -314,6 +314,20 @@ def addperiod(classid,teacherid,period,rows,cols,classname):
     code = getcode()
     addpd(classid,teacherid,period,rows,cols,classname,code)
 
+# return class id; 0 if nonexistent
+def classauth(code):
+    if(codecheck(code)):
+       return 0
+    else:
+        f = "utils/data/database.db"
+        db = sqlite3.connect(f)
+        c = db.cursor()
+        m = c.execute("SELECT * FROM periods")
+        for a in m:
+            if(a[6]==code):
+                return a[0]
+        return 0
+            
 ##################################################################################################
 
 def gethash(username, teacher):
@@ -502,16 +516,17 @@ def checkglasses(studentid):
             return a[4] 
     return 0
 
+# returns dict
 def getseatless(classid):
     f = "utils/data/database.db"
     db = sqlite3.connect(f)
     c = db.cursor()
     m = c.execute("SELECT * FROM classes WHERE classid = "+str(classid))
-    g = []
+    d = {}
     for a in m:
         if(a[5]==0):
-            g.append(a[2])
-    return g
+            d[a[3]] = a[2]
+    return d
 
 def getabsences(classid,studentid):
     f = "utils/data/database.db"
