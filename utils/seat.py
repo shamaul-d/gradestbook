@@ -59,6 +59,7 @@ def seatHtml(classid):
         html += '<center>'
         for y in range(cols):
 
+            #seatid
             id = (rows*y) + x + 1
 
             if id in d:
@@ -92,6 +93,9 @@ def seatHtml(classid):
                 html += '<div class="openseat seat" ondrop="drop(event)">'
 
                 #p; sid
+                html += '<p class="sid">' +  + '</p>'
+
+                #p; seatid
                 html += '<p class="sid">' + str(id) + '</p>'
 
                 #p; student
@@ -115,8 +119,11 @@ def seatHtml(classid):
 
             #p; student
             html +='<p class="student" ondragstart="dragStart(event)" ondragover="allowDrop(event)">'
-            html += i
+            html += str(i)
             html += '</p>'
+
+            #p; sid
+            html += '<p class="sid">' + str(id) + '</p>'
 
             #close div, add aesthetic spaces
             html += '</div>'
