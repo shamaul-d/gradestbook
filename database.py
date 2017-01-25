@@ -139,10 +139,9 @@ def periodcheck(classid):
     c = db.cursor()
     q = "SELECT * FROM periods WHERE classid = "+str(classid)
     d = c.execute(q)
-    for a in d:
-        if (a[0]==classid):
-            return False
-    return True
+    if (d):
+        return True
+    return False
 
 ##################################################################################################
 

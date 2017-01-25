@@ -79,7 +79,7 @@ def auth():
 
         if (user1 == '' or passw == '' or len(request.form) == 7): #looking for person1 gave messed up results, kind of a copout here
             return render_template('login.html', msg = 'please fill in all forms of info', register = False, loggedIn=False)
-        
+
         if request.form['personl']  == 'teacher':
             session['teach'] = True
         else:
@@ -107,7 +107,7 @@ def hashp(password):
 def seating(cid):
     if 'teach' in session:
         htmlString = seat.seatHtml(cid);
-        return render_template('seat.html', seats=htmlString, loggedIn = True, cid = cid, key = getsecretcode(cid))
+        return render_template('seat.html', seats=htmlString, loggedIn = True, cid = cid, key = database.getsecretcode(cid))
     else:
         return redirect(url_for('home'))
 
@@ -124,6 +124,7 @@ def check():
     if 'user' not in session:
         return redirect(url_for('home'))
     cid = int(database.classauth(request.args.get("secretkey")))
+    print cid
     if not intCheck(cid) or not database.periodcheck(cid):
         return 'Class does not exist'
     return adds(cid)
@@ -183,7 +184,7 @@ def grade():
             return render_template('grade.html', loggedIn=True, teacher=True)
         return render_template('grade.html', loggedIn=True, teacher=False)
     return redirect(url_for('home'))
-        
+
 if __name__ == '__main__':
     app.debug = True
     app.run()
