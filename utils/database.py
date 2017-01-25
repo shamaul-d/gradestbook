@@ -622,14 +622,22 @@ def printabsences():
         print a
     
 def check():
+    print "students:"
+    printstudents()
+    print "teachers:"
+    printteachers()
     print "students in classes:"
     printclass()
     print "periods:"
     printperiods()
     print "grades:"
     printgrades()
+    print "absences:"
+    printabsences()
     #changegrade(00,1,12,80)
     #printgrades()
+
+addtoclass(1,1)
 
 ##################################################################################################
 
@@ -643,7 +651,7 @@ def go():
 
 #go()
 
-#check()
+check()
 
 def close():
     f = "utils/data/database.db"
