@@ -183,12 +183,18 @@ def createClass():
 def grade():
     if 'user' in session:
         if (session['teach']):
-            gradeslist=database.getgrades()
-            classeslist=database.getclassestt(database.getteacherid(session['user']))
-            print gradeslist, classeslist
-            return render_template('grade.html', loggedIn=True, teacher=True, gradeslist=gradeslist, classeslist=classeslist)
+            return render_template('grade.html', loggedIn=True, teacher=True, gradeslist=database.getgrades(), classeslist=database.getclassestt(database.getteacherid(session['user'])), studentslist=snamedict())
         return render_template('grade.html', loggedIn=True, teacher=False, gradeslist=database.getstudentgrade(database.getstudentid(session['user'])))
     return redirect(url_for('home'))
+
+def snamedict():
+    d = {}
+    l = database.getsid()
+    i = 1
+    while (i < l):
+        d[i] = database.getstudentname(i)
+        i++
+    return d  
 
 if __name__ == '__main__':
     app.debug = True
