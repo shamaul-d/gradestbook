@@ -101,11 +101,18 @@ def hashp(password):
 @app.route('/seating/<int:cid>')
 def seating(cid):
     if 'teach' in session:
-        htmlString = seat.seatHtml(cid)
-        return render_template('seat.html', seats=htmlString, loggedIn = True, classid = cid)
+        htmlString = seat.seatHtml(cid);
+        return render_template('seat.html', seats=htmlString, loggedIn = True, cid = cid)
     else:
         return redirect(url_for('home'))
 
+@app.route('/changeseat/')
+def changeseat():
+    print "start"
+    cid = request.args.get('cid')
+    sid = request.args.get('sid')
+    seatid = request.args.get('seatid')
+    return seat.setSeat(cid,sid,seatid)
 
 @app.route('/checkClass/', methods = ["GET"])
 def check():

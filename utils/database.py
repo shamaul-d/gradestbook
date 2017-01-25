@@ -326,7 +326,7 @@ def getseatless(classid):
     m = c.execute("SELECT * FROM classes WHERE seatid = 0 AND classid = "+str(classid))
     j = []
     for a in m:
-        j.append(a[2])
+        j.append(a[3])
     return j
 
 # returns name of student w the given student id

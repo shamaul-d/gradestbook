@@ -29,6 +29,7 @@ function drop(event){
 
             class1 = div1.className;
             class2 = div2.className;
+
             div1.className = class2;
             div2.className = class1;
         }
@@ -44,7 +45,6 @@ var edit = false;
 
 //TODO: edit db w/new seat ids
 var save = function(event){
-    console.log('savee');
     butt.innerHTML = "Edit"
     butt.removeEventListener('click', save);
     butt.addEventListener('click', editSeats);
@@ -54,10 +54,31 @@ var save = function(event){
         student[i].style.cursor = 'default';
         edit = false;
     }
+
+    var cid = document.getElementById('cid').innerHTML;
+
     for (var i = 0; i < seat.length; ++i){
         if (seat[i].className.includes('filled')){
             console.log(i);
+            try{
+                var thisSid = seat[i].getElementsByClassName('sid')[0].innerHTML;
+                console.log('cid: ' + cid + ' sid: ' + thisSid + ' seat: ' + i);
+                $.ajax({
+                    url: '/changeseat/',
+                    type: 'GET',
+                    data: {'cid':cid, 'sid':thisSid, 'seatid':i},
+                    success: function(data){
+                        console.log(data);
+                    }
+
+                });
+            }
+            catch(TypeError){
+                console.log(seat[i]);
+            }
+
         }
+
     }
 }
 
