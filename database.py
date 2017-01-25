@@ -29,6 +29,7 @@
 # addperiod(classid,teacherid,pd,rows,cols,classname) # SHAMAUL USE THIS
 # addpd(classid,teacherid,pd,rows,cols,classname,secretcode)
 # getdims(classid) -- returns [rows,cols] of a class
+# getsecretcode(classid) -- returns the secret code of a class
 # printperiods()
 
 # GRADES
@@ -287,12 +288,14 @@ def getcode():
             check = True
             return code
 
-
-# add a class (period)
-def addperiod(classid,teacherid,period,rows,cols,classname):
-    code = getcode()
-    addpd(classid,teacherid,period,rows,cols,classname,code)
-
+def getsecretcode(classid):
+    f = "utils/data/database.db"
+    db = sqlite3.connect(f)
+    c = db.cursor()
+    m = c.execute("SELECT * FROM periods WHERE classid = "+str(classid))
+    for a in m:
+        return a[6]
+    
 def addpd(classid,teacherid,period,rows,cols,classname,secretcode):
     f = "utils/data/database.db"
     db = sqlite3.connect(f)
@@ -305,6 +308,11 @@ def addpd(classid,teacherid,period,rows,cols,classname,secretcode):
         return True
     else:
         return False
+
+# add a class (period)
+def addperiod(classid,teacherid,period,rows,cols,classname):
+    code = getcode()
+    addpd(classid,teacherid,period,rows,cols,classname,code)
 
 ##################################################################################################
 
