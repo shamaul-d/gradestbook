@@ -240,7 +240,7 @@ def addtoclass(classid, studentid):
     else:
         return False
 
-def addgrade(classid, studentid, grade, assignmentid, assignmentname):
+def aaddgrade(classid, studentid, grade, assignmentid, assignmentname):
     f = "utils/data/database.db"
     db = sqlite3.connect(f)
     if(isinstance(grade,int)):
