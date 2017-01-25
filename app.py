@@ -181,7 +181,10 @@ def createClass():
 def grade():
     if 'user' in session:
         if (session['teach']):
-            return render_template('grade.html', loggedIn=True, teacher=True, gradeslist=database.getgrades(), classeslist=database.getclassestt(database.getteacherid(session['user'])))
+            gradeslist=database.getgrades()
+            classeslist=database.getclassestt(database.getteacherid(session['user']))
+            print gradeslist, classeslist
+            return render_template('grade.html', loggedIn=True, teacher=True, gradeslist=gradeslist, classeslist=classeslist)
         return render_template('grade.html', loggedIn=True, teacher=False, gradeslist=database.getstudentgrade(database.getstudentid(session['user'])))
     return redirect(url_for('home'))
 

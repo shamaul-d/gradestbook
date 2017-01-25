@@ -11,7 +11,9 @@
   </div>
   <div class="col-lg-10 col-offset-lg-1">
     <ul class="list-group">
-      {%for key, value in classlist%}
+      {%for key, value in classeslist%}
+      {{key}}
+      {{value}}
       <li class="list-group-item" data-toggle="collapse" data-target="#class{{key}}">{{value}}</li>
       {% endfor %}
     </ul>
