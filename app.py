@@ -165,17 +165,19 @@ def addt():
 
 @app.route('/absence/')
 def absence():
-    if 'user' in session:
-        if (session['teach']):
-            return render_template('absence.html',loggedIn=True,teacher=True)
-        return render_template('absence.html',loggedIn=True,teacher=False)
-    return redirect(url_for('home'))
+    if (not 'user' in session):
+        return redirect(url_for('home'))
+    if (session['teach']):
+        #remember to change the variables when time comes
+        return render_template('absence.html',loggedIn=True,teacher=True, gradeslist=database.getgrades(), classeslist=database.getclassestt(database.getteacherid(session['user'])))
+    return render_template('absence.html',loggedIn=True,teacher=False, gradeslist=database.getstudentgrade(database.getstudentid(session['user'])))
+    
 
 @app.route('/createClass/')
 def createClass():
-    if (session['teach']):
-        return render_template('newClass.html',loggedIn=True)
-    return redirect(url_for('home'))
+    if (not 'user' in session):
+        return redirect(url_for('home'))
+    return render_template('newClass.html',loggedIn=True)    
 
 @app.route('/grade/')
 def grade():
