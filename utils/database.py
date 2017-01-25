@@ -17,7 +17,7 @@
 # CLASSES/SEATS # more like "students and their classes"
 # classes(): classid|teacherid|studentid|name|period|seatid|glasses|row|col
 # addtoclass(classid,studentid) # SHAMAUL THIS IS FOR YOU
-# addtoclass(classid,teacherid,studentid,name,pd,seatid,glasses,row,col)
+# aaddtoclass(classid,teacherid,studentid,name,pd,seatid,glasses,row,col)
 # getclassest(tid) -- returns list of classids that the teacher has
 # getclassess(sid) -- returns list of classids that the student has
 # getseatless(classid) -- returns list of studentids that do not have a seat yet
@@ -27,7 +27,7 @@
 # PERIODS/DIMS
 # periods(): classid|teacherid|period|rows|cols|classname|secretcode
 # addperiod(classid,teacherid,pd,rows,cols,classname) # SHAMAUL USE THIS
-# addperiod(classid,teacherid,pd,rows,cols,classname,secretcode)
+# addpd(classid,teacherid,pd,rows,cols,classname,secretcode)
 # getdims(classid) -- returns [rows,cols] of a class
 # printperiods()
 
@@ -189,7 +189,7 @@ def addstudent(username,password,name,id,glasses):
         return False
 
 # add student to class
-def addtoclass(classid, teacherid, studentid, name, period, seatid, glasses, row, col):
+def aaddtoclass(classid, teacherid, studentid, name, period, seatid, glasses, row, col):
     f = "utils/data/database.db"
     db = sqlite3.connect(f)
     if(classcheck(classid,studentid)):
@@ -232,7 +232,7 @@ def addtoclass(classid, studentid):
         seatid = 0
         row = 0
         col = 0
-        addtoclass(classid,teacherid,studentid,name,period,seatid,glasses,row,col)
+        aaddtoclass(classid,teacherid,studentid,name,period,seatid,glasses,row,col)
         db.commit()
         db.close()
         return True
@@ -291,9 +291,9 @@ def getcode():
 # add a class (period)
 def addperiod(classid,teacherid,period,rows,cols,classname):
     code = getcode()
-    addperiod(classid,teacherid,period,rows,cols,classname,code)
+    addpd(classid,teacherid,period,rows,cols,classname,code)
 
-def addperiod(classid,teacherid,period,rows,cols,classname,secretcode):
+def addpd(classid,teacherid,period,rows,cols,classname,secretcode):
     f = "utils/data/database.db"
     db = sqlite3.connect(f)
     if(periodcheck(classid)):
