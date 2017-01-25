@@ -155,3 +155,6 @@ NicoleC -- 2017-01-25
   made absence database
   absence accessors: getabsences(classid),getabsences(date
   absence modifier: addabsence(cid,sid,date)
+
+ShamaulD -- 2017-01-25
+  made differentiations between students and teachers

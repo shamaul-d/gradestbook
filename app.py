@@ -163,12 +163,26 @@ def addt():
 
 @app.route('/absence/')
 def absence():
-    return render_template('absence.html',loggedIn=True)
+    if 'user' in session:
+        if (session['teach']):
+            return render_template('absence.html',loggedIn=True,teacher=True)
+        return render_template('absence.html',loggedIn=True,teacher=False)
+    return redirect(url_for('home')
 
 @app.route('/createClass/')
 def createClass():
-    return render_template('newClass.html',loggedIn=True)
+    if session['teach']:
+        return render_template('newClass.html',loggedIn=True)
+    return redirect(url_for('home'))
 
+@app.route('/grade/')
+def grade():
+    if 'user' in session:
+        if (session['teach']):
+            return render_template('grade.html', teacher=True)
+        return render_template('grade.html', teacher=False)
+    return redirect(url_for('home'))
+        
 if __name__ == '__main__':
     app.debug = True
     app.run()
