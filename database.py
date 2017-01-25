@@ -19,6 +19,7 @@
 # getscores(assignmentid) -- returns dict of {studentid: grade} for assignment
 # getteacherid(username) -- returns tid of teacher w given username
 # getstudentid(username) -- ^
+# getseatless(classid) -- returns list of studentids that do not have a seat yet
 # checkglasses(studentid) -- returns boolean of whether student wears glasses
 # changeseat(classid,studentid,seatid,row,col)
 # changegrade(classid,studentid,assignmentid,grade)
@@ -437,6 +438,17 @@ def checkglasses(studentid):
             return a[4] 
     return 0
 
+def getseatless(classid):
+    f = "utils/data/database.db"
+    db = sqlite3.connect(f)
+    c = db.cursor()
+    m = c.execute("SELECT * FROM classes WHERE classid = "+str(classid))
+    g = []
+    for a in m:
+        if(a[5]==0):
+            g.append(a[2])
+    return g
+    
 ##################################################################################################
 
 # changes seat of student 
