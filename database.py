@@ -25,7 +25,7 @@
 # getclassess(sid) -- returns list of classes by student {classid:classname
 # getseatless(classid) -- returns dict of {name:id} that do not have a seat yet
 # changeseat(classid,studentid,seatid,row,col)
-# getstudentgrade(sid) -- returns grade
+# getstudentgrade(sid) -- returns {classname:grade}
 # getgrades() -- master dict {classid: {studentid:grade, ... }, ... }
 # printclass()
 
@@ -229,14 +229,25 @@ def addtoclass(classid, studentid):
     else:
         return False
 
-# given student id, get dict of {classid: grade}
+def getclassname(cid):
+    f = "utils/data/database.db"
+    db = sqlite3.connect(f)
+    c = db.cursor()
+    m = c.execute("SELECT * FROM periods WHERE classid = "+str(cid))
+    for a in m:
+        return a[5]    
+    
+# given student id, get dict of {classname: grade}
 def getstudentgrade(sid):
+    d = {}
     f = "utils/data/database.db"
     db = sqlite3.connect(f)
     c = db.cursor()
     m = c.execute("SELECT * FROM classes WHERE studentid = "+str(sid))
     for a in m:
-        return a[9]
+        name = getclassname(a[0])
+        d[name] = a[9]
+    return d
 
 # return True if not already marked absent
 def absencecheck(classid,studentid,date):
@@ -333,7 +344,6 @@ def changegrade(classid,studentid,grade):
     db.commit()
     return True
 
-        
 # returns {classid: {studentid:grade, studentid:grade}, ... }
 def getgrades():
     d = {}
@@ -351,14 +361,25 @@ def getgrades():
     return d
 
 '''
+id=1,classid=12,tid=-1,pd=8,5x5,grade=90
 addstudent("nicole","nicole","nIcole",1,1)
 addperiod(12,-1,8,5,5,"trig")
 addtoclass(12,1)
 changegrade(12,1,90)
-print getgrades()
-   
-'''
+print getgrades()   
 
+# id=2,cid=12,tid=-1,pd=8,5x5,grade=95
+addstudent("u","pw","nm",2,0)
+addtoclass(12,2)
+changegrade(12,2,95)
+
+# id=2,cid=10,tid=-2,pd9,5x5,grade=0
+addperiod(10,-2,9,5,5,"antclass")
+addtoclass(10,2)
+print getgrades()
+print getstudentgrade(1)
+print getstudentgrade(2)
+'''
 ##################################################################################################
 
 def gethash(username, teacher):
