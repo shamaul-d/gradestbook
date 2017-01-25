@@ -457,6 +457,17 @@ def getclassest(tid):
         j.append(a[0])
     return j
 
+# given teacher id, returns dict of classids that the teacher has {classname:classid}
+def getclassestt(tid):
+    f = "utils/data/database.db"
+    db = sqlite3.connect(f)
+    c = db.cursor()
+    m = c.execute("SELECT * FROM periods WHERE teacherid = "+str(tid))
+    d = {}
+    for a in m:
+        d[a[5]] = a[0]
+    return d
+
 # given student id, returns a list of classids that the student has
 def getclassess(sid):
     f = "utils/data/database.db"
@@ -467,6 +478,17 @@ def getclassess(sid):
     for a in m:
         j.append(a[0])
     return j
+
+# given student id, returns a dict of classes that the student has {classname:classid}
+def getclassesss(sid):
+    f = "utils/data/database.db"
+    db = sqlite3.connect(f)
+    c = db.cursor()
+    m = c.execute("SELECT * FROM periods WHERE studentid = "+str(sid))
+    d = {}
+    for a in m:
+        d[a[5]] = a[0]
+    return d
 
 # given student id, get dict of {assignmentname: grade}
 def getgradesbystudents(sid):
@@ -494,9 +516,6 @@ def getgradesbyassignment(aid):
             name = b[0]
         d[name] = a[2]
     return d
-#addstudent("nikki","nicole","nIcole",1,1)
-#addgrade(1,1,98,23,"hw1")
-#print getgradesbyassignment(23)
 
 # {assignmentname:assignmentid}
 def getassignments(classid):
@@ -504,10 +523,9 @@ def getassignments(classid):
     f = "utils/data/database.db"
     db = sqlite3.connect(f)
     c = db.cursor()
-    m = c.execute("SELECT * FROM grades WHERE assignmentid = "+str(aid))
+    m = c.execute("SELECT * FROM grades WHERE classid = "+str(classid))
     for a in m:
-        studentid = a[1]
-        d[name] = a[2]
+        d[a[4]] = a[3]
     return d
 
 # given assignment id, returns {studentid: grade} for that assignment
@@ -706,7 +724,7 @@ def go():
     grades()
     absences()
 
-#go()
+go()
 
 #check()
 
