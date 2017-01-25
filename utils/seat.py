@@ -41,19 +41,20 @@ def seatHtml(classid):
                 #p; student
                 html +='<div class="student" ondragstart="dragStart(event)" ondragover="allowDrop(event)">'
                 html += name
+                #if (database.checkglasses(sid)):
+                #    html += '<span class="glyphicon glyphicon-sunglasses"></span>'
                 #p; sid
                 html += '<p class="sid" hidden>' + str(sid) + '</p>'
-                html += '</div>'
-
-                #p; seat
-                html += '<p class="seatid" hidden>' + str(id) + '</p>'
-
                 #attend; attendance box
                 html += '<div class="attend">'
                 html += '<input class="check" type="checkbox">'
                 html += 'Absent?'
                 html += '</input>'
                 html += '</div>'
+                html += '</div>'
+
+                #p; seat
+                html += '<p class="seatid" hidden>' + str(id) + '</p>'
 
                 #close div, add aesthetic spaces
                 html += '</div>'
@@ -92,7 +93,15 @@ def seatHtml(classid):
             html +='<div class="student" ondragstart="dragStart(event)" ondragover="allowDrop(event)">'
             html += i
             #p; sid
+            if (database.checkglasses(sid)):
+                html += '<span class="glyphicon glyphicon-sunglasses"></span>'
             html += '<p class="sid" hidden>' + str(sid) + '</p>'
+            #attend; attendance box
+            html += '<div class="attend">'
+            html += '<input class="check" type="checkbox">'
+            html += 'Absent?'
+            html += '</input>'
+            html += '</div>'
             html += '</div>'
 
 

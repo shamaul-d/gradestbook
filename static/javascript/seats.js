@@ -1,6 +1,6 @@
 //The #1 Global Variable
 var seat = document.getElementsByClassName('seat');
-
+var filledseat = document.getElementsByClassName('filledseat');
 
 //--------drag and drop-------
 var oldEvent;
@@ -43,8 +43,6 @@ function drop(event){
 var butt = document.getElementById('butt');
 var edit = false;
 
-
-//TODO: edit db w/new seat ids
 var save = function(event){
     butt.innerHTML = "Edit"
     butt.removeEventListener('click', save);
@@ -113,12 +111,12 @@ var hideAttendance = function(event){
 
 //Todo: actually change attendance of student
 var attendance = function(event){
-    student = event.target.parentNode.parentNode.getElementsByClassName('student')[0].innerHTML;
+    sid = event.target;//.getElementsByClassName('sid')[0].innerHTML;
     if (event.target.checked){
-        console.log(student + ' absent');
+        console.log(sid + ' absent');
     }
     else{
-        console.log(student + ' not absent')
+        console.log(sid + ' not absent')
     }
 }
 
@@ -126,9 +124,10 @@ var attendance = function(event){
 
 butt.addEventListener('click',editSeats);
 
-for (i = 0; i < seat.length; i++){
-    seat[i].addEventListener('mouseenter',showAttendance);
-    seat[i].addEventListener('mouseleave',hideAttendance);
+
+for (i = 0; i < filledseat.length; i++){
+    filledseat[i].addEventListener('click',showAttendance);
+    filledseat[i].addEventListener('mouseleave',hideAttendance);
     var attend = document.getElementsByClassName('attend')[i];
     attend.style.display = 'none';
     attend.getElementsByClassName('check')[0].addEventListener('change',attendance);
