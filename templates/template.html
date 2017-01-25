@@ -54,8 +54,13 @@
       }
       });
       };
-      var b = document.getElementById('out');
-      b.addEventListener('click',logout);
+      try{
+          var b = document.getElementById('out');
+          b.addEventListener('click',logout);
+      }
+      catch(TypeError){
+
+      }
     </script>
 
 
