@@ -32,8 +32,12 @@ def switchSeats(classid, id1, id2):
     xy = getRowCol(seat2)
     database.changeseat(classid,id2,seat1,xy[0],xy[1])
 
-def setSeat(classid, sid, seatid):
-    return
+def setSeat(cid, sid, seatid):
+    l = database.getdims(cid)
+    row = l[0]
+    col = l[1]
+    database.changeseat(cid,sid,seatid,row,col)
+    return 'done'
 
 #actual; when we deal w/classes and students
 def seatHtml(classid):
@@ -46,7 +50,6 @@ def seatHtml(classid):
     students = database.getstudents(classid)
     d = {}
 
-    print students
     for i in students:
         #seatid
         d[students[i]] = database.getstudentname(i)
@@ -70,6 +73,9 @@ def seatHtml(classid):
                 html += name
                 html += '</p>'
 
+                #p; sid
+                html += '<p class="sid">' + str(id) + '</p>'
+
                 #attend; attendance box
                 html += '<div class="attend">'
                 html += '<input class="check" type="checkbox">'
@@ -84,6 +90,9 @@ def seatHtml(classid):
             else:
                 #open div; seat
                 html += '<div class="openseat seat" ondrop="drop(event)">'
+
+                #p; sid
+                html += '<p class="sid">' + str(id) + '</p>'
 
                 #p; student
                 html +='<p class="student" ondragstart="dragStart(event)" ondragover="allowDrop(event)">'

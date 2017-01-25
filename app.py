@@ -43,7 +43,7 @@ def home():
             sid = database.getstudentid(session['user'])
             l = database.getclassess(sid)
             for i in l:
-                cL += i + '<br>'
+                cL += str(i) + '<br>'
         return render_template('home.html', teach = session['teach'], classes=classHTML, classList = cL, loggedIn=True)
     return redirect(url_for('login'))
 
@@ -52,7 +52,7 @@ def auth():
     ## register
     #print request.form
     if 'register' in request.form:
-        if (request.form['user'] == '' or request.form['pass'] == ''):
+        if (request.form['user'] == '' or request.form['pass'] == '' or request.form['name'] == '' or request.form['pass2'] == '' or (not "person" in request.form)):
             return render_template('login.html', msg = 'please fill in all forms of info', register = False, loggedIn=False)
         elif (database.logincheck(request.form['user'].lower(), True) or (database.logincheck(request.form['user'].lower(), False))):
            return render_template('login.html', msg = 'username taken, please choose a new one', register = False, loggedIn=False)
@@ -66,15 +66,19 @@ def auth():
                 database.addteacher(user0,pass0,name,database.gettid())
             else:
                 if 'glasses' in request.form:
-                    database.addstudent(user0,pass0,name,database.getsid(),True)
+                    database.addstudent(user0,pass0,name,database.getsid(),1)
                 else:
-                    database.addstudent(user0,pass0,name,database.getsid(),False)
+                    database.addstudent(user0,pass0,name,database.getsid(),0)
             return render_template('login.html', msg = 'new account created', register = True, loggedIn=False)
                     ## login
     else:
         user1 = request.form['userl'].lower()
         passw = request.form['passl']
+        print request.form
 
+        if (user1 == '' or passw == '' or len(request.form) == 7): #looking for person1 gave messed up results, kind of a copout here
+            return render_template('login.html', msg = 'please fill in all forms of info', register = False, loggedIn=False)
+        
         if request.form['personl']  == 'teacher':
             session['teach'] = True
         else:
@@ -101,14 +105,23 @@ def hashp(password):
 @app.route('/seating/<int:cid>')
 def seating(cid):
     if 'teach' in session:
-        htmlString = seat.seatHtml(cid)
-        return render_template('seat.html', seats=htmlString, loggedIn = True, classid = cid)
+        htmlString = seat.seatHtml(cid);
+        return render_template('seat.html', seats=htmlString, loggedIn = True, cid = cid)
     else:
         return redirect(url_for('home'))
 
+@app.route('/changeseat/')
+def changeseat():
+    print "start"
+    cid = request.args.get('cid')
+    sid = request.args.get('sid')
+    seatid = request.args.get('seatid')
+    return seat.setSeat(cid,sid,seatid)
 
 @app.route('/checkClass/', methods = ["GET"])
 def check():
+    if 'user' not in session:
+        return redirect(url_for('home'))
     cid = request.args.get("cid")
     if not intCheck(cid) or not database.periodcheck(cid):
         return 'Class does not exist'
@@ -117,12 +130,11 @@ def check():
 def adds(cid):
     if 'user' in session:
         sid = database.getstudentid(session['user'])
-        print 'starting...'
-        print database.addtoclass(cid,sid)
         if database.addtoclass(cid,sid):
             #return redirect(url_for('home'))
             return 'success'
         return 'something went wrong'
+    print 'error'
     return "error"
 
 def intCheck(s):
@@ -135,14 +147,16 @@ def intCheck(s):
 
 @app.route('/addt/', methods = ["GET"])
 def addt():
-    if 'user' in session:
+    if (not 'user' in session):
+        return redirect(url_for('home'))
+    else:
         cid = database.getcid()
         cn = request.args['name']
         tid = database.getteacherid(session['user'])
         pd = request.args['pd']
         r = request.args['rows']
         c = request.args['cols']
-        if database.addperiod(cid,cn,tid,pd,r,c):
+        if database.addperiod(cid,tid,pd,r,c,cn):
             return redirect(url_for('home'))
         return render_template('newClass.html', msg="failure", loggedIn=True)
     return redirect(url_for('home'))
