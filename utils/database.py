@@ -683,16 +683,17 @@ def go():
 go()
 
 
-#id=1,classid=12,tid=-1,pd=8,5x5,grade=90
+#id=3,classid=12,tid=-1,pd=8,5x5,grade=90
 addstudent("nicole","nicole","nIcole",3,1)
 addperiod(12,-3,8,5,5,"trig")
-addtoclass(12,1)
-changegrade(12,1,90)
+addtoclass(12,3)
+changegrade(12,3,90)
 #print getgrades()   
 
-# id=2,cid=12,tid=-1,pd=8,5x5,grade=95
+# id=4,cid=14,tid=-1,pd=8,5x5,grade=95
 addstudent("u","pw","nm",4,0)
-addtoclass(14,2)
+addperiod(14,-4,10,5,5,"anotherclass")
+addtoclass(14,4)
 changegrade(14,4,95)
 
 # id=2,cid=10,tid=-2,pd9,5x5,grade=0
