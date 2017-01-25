@@ -8,14 +8,14 @@
 <center><h2 id='joinMsg'></h2></center>
 
 <div class="container">
-
+  <div class="row">
     <div class="col-lg-4">
         <div class="panel panel-default">
             <div class="panel-heading">
                 <h1><center> Grades <center></h1>
                 </div>
                 <div class="panel-body">
-                 <!--   We might need classes first -->
+                   We might need classes first 
                 </div>
             </div>
         </div>
@@ -43,53 +43,55 @@
                 </div>
             </div>
         </div>
-
-        <div class="col-lg-4">
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                    <h1><center> Create New Class </center></h1>
-                </div>
-                <div class="panel-body">
-                    <a type="button" class="btn btn-default btn-lg btn-block" href="/createClass">Create a new class</a>
-                </div>
-            </div>
+  </div>
+  <div class="row">
+    <div class="col-lg-4 col-lg-offset-2">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h1><center> Create New Class </center></h1>
         </div>
-
-        {%else%}
-
-	<div class="col-lg-4">
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                    <h1><center> Join New Class </center></h1>
-                </div>
-                <div class="panel-body">
-
-                    <form>
-                        <!--need to add in student info (glasses, etc.)-->
-                        <input type="text" id="cid" placeholder="Class ID">
-                        <button id="searchClass" type="button">Join</button>
-
-                    </form>
-
-                </div>
-            </div>
+        <div class="panel-body">
+          <a type="button" class="btn btn-default btn-lg btn-block" href="/createClass">Create a new class</a>
         </div>
-
-        {%endif%}
-
-        <div class="col-lg-4">
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                    <h1><center> Attendance </center></h1>
-                </div>
-                <div class="panel-body">
-                    <a type="button" class="btn btn-default btn-lg btn-block" href="/absence">Attendance</a>
-                </div>
-            </div>
-        </div>
-
+      </div>
     </div>
 
-    <script src="../static/javascript/home.js"></script>
+    {%else%}
 
-    {%endblock%}
+    <div class="col-lg-4">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h1><center> Join New Class </center></h1>
+        </div>
+        <div class="panel-body">
+
+          <form>
+            <!--need to add in student info (glasses, etc.)-->
+            <input type="text" id="cid" placeholder="Class ID">
+            <button id="searchClass" type="button">Join</button>
+
+          </form>
+	  
+        </div>
+      </div>
+    </div>
+
+    {%endif%}
+
+    <div class="col-lg-4">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h1><center> Attendance </center></h1>
+        </div>
+        <div class="panel-body">
+          <a type="button" class="btn btn-default btn-lg btn-block" href="/absence">Attendance</a>
+        </div>
+      </div>
+    </div>
+  </div>  
+</div>
+  
+<script src="../static/javascript/home.js"></script>
+  
+{%endblock%}
+  
