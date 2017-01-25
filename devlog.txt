@@ -150,17 +150,14 @@ NicoleC -- 2017-01-24
 
 ShamaulD -- 2017-01-25
   finally got bug on root screen
+  made differentiations between students and teachers
+  adapted to secretkey idea
+  passing grades to james, praying
 
 NicoleC -- 2017-01-25
   made absence database
   absence accessors: getabsences(classid),getabsences(date
   absence modifier: addabsence(cid,sid,date)
-
-ShamaulD -- 2017-01-25
-  made differentiations between students and teachers
-
-ShamaulD -- 2017-01-25
-  adapted to secretkey idea
-
-ShamaulD -- 2017-01-25
-  passing grades to james, praying
+  remodeled grade database to be part of classes instead
+  wrote accessors like getgrades() and getstudentgrade(sid)
+  debugged database additions

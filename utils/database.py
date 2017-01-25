@@ -360,26 +360,6 @@ def getgrades():
         d[a[0]] = g
     return d
 
-'''
-id=1,classid=12,tid=-1,pd=8,5x5,grade=90
-addstudent("nicole","nicole","nIcole",1,1)
-addperiod(12,-1,8,5,5,"trig")
-addtoclass(12,1)
-changegrade(12,1,90)
-print getgrades()   
-
-# id=2,cid=12,tid=-1,pd=8,5x5,grade=95
-addstudent("u","pw","nm",2,0)
-addtoclass(12,2)
-changegrade(12,2,95)
-
-# id=2,cid=10,tid=-2,pd9,5x5,grade=0
-addperiod(10,-2,9,5,5,"antclass")
-addtoclass(10,2)
-print getgrades()
-print getstudentgrade(1)
-print getstudentgrade(2)
-'''
 ##################################################################################################
 
 def gethash(username, teacher):
@@ -679,6 +659,30 @@ def go():
     absences()
 
 go()
+
+
+#id=1,classid=12,tid=-1,pd=8,5x5,grade=90
+addstudent("nicole","nicole","nIcole",1,1)
+addperiod(12,-1,8,5,5,"trig")
+addtoclass(12,1)
+changegrade(12,1,90)
+#print getgrades()   
+
+# id=2,cid=12,tid=-1,pd=8,5x5,grade=95
+addstudent("u","pw","nm",2,0)
+addtoclass(12,2)
+changegrade(12,2,95)
+
+# id=2,cid=10,tid=-2,pd9,5x5,grade=0
+addperiod(10,-2,9,5,5,"antclass")
+addtoclass(10,2)
+#print getgrades()
+#print getstudentgrade(1)
+#print getstudentgrade(2)
+
+addteacher("teach1","teach","mr rogers",-1)
+addteacher("teach2","teach","dr who",-2)
+
 
 #check()
 
