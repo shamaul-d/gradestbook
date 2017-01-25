@@ -171,13 +171,13 @@ def absence():
         #remember to change the variables when time comes
         return render_template('absence.html',loggedIn=True,teacher=True, gradeslist=database.getgrades(), classeslist=database.getclassestt(database.getteacherid(session['user'])))
     return render_template('absence.html',loggedIn=True,teacher=False, gradeslist=database.getstudentgrade(database.getstudentid(session['user'])))
-    
+
 
 @app.route('/createClass/')
 def createClass():
     if (not 'user' in session):
         return redirect(url_for('home'))
-    return render_template('newClass.html',loggedIn=True)    
+    return render_template('newClass.html',loggedIn=True)
 
 @app.route('/grade/')
 def grade():
@@ -189,7 +189,7 @@ def grade():
             return render_template('grade.html', loggedIn=True, teacher=True, gradeslist=gradeslist, classeslist=classeslist, studentslist=studentslist)
         gradeslist=database.getstudentgrade(database.getstudentid(session['user']))
         print gradeslist
-        return render_template('grade.html', loggedIn=True, teacher=False, gradeslist=gradeslist)    
+        return render_template('grade.html', loggedIn=True, teacher=False, gradeslist=gradeslist)
     return redirect(url_for('home'))
 
 def snamedict():
@@ -199,7 +199,30 @@ def snamedict():
     while (i < l):
         d[i] = database.getstudentname(i)
         i += 1
-    return d  
+    return d
+
+@app.route('/absent/')
+def absent():
+    sid = request.args.get('sid')
+    cid = request.args.get('cid')
+    timestamp = request.args.get('time')
+    if(database.addabsence(cid,sid,timestamp)):
+        print "done"
+        return "success"
+    print "eh"
+    return "failure"
+
+@app.route('/notAbsent/')
+def notAbsent():
+    sid = request.args.get('sid')
+    cid = request.args.get('cid')
+    timestamp = request.args.get('time')
+    if(database.addabsence(cid,sid,timestamp)):
+        print "done"
+        return "success"
+    print "eh"
+    return "failure"
+
 
 if __name__ == '__main__':
     app.debug = True

@@ -181,6 +181,7 @@ def addstudent(username,password,name,id,glasses):
 def aaddtoclass(classid, teacherid, studentid, name, period, seatid, glasses, row, col, grade):
     f = "utils/data/database.db"
     db = sqlite3.connect(f)
+    #if student isn't not in class
     if(classcheck(classid,studentid)):
         c = db.cursor()
         q = "INSERT INTO classes VALUES ('"+str(classid)+"','"+str(teacherid)+"','"+str(studentid)+"','"+name+"','"+str(period)+"','"+str(seatid)+"','"+str(glasses)+"','"+str(row)+"','"+str(col)+"','"+str(grade)+"');"
@@ -263,6 +264,9 @@ def absencecheck(classid,studentid,date):
 def addabsence(classid,studentid,date):
     f = "utils/data/database.db"
     db = sqlite3.connect(f)
+    print classid
+    print studentid
+    print date
     if(not classcheck(classid,studentid)): # if student is in class
         if(absencecheck(classid,studentid,date)):
             c = db.cursor()
@@ -271,6 +275,9 @@ def addabsence(classid,studentid,date):
             db.commit()
             db.close()
             return True
+        else:
+            print "you're absent already!!!!!!"
+    print "you aren't in this class, dummy"
     return False
 
 # returns False if code already in use

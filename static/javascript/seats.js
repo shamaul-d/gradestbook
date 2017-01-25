@@ -1,6 +1,7 @@
 //The #1 Global Variable
 var seat = document.getElementsByClassName('seat');
 var filledseat = document.getElementsByClassName('filledseat');
+var cid = document.getElementById('cid').innerHTML;
 
 //--------drag and drop-------
 var oldEvent;
@@ -53,8 +54,6 @@ var save = function(event){
         student[i].style.cursor = 'default';
         edit = false;
     }
-
-    var cid = document.getElementById('cid').innerHTML;
 
     for (var i = 0; i < seat.length; ++i){
         if (seat[i].className.includes('filled')){
@@ -112,12 +111,34 @@ var hideAttendance = function(event){
 
 //Todo: actually change attendance of student
 var attendance = function(event){
-    sid = event.target;//.getElementsByClassName('sid')[0].innerHTML;
+    var absentSid = event.target.parentNode.parentNode.getElementsByClassName('sid')[0].innerHTML;
+    var date = new Date();
+    var timestamp = date.getMonth() + 1;
+    timestamp += "/";
+    timestamp += date.getDate();
+    timestamp += "/"
+    timestamp += date.getFullYear();
     if (event.target.checked){
-        console.log(sid + ' absent');
+        $.ajax({
+            url: '/absent/',
+            type: 'GET',
+            data: {'sid':absentSid, 'cid':cid,'time':timestamp},
+            success: function(data){
+                console.log('absent');
+            }
+
+        });
     }
     else{
-        console.log(sid + ' not absent')
+        $.ajax({
+            url: '/notAbsent/',
+            type: 'GET',
+            data: {'sid':absentSid, 'cid':cid,'time':timestamp},
+            success: function(data){
+                console.log('not absent');
+            }
+
+        });
     }
 }
 
