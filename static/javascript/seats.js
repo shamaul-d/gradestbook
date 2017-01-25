@@ -55,7 +55,9 @@ var save = function(event){
         edit = false;
     }
     for (var i = 0; i < seat.length; ++i){
-        console.log(seat[i]);
+        if (seat[i].className.includes('filled')){
+            console.log(i);
+        }
     }
 }
 

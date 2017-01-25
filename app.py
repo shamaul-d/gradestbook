@@ -43,7 +43,7 @@ def home():
             sid = database.getstudentid(session['user'])
             l = database.getclassess(sid)
             for i in l:
-                cL += i + '<br>'
+                cL += str(i) + '<br>'
         return render_template('home.html', teach = session['teach'], classes=classHTML, classList = cL, loggedIn=True)
     return redirect(url_for('login'))
 
@@ -52,7 +52,7 @@ def auth():
     ## register
     #print request.form
     if 'register' in request.form:
-        if (request.form['user'] == '' or request.form['pass'] == '' or request.form['name'] == '' or request.form['pass2'] == '' or (not "person" in session)):
+        if (request.form['user'] == '' or request.form['pass'] == '' or request.form['name'] == '' or request.form['pass2'] == '' or (not "person" in request.form)):
             return render_template('login.html', msg = 'please fill in all forms of info', register = False, loggedIn=False)
         elif (database.logincheck(request.form['user'].lower(), True) or (database.logincheck(request.form['user'].lower(), False))):
            return render_template('login.html', msg = 'username taken, please choose a new one', register = False, loggedIn=False)
@@ -109,7 +109,7 @@ def seating(cid):
 
 @app.route('/checkClass/', methods = ["GET"])
 def check():
-    if 'user' in session:
+    if 'user' not in session:
         return redirect(url_for('home'))
     cid = request.args.get("cid")
     if not intCheck(cid) or not database.periodcheck(cid):
@@ -119,12 +119,11 @@ def check():
 def adds(cid):
     if 'user' in session:
         sid = database.getstudentid(session['user'])
-        print 'starting...'
-        print database.addtoclass(cid,sid)
         if database.addtoclass(cid,sid):
             #return redirect(url_for('home'))
             return 'success'
         return 'something went wrong'
+    print 'error'
     return "error"
 
 def intCheck(s):

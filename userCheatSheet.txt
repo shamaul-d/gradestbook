@@ -1,5 +1,5 @@
 Name                    user           pass
-Harry Potter(s)         hpotter         forgotten...(sorry)
+Harry Potter(s)         hpotter         dmalfoy
 Lily Evans(s)           levans          flowers
 Minerva McGonogall(t)   minnieM         kittycat
 Severus Snape(t)        jerkface        creepystalker

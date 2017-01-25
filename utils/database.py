@@ -5,7 +5,7 @@
 # addteacher(user,pass,name,id)
 # addstudent(user,pass,name,id,glasses)
 # addtoclass(classid,studentid) # SHAMAUL THIS IS FOR YOU
-# addtoclass(classid,teacherid,studentid,name,pd,seatid,glasses,row,col)
+# addtoclass2(classid,teacherid,studentid,name,pd,seatid,glasses,row,col)
 # addperiod(classid,teacherid,pd,rows,cols,classname)
 # addgrade(classid,studentid,grade,assignmentid,asignmentname)
 # gethash(username,isteacher?) returns hashed pass
@@ -95,17 +95,17 @@ def logincheck(username, teacher):
         for n in d:
             if(n[0] == username):
                 return True
-    db.close() 
+    db.close()
     return False
 
 def classcheck(classid, studentid):
     f = "utils/data/database.db"
     db = sqlite3.connect(f)
     c = db.cursor()
-    q = "SELECT * FROM classes WHERE classid = "+str(classid)
+    q = "SELECT * FROM classes WHERE studentid = " + str(studentid) + " AND classid = "+str(classid)
     d = c.execute(q)
-    for a in d:
-        if (a[2]==studentid):
+    for i in d:
+        if (i):
             return False
     return True
 
@@ -137,7 +137,7 @@ def addteacher(username,password,name,id):
         return True
     else:
         return False
-    
+
 # ret True if successfully added, False if username already exists
 def addstudent(username,password,name,id,glasses):
     f = "utils/data/database.db"
@@ -156,7 +156,7 @@ def addstudent(username,password,name,id,glasses):
 #addstudent("nicole","nicole","nicole",1,True)
 
 # add student to class
-def addtoclass(classid, teacherid, studentid, name, period, seatid, glasses, row, col):
+def addtoclass2(classid, teacherid, studentid, name, period, seatid, glasses, row, col):
     f = "utils/data/database.db"
     db = sqlite3.connect(f)
     if(classcheck(classid,studentid)):
@@ -178,14 +178,14 @@ def getstufffromclassid(classid):
     m = c.execute("SELECT * FROM periods WHERE classid = '"+str(classid)+"'")
     for a in m:
         return a
-    
+
 def getstufffromstudentid(studentid):
     f = "utils/data/database.db"
     db = sqlite3.connect(f)
     c = db.cursor()
     m = c.execute("SELECT * FROM students WHERE id = '"+str(studentid)+"'")
     for a in m:
-        return a    
+        return a
 
 def addtoclass(classid, studentid):
     f = "utils/data/database.db"
@@ -195,20 +195,20 @@ def addtoclass(classid, studentid):
         n = getstufffromclassid(classid)
         teacherid = n[1]
         period = n[2]
-        m = getstufffromstudentid(student)
+        m = getstufffromstudentid(studentid)
         name = m[2]
         glasses = m[4]
         seatid = 0
         row = 0
         col = 0
-        addtoclass(classid,teacherid,studentid,name,period,seatid,glasses,row,col)
+        addtoclass2(classid,teacherid,studentid,name,period,seatid,glasses,row,col)
         db.commit()
         db.close()
         return True
     else:
         return False
-    
-    
+
+
 # add a secret code!!!!
 # "CREATE TABLE IF NOT EXISTS periods (classid INTEGER, teacherid INTEGER, period INTEGER, rows INTEGER, cols INTEGER, classname TEXT)"
 # add a class (period)
@@ -319,6 +319,16 @@ def getstudents(classid):
         j[a[2]]=a[5]
     return j
 
+def getseatless(classid):
+    f = "utils/data/database.db"
+    db = sqlite3.connect(f)
+    c = db.cursor()
+    m = c.execute("SELECT * FROM classes WHERE seatid = 0 AND classid = "+str(classid))
+    j = []
+    for a in m:
+        j.append(a[2])
+    return j
+
 # returns name of student w the given student id
 def getstudentname(studentid):
     f = "utils/data/database.db"
@@ -341,7 +351,7 @@ def getdims(classid):
         j.append(a[3])
         j.append(a[4])
     return j
-    
+
 # given teacher id, returns list of classids that the teacher has
 def getclassest(tid):
     f = "utils/data/database.db"
@@ -394,7 +404,7 @@ def getteacherid(username):
     m = c.execute("SELECT * FROM teachers")
     for a in m:
         if(a[0]==username):
-            return a[3] 
+            return a[3]
     return 0
 
 # given username, get teacherid
@@ -405,7 +415,7 @@ def getstudentid(username):
     m = c.execute("SELECT * FROM students")
     for a in m:
         if(a[0]==username):
-            return a[3] 
+            return a[3]
     return 0
 
 # returns seatid of student in class
@@ -434,12 +444,12 @@ def checkglasses(studentid):
     m = c.execute("SELECT * FROM students")
     for a in m:
         if(a[3]==studentid):
-            return a[4] 
+            return a[4]
     return 0
 
 ##################################################################################################
 
-# changes seat of student 
+# changes seat of student
 def changeseat(classid,studentid,seatid,row,col):
     f = "utils/data/database.db"
     db = sqlite3.connect(f)
@@ -448,7 +458,7 @@ def changeseat(classid,studentid,seatid,row,col):
     m = c.execute(a)
     db.commit()
     return True
-    
+
 # changes grade
 def changegrade(classid,studentid,assignmentid,grade):
     f = "utils/data/database.db"
@@ -492,7 +502,7 @@ def printclass():
     m = c.execute("SELECT * FROM classes")
     for a in m:
         print a
-        
+
 def printperiods():
     f = "utils/data/database.db"
     db = sqlite3.connect(f)
@@ -508,7 +518,7 @@ def printgrades():
     m = c.execute("SELECT * FROM grades")
     for a in m:
         print a
-    
+
 def check():
     print "students in classes:"
     printclass()
@@ -543,4 +553,3 @@ def close():
     db.close()  #close database
 
 close()
-

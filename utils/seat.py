@@ -106,7 +106,7 @@ def seatHtml(classid):
 
             #p; student
             html +='<p class="student" ondragstart="dragStart(event)" ondragover="allowDrop(event)">'
-            html += i
+            html += str(i)
             html += '</p>'
 
             #close div, add aesthetic spaces
