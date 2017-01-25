@@ -74,7 +74,11 @@ def auth():
     else:
         user1 = request.form['userl'].lower()
         passw = request.form['passl']
+        print request.form
 
+        if (user1 == '' or passw == '' or len(request.form) == 7): #looking for person1 gave messed up results, kind of a copout here
+            return render_template('login.html', msg = 'please fill in all forms of info', register = False, loggedIn=False)
+        
         if request.form['personl']  == 'teacher':
             session['teach'] = True
         else:
