@@ -1,10 +1,10 @@
 var addToClass = function(event){
-    var cid = document.getElementById('cid').value;
+    var secretKey = document.getElementById('secretKey').value;
     if (cid){
         $.ajax({
             url: '/checkClass',
             type: 'GET',
-            data: {'cid':cid},
+            data: {'secretkey':secretKey},
             success: function(data){
                 var msg = document.getElementById('joinMsg');
                 msg.innerHTML = data;

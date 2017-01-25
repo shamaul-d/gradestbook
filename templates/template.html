@@ -6,8 +6,6 @@
     <link href="../static/css/bootstrap.min.css" rel="stylesheet">
     <link href="../static/css/style.css" rel="stylesheet">
 
-
-
     <!-- ajax src -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script src="../static/javascript/bootstrap.js"></script>
@@ -32,7 +30,9 @@
 	    <li><a href="/">Home</a></li>
 	    <li><a href="/grade">Grades</a></li>
 	    <li><a href="/seating/">Seating</a></li>
+	    {%if teacher %}
 	    <li><a href="/createClass">Create</a></li>
+	    {% endif %}
 	    <li><a href="/absence">Attendance</a><li>
 	    <li><a id="out">Logout</a></li>
 	  </ul>

@@ -43,3 +43,20 @@ body {
     display: none;
 }
 
+.seat{
+    padding: 1em;
+
+    text-align: center;
+    vertical-align: middle;
+    height: 7em;
+    width: 7em;
+    display: inline-block;
+
+}
+
+.filledseat{
+
+    background-color: #A9E2F3;
+    border: solid black .15em;
+
+}
