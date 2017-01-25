@@ -8,6 +8,7 @@
 
 # STUDENTS/GLASSES
 # students(): username|password|name|id|glasses
+# addstudent(username,password,name,id,glasses)
 # getstudents(classid) -- returns dict of {studentid: seatid} in given class
 # getstudentname(studentid) -- returns name of student w given studentid
 # getstudentid(username) -- returns sid of teacher w given username
@@ -19,11 +20,13 @@
 # addtoclass(classid,studentid) # SHAMAUL THIS IS FOR YOU
 # aaddtoclass(classid,teacherid,studentid,name,pd,seatid,glasses,row,col)
 # getclassest(tid) -- returns list of classids that the teacher has
-# getclassestt(tid) -- returns dict of classes by teacher {classname:classid}
+# getclassestt(tid) -- returns dict of classes by teacher {classid:classname}
 # getclassess(sid) -- returns list of classids that the student has
-# getclassess(sid) -- returns list of classes by student {classname:classid}
+# getclassess(sid) -- returns list of classes by student {classid:classname
 # getseatless(classid) -- returns dict of {name:id} that do not have a seat yet
 # changeseat(classid,studentid,seatid,row,col)
+# getstudentgrade(sid) -- returns grade
+# getgrades() -- master dict {classid: {studentid:grade, ... }, ... }
 # printclass()
 
 # PERIODS/DIMS
@@ -180,7 +183,7 @@ def aaddtoclass(classid, teacherid, studentid, name, period, seatid, glasses, ro
     db = sqlite3.connect(f)
     if(classcheck(classid,studentid)):
         c = db.cursor()
-        q = "INSERT INTO classes VALUES ('"+str(classid)+"','"+str(teacherid)+"','"+str(studentid)+"','"+name+"','"+str(period)+"','"+str(seatid)+"','"+str(glasses)+"','"+str(row)+"','"+str(col)+"');"
+        q = "INSERT INTO classes VALUES ('"+str(classid)+"','"+str(teacherid)+"','"+str(studentid)+"','"+name+"','"+str(period)+"','"+str(seatid)+"','"+str(glasses)+"','"+str(row)+"','"+str(col)+"','"+str(grade)+"');"
         c.execute(q)
         db.commit()
         db.close()
@@ -227,31 +230,13 @@ def addtoclass(classid, studentid):
         return False
 
 # given student id, get dict of {classid: grade}
-def getgradesbystudents(sid):
-    d = {}
+def getstudentgrade(sid):
     f = "utils/data/database.db"
     db = sqlite3.connect(f)
     c = db.cursor()
     m = c.execute("SELECT * FROM classes WHERE studentid = "+str(sid))
     for a in m:
-        d[a[0]] = a[9]
-    return d
-
-# returns {classid: [{studentid:grade}, {studentid:grade}, ...], ... }
-def getgrades():
-    d = {}
-    g = {}
-    k = []
-    f = "utils/data/database.db"
-    db = sqlite3.connect(f)
-    c = db.cursor()
-    m = c.execute("SELECT classid FROM classes")
-    q = db.cursor()
-    n = c.execute("SELECT * FROM classes")
-    for a in m:
-        
-        d[a[0]] = k
-    return d
+        return a[9]
 
 # return True if not already marked absent
 def absencecheck(classid,studentid,date):
@@ -338,7 +323,42 @@ def classauth(code):
             if(a[6]==code):
                 return a[0]
         return 0
-            
+
+def changegrade(classid,studentid,grade):
+    f = "utils/data/database.db"
+    db = sqlite3.connect(f)
+    c = db.cursor()
+    a = "UPDATE classes SET grade = '"+str(grade)+"' WHERE classid = '"+str(classid)+"' AND studentid = '"+str(studentid)+"';"
+    m = c.execute(a)
+    db.commit()
+    return True
+
+        
+# returns {classid: {studentid:grade, studentid:grade}, ... }
+def getgrades():
+    d = {}
+    g = {}
+    f = "utils/data/database.db"
+    db = sqlite3.connect(f)
+    c = db.cursor()
+    m = c.execute("SELECT classid FROM classes")
+    for a in m:
+        q = db.cursor()
+        n = q.execute("SELECT studentid,grade FROM classes WHERE classid = "+str(a[0]))
+        for w in n:
+            g[w[0]] = w[1]
+        d[a[0]] = g
+    return d
+
+'''
+addstudent("nicole","nicole","nIcole",1,1)
+addperiod(12,-1,8,5,5,"trig")
+addtoclass(12,1)
+changegrade(12,1,90)
+print getgrades()
+   
+'''
+
 ##################################################################################################
 
 def gethash(username, teacher):
@@ -634,7 +654,7 @@ def go():
     students()
     periods()
     classes()
-    grades()
+#    grades()
     absences()
 
 go()
