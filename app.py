@@ -151,16 +151,14 @@ def addt():
     if (not 'user' in session):
         return redirect(url_for('home'))
     else:
-        cid = classauth()
-        if (cid != 0):
-            cn = request.args['name']
-            tid = database.getteacherid(session['user'])
-            pd = request.args['pd']
-            r = request.args['rows']
-            c = request.args['cols']
-            if database.addperiod(cid,tid,pd,r,c,cn):
-                return redirect(url_for('home'))
-            return render_template('newClass.html', msg="failure", loggedIn=True)
+        cid = database.getcid()
+        cn = request.args['name']
+        tid = database.getteacherid(session['user'])
+        pd = request.args['pd']
+        r = request.args['rows']
+        c = request.args['cols']
+        if database.addperiod(cid,tid,pd,r,c,cn):
+            return redirect(url_for('home'))
         return render_template('newClass.html', msg="failure", loggedIn=True)
 
 
