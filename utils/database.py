@@ -86,7 +86,7 @@ def periods():
     f = "utils/data/database.db"
     db = sqlite3.connect(f)
     c = db.cursor()
-    q = "CREATE TABLE IF NOT EXISTS periods (classid INTEGER, teacherid INTEGER, period INTEGER, rows INTEGER, cols INTEGER, classname TEXT)"
+    q = "CREATE TABLE IF NOT EXISTS periods (classid INTEGER, teacherid INTEGER, period INTEGER, rows INTEGER, cols INTEGER, classname TEXT, secretcode TEXT)"
     c.execute(q)
     db.commit()
 
