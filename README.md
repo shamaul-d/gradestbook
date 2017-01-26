@@ -11,4 +11,4 @@ This project with consist of a seating chart and a gradebook. Using Flask, the t
 #### Check if the /data folder in /utils exists, and if not, manually add it. 
 #### Then run python app.py and you're all good!
 
-## youtube link:
+## youtube link: https://youtu.be/F7vRSCCHBxU
