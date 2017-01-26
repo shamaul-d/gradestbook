@@ -158,9 +158,8 @@ def addt():
         pd = request.args['pd']
         r = request.args['rows']
         c = request.args['cols']
-        if database.addperiod(cid,tid,pd,r,c,cn):
-            return redirect(url_for('home'))
-        return render_template('newClass.html', msg="failure", loggedIn=True)
+        database.addperiod(cid,tid,pd,r,c,cn)
+        return redirect(url_for('home'))
 
 
 @app.route('/absence/')
