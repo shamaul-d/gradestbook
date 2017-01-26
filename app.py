@@ -175,7 +175,7 @@ def absence():
         studentslist = snamedict()
         return render_template('absence.html',loggedIn=True,teacher=True, absencelist=absencelist, classeslist=classeslist,studentslist=studentslist)
     absencelist = database.getabsences(database.getstudentid(session['user'])) 
-    return render_template('absence.html',loggedIn=True,teacher=False, gradeslist=database.getstudentgrade(database.getstudentid(session['user'])))
+    return render_template('absence.html',loggedIn=True,teacher=False, absencelist=absencelist)
 
 
 def abslist():
