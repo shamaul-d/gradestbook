@@ -361,8 +361,8 @@ def getgrades():
         q = db.cursor()
         n = q.execute("SELECT studentid,grade FROM classes WHERE classid = "+str(a[0]))
         for w in n:
-            g[w[0]] = w[1]
-        d[a[0]] = g
+            g[str(w[0])] = w[1]
+        d[str(a[0])] = g
     return d
 
 ##################################################################################################
