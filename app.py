@@ -164,30 +164,25 @@ def addt():
             return redirect(url_for('home'))
         return render_template('newClass.html', msg="failure", loggedIn=True)
 
-'''
+
 @app.route('/absence/')
 def absence():
     if (not 'user' in session):
         return redirect(url_for('home'))
     if (session['teach']):
-        #remember to change the variables when time comes
         absencelist = abslist()
         classlist = database.getclassestt(database.getteacherid(session['user']))
         studentslist = snamesdict()
         return render_template('absence.html',loggedIn=True,teacher=True, absencelist=absencelist, classeslist=classeslist,studentslist=studentslist)
-    absencelist = getabsences(session['user']) 
+    absencelist = database.getabsences(session['user']) 
     return render_template('absence.html',loggedIn=True,teacher=False, gradeslist=database.getstudentgrade(database.getstudentid(session['user'])))
-'''
+
 
 def abslist():
     d = {}
-    l = getclassest(session['user'])
+    l = database.getclassest(session['user'])
     for i in l:
-        d2 = {}
-        s = getstudents(i).keys()
-        for a in s:
-            d2[a] = database.getabsencesbystudent(i,a)
-        d[i] = d2
+        d[i] = database.getallabsencec(i)
     return d
 
 @app.route('/absent/')
