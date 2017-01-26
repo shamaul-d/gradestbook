@@ -161,3 +161,9 @@ NicoleC -- 2017-01-25
   remodeled grade database to be part of classes instead
   wrote accessors like getgrades() and getstudentgrade(sid)
   debugged database additions
+
+NicoleC -- 2017-01-26
+  debugged and debugged and debugged
+  wrote more accessors for attendance
+  dealt with "types" and annoying things like that
+  things are working -- BLESS
