@@ -178,7 +178,6 @@ def absence():
 def abslist():
     d = {}
     l = database.getclassest(database.getteacherid(session['user']))
-    print l
     for i in l:
         d[str(i)] = database.getallabsencec(i)
     return d
