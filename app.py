@@ -214,6 +214,14 @@ def grade():
         return render_template('grade.html', loggedIn=True, teacher=False, gradeslist=gradeslist)
     return redirect(url_for('home'))
 
+@app.route('/addgrade/', methods=['GET'])
+def addgrade():
+    cid = request.args['classid']
+    sid = request.args['studentid']
+    grade = request.args['grade']
+    database.changegrade(cid,sid,grade)
+    return redirect(url_for('grade'))
+
 def snamedict():
     d = {}
     l = database.getsid()
