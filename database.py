@@ -1,5 +1,3 @@
-# given studentid, return {class:grade}
-
 # TEACHERS
 # teachers(): username|password|name|id
 # addteacher(user,pass,name,id)
@@ -37,6 +35,7 @@
 # addpd(classid,teacherid,pd,rows,cols,classname,secretcode)
 # getdims(classid) -- returns [rows,cols] of a class
 # getsecretcode(classid) -- returns the secret code of a class
+# getperiod(classid) returns pd number
 # printperiods()
 
 # ABSENCES
@@ -325,7 +324,7 @@ def addperiod(classid,teacherid,period,rows,cols,classname):
     code = getcode()
     addpd(classid,teacherid,period,rows,cols,classname,code)
 
-#addperiod(3,-3,4,5,6,"calc")
+#addperiod(9,-3,9,5,7,"chorus")
     
 # return class id; 0 if nonexistent
 def classauth(code):
@@ -609,6 +608,16 @@ def getallabsencec(classid):
     for a in m:
         d[a[1]]=a[2]
     return d
+
+def getperiod(classid):
+    f = "utils/data/database.db"
+    db = sqlite3.connect(f)
+    c = db.cursor()
+    m = c.execute("SELECT period FROM periods WHERE classid = "+str(classid))
+    for a in m:
+        return a[0]
+
+#print getperiod(12)
     
 ##################################################################################################
 
