@@ -361,8 +361,8 @@ def getgrades():
         q = db.cursor()
         n = q.execute("SELECT studentid,grade FROM classes WHERE classid = "+str(a[0]))
         for w in n:
-            g[str(w[0])] = w[1]
-        d[str(a[0])] = g
+            g[w[0]] = w[1]
+        d[a[0]] = g
     return d
 
 ##################################################################################################
@@ -595,7 +595,7 @@ def getabsences(studentid):
     m = c.execute("SELECT * FROM absences WHERE studentid = "+str(studentid))
     d = {}
     for a in m:
-        d[a[0]]=a[2]
+        d[str(a[0])]=str(a[2])
     return d
 
 # {studentid:date}
@@ -606,7 +606,7 @@ def getallabsencec(classid):
     m = c.execute("SELECT * FROM absences WHERE classid = "+str(classid))
     d = {}
     for a in m:
-        d[a[1]]=a[2]
+        d[str(a[1])]=str(a[2])
     return d
 
 def getperiod(classid):
