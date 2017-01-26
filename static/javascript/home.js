@@ -6,8 +6,7 @@ var addToClass = function(event){
             type: 'GET',
             data: {'secretkey':secretKey},
             success: function(data){
-                var msg = document.getElementById('joinMsg');
-                msg.innerHTML = data;
+                location.reload();
             }
 
         });

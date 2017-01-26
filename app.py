@@ -37,7 +37,7 @@ def home():
             tid = database.getteacherid(session['user'])
             l = database.getclassest(tid)
             for i in l:
-                classHTML += '<a type="button" class="btn btn-default btn-lg btn-block" href="/seating/'+str(i)+'">'+str(i)+'</a><br>'
+                classHTML += '<a type="button" class="btn btn-default btn-lg btn-block" href="/seating/'+str(i)+'"> Period ' + str(database.getperiod(i)) + ": "+ database.getclassname(i) + '</a><br>'
                 cL += "<p> Period " + str(database.getperiod(i)) + ": " + database.getclassname(i) + "</p>"
             return render_template('home.html', teach = session['teach'], classes=classHTML, classList = cL, loggedIn=True,teacher=True)
         else:
@@ -184,11 +184,11 @@ def abslist():
     return d
 
 @app.route('/absent/')
-@app.route('/notAbsent/')
 def absencej():
     cid = request.args.get('cid')
     sid = request.args.get('sid')
     timestamp = request.args.get('time')
+
     if (database.addabsence(cid,sid,timestamp)):
         return 'success'
     return 'failure'
