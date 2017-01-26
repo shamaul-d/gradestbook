@@ -186,7 +186,7 @@ def abslist():
     return d
 
 @app.route('/absent/')
-@app.route('/notAbsent')
+@app.route('/notAbsent/')
 def absencej():
     cid = request.args.get('cid')
     sid = request.args.get('sid')
