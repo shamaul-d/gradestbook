@@ -19,4 +19,6 @@ var addToClass = function(event){
 
 
 var sub = document.getElementById('searchClass');
-sub.addEventListener('click', addToClass);
+if (sub){
+    sub.addEventListener('click', addToClass);
+}

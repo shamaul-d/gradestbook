@@ -43,6 +43,8 @@
 # addabsence(classid,studentid,date) -- date is a STRING
 # getabsencesbystudent(classid,studentid) -- list of dates student was absent
 # getabsencesbydate(classid,date) -- list of students absent on given date
+# getabsences(studentid) -- {classid: date}
+# getabsencec(classid) -- {studentid: date}
 # printabsences()
 
 # MISC
@@ -583,6 +585,28 @@ def getabsencesbydate(classid,date): # mmddyy
         if(a[2]==date):
             g.append(a[1])
     return g
+
+# returns {classid: date}
+def getabsences(studentid):
+    f = "utils/data/database.db"
+    db = sqlite3.connect(f)
+    c = db.cursor()
+    m = c.execute("SELECT * FROM absences WHERE studentid = "+str(studentid))
+    d = {}
+    for a in m:
+        d[str(a[0])]==a[2]
+    return d
+
+# {studentid:date}
+def getallabsencec(classid):
+    f = "utils/data/database.db"
+    db = sqlite3.connect(f)
+    c = db.cursor()
+    m = c.execute("SELECT * FROM absences WHERE classid = "+str(classid))
+    d = {}
+    for a in m:
+        d[str(a[1])]==a[2]
+    return d
     
 ##################################################################################################
 
