@@ -682,7 +682,7 @@ def check():
 
 #print absences()
 
-check()
+#check()
 
 def go():
     teachers()
