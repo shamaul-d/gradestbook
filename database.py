@@ -25,6 +25,7 @@
 # getclassess(sid) -- returns list of classes by student {classid:classname
 # getseatless(classid) -- returns dict of {name:id} that do not have a seat yet
 # changeseat(classid,studentid,seatid,row,col)
+# getclassname(cid) -- returns the name of the class
 # getstudentgrade(sid) -- returns {classname:grade}
 # getgrades() -- master dict {classid: {studentid:grade, ... }, ... }
 # printclass()
@@ -136,13 +137,14 @@ def classcheck(classid, studentid):
 
 #print classcheck(1,2)
 
+# True if class already exists
 def periodcheck(classid):
     f = "utils/data/database.db"
     db = sqlite3.connect(f)
     c = db.cursor()
     q = "SELECT * FROM periods WHERE classid = "+str(classid)
     d = c.execute(q)
-    if (d):
+    for a in d:
         return True
     return False
 
@@ -169,7 +171,7 @@ def addstudent(username,password,name,id,glasses):
     if(not logincheck(username,False)):
         c = db.cursor()
         q = "INSERT INTO students VALUES ('"+str(username)+"','"+str(password)+"','"+str(name)+"',"+str(id)+","+str(glasses)+");"
-        print q
+        #print q
         c.execute(q)
         db.commit()
         db.close()
@@ -236,7 +238,7 @@ def getclassname(cid):
     m = c.execute("SELECT * FROM periods WHERE classid = "+str(cid))
     for a in m:
         return a[5]    
-    
+
 # given student id, get dict of {classname: grade}
 def getstudentgrade(sid):
     d = {}
@@ -306,7 +308,7 @@ def getsecretcode(classid):
 def addpd(classid,teacherid,period,rows,cols,classname,secretcode):
     f = "utils/data/database.db"
     db = sqlite3.connect(f)
-    if(periodcheck(classid)):
+    if(not periodcheck(classid)):
         c = db.cursor()
         q = "INSERT INTO periods VALUES ('"+str(classid)+"','"+str(teacherid)+"','"+str(period)+"','"+str(rows)+"','"+str(cols)+"','"+classname+"','"+str(secretcode)+"');"
         c.execute(q)
@@ -650,6 +652,8 @@ def check():
     
 ##################################################################################################
 
+#check()
+
 def go():
     teachers()
     students()
@@ -682,7 +686,9 @@ addtoclass(10,4)
 #print getstudentgrade(2)
 
 
-#check()
+check()
+
+#print getclassname(10)
 
 def close():
     f = "utils/data/database.db"
