@@ -169,13 +169,24 @@ def absence():
         return redirect(url_for('home'))
     if (session['teach']):
         #remember to change the variables when time comes
-        absencelist =
-        classlist =
+        absencelist = abslist()
+        classlist = database.getclassestt(database.getteacherid(session['user']))
         studentslist = snamesdict()
         return render_template('absence.html',loggedIn=True,teacher=True, absencelist=absencelist, classeslist=classeslist,studentslist=studentslist)
-    absencelist =
+    absencelist = getabsences(session['user']) 
     return render_template('absence.html',loggedIn=True,teacher=False, gradeslist=database.getstudentgrade(database.getstudentid(session['user'])))
 '''
+
+def abslist():
+    d = {}
+    l = getclassest(session['user'])
+    for i in l:
+        d2 = {}
+        s = getstudents(i).keys()
+        for a in s:
+            d2[a] = database.getabsencesbystudent(i,a)
+        d[i] = d2
+    return d
 
 @app.route('/absent/')
 @app.route('/notAbsent')
