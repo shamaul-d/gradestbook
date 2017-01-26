@@ -162,22 +162,26 @@ def addt():
             return redirect(url_for('home'))
         return render_template('newClass.html', msg="failure", loggedIn=True)
 
-
+'''
 @app.route('/absence/')
 def absence():
     if (not 'user' in session):
         return redirect(url_for('home'))
     if (session['teach']):
         #remember to change the variables when time comes
-        return render_template('absence.html',loggedIn=True,teacher=True, gradeslist=database.getgrades(), classeslist=database.getclassestt(database.getteacherid(session['user'])))
+        absencelist =
+        classlist =
+        studentslist = snamesdict()
+        return render_template('absence.html',loggedIn=True,teacher=True, absencelist=absencelist, classeslist=classeslist,studentslist=studentslist)
+    absencelist =
     return render_template('absence.html',loggedIn=True,teacher=False, gradeslist=database.getstudentgrade(database.getstudentid(session['user'])))
-
+'''  
 
 @app.route('/createClass/')
 def createClass():
     if (not 'user' in session):
         return redirect(url_for('home'))
-    return render_template('newClass.html',loggedIn=True)
+    return render_template('newClass.html',loggedIn=True)    
 
 @app.route('/grade/')
 def grade():
@@ -189,7 +193,7 @@ def grade():
             return render_template('grade.html', loggedIn=True, teacher=True, gradeslist=gradeslist, classeslist=classeslist, studentslist=studentslist)
         gradeslist=database.getstudentgrade(database.getstudentid(session['user']))
         print gradeslist
-        return render_template('grade.html', loggedIn=True, teacher=False, gradeslist=gradeslist)
+        return render_template('grade.html', loggedIn=True, teacher=False, gradeslist=gradeslist)    
     return redirect(url_for('home'))
 
 def snamedict():
@@ -201,28 +205,9 @@ def snamedict():
         i += 1
     return d
 
-@app.route('/absent/')
-def absent():
-    sid = request.args.get('sid')
-    cid = request.args.get('cid')
-    timestamp = request.args.get('time')
-    if(database.addabsence(cid,sid,timestamp)):
-        print "done"
-        return "success"
-    print "eh"
-    return "failure"
-
-@app.route('/notAbsent/')
-def notAbsent():
-    sid = request.args.get('sid')
-    cid = request.args.get('cid')
-    timestamp = request.args.get('time')
-    if(database.addabsence(cid,sid,timestamp)):
-        print "done"
-        return "success"
-    print "eh"
-    return "failure"
-
+@app.route("/glassesSeatGen/", methods = ['GET'])
+def glassesgen():
+    return seat.glassesSeatGen(request.args.get('cid'))
 
 if __name__ == '__main__':
     app.debug = True
