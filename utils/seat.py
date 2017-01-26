@@ -1,4 +1,5 @@
 from . import database
+import random
 
 def setSeat(cid, sid, seatid):
     l = database.getdims(cid)
@@ -27,7 +28,7 @@ def seatHtml(classid):
         for y in range(cols):
 
             #seatid
-            id = (rows*y) + x + 1
+            id = (cols*x) + y + 1
 
             if id in d:
 
@@ -111,3 +112,38 @@ def seatHtml(classid):
         html +="</center>"
 
     return html;
+
+def glassesSeatGen(classid):
+    print "=============="
+    students = database.getstudents(classid).keys()
+    random.shuffle(students)
+
+    withGlasses = []
+    withoutGlasses = []
+
+    for i in students:
+        if (database.checkglasses(i)):
+            withGlasses.append(i)
+        else:
+            withoutGlasses.append(i)
+
+    l = database.getdims(classid)
+    rows = l[0]
+    cols = l[1]
+
+    random.shuffle(withGlasses)
+    random.shuffle(withoutGlasses)
+
+    for x in range(rows):
+        for y in range(cols):
+            #seatid
+            id = (cols*x) + y
+            print "id:"+str(id)
+            if (id < len(withGlasses)):
+                print "personSiGlasses:"+str(withGlasses[id])
+                setSeat(classid,withGlasses[id],id+1)
+            elif (id < (len(withGlasses) + len(withoutGlasses))):
+                print "personNoGlasses:" +str(withoutGlasses[id-len(withGlasses)])
+                setSeat(classid,withoutGlasses[id-len(withGlasses)],id+1)
+
+    return 'success'

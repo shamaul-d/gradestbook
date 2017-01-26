@@ -2,6 +2,7 @@
 var seat = document.getElementsByClassName('seat');
 var filledseat = document.getElementsByClassName('filledseat');
 var cid = document.getElementById('cid').innerHTML;
+var rand = document.getElementById('rand');
 
 //--------drag and drop-------
 var oldEvent;
@@ -64,9 +65,6 @@ var save = function(event){
                     url: '/changeseat/',
                     type: 'GET',
                     data: {'cid':cid, 'sid':thisSid, 'seatid':seatNum},
-                    success: function(data){
-                        location.reload();
-                    }
 
                 });
             }
@@ -76,17 +74,39 @@ var save = function(event){
         }
 
     }
+
+    location.reload();
 }
 
 var editSeats = function(event){
     butt.innerHTML = "Save";
     butt.removeEventListener('click', editSeats);
     butt.addEventListener('click',save);
+
+    rand.style.display = 'block';
+
     var student = document.getElementsByClassName('student');
     for (var i = 0; i < student.length; i++){
         student[i].setAttribute('draggable',true);
         edit = true;
     }
+}
+
+//--------random seating-------------
+
+var seatGen = function(event){
+
+    $.ajax({
+        url: '/glassesSeatGen/',
+        type: 'GET',
+        data: {'cid':cid},
+        success: function(data){
+            //console.log(data);
+            location.reload();
+        }
+
+    });
+
 }
 
 //--------attendance stuff-------------
@@ -154,3 +174,6 @@ for (i = 0; i < filledseat.length; i++){
     attend.style.display = 'none';
     attend.getElementsByClassName('check')[0].addEventListener('change',attendance);
 }
+
+rand.style.display = 'none';
+rand.addEventListener('click',seatGen);
