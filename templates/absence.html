@@ -4,44 +4,58 @@
 
 {%block body%}
 
+{%if teacher %}
 <div class="container">
   <div class="page-header">
     <h1> Absences </h1>
   </div>
-
   <div class="col-lg-10 col-offset-lg-1">
-    <table class="table table-hover">
-      <tr>
-	<th> Date </th>
-	<th> Class </th>
-      </tr>
-      <tr>
-	<td>3/12</td>
-	<td>Math</td>
-      </tr>
-      <tr>
-	<td>hi</td>
-      </tr>
-    </table>  
+    <ul class="list-group">
+      {%for key in classeslist%}
+      <li class="list-group-item" data-toggle="collapse" data-target="#class{{key}}"> {{classeslist[key]}}</li>
+      {% endfor%}
+    </ul>
+    {%for dictkey in absencelist%}
+    <div id="class{{dictkey}}" class="page-header collapse">
+      {{classeslist[dictkey]}}
+
+      <table class="table table-hover">
+	<tr>
+	  <th> Class </th>
+	  <th> Student </th>
+	</tr>
+	{%for studentid in absencelist[dictkey]%}
+	<tr>
+	  <td>{{absencelist[dictkey][studentid]}}</td>
+	  <td>{{studentslist[studentid]}}</td>
+	</tr>
+	{%endfor%}
+      </table>  
+    </div>
+    {%endfor%}
   </div>
 </div>
 
+{%else%}
 <div class="container">
   <div class="page-header">
-    <h1> Latenesses </h1>
+    <h1>Absences</h1>
   </div>
   <div class="col-lg-10 col-offset-lg-1">
     <table class="table table-hover">
       <tr>
-	<th> Date </th>
-	<th> Class </th>
+	<th>Class</th>
+	<th>Date </th>
       </tr>
+      {%for class in absencelist%}
       <tr>
-	<td> x/yy</td>
-	<td> Lol </td>
+	<td> {{class}}</td>
+	<td> {{absencelist[class]}}</td>
       </tr>
+      {%endfor%}
     </table>
   </div>
 </div>
-  
+
+{%endif%}
 {%endblock%}

@@ -7,7 +7,7 @@
 {%if teacher %}
 <div class="container">
   <div class="page-header">
-    Assignments
+    <h1>Assignments</h1>
   </div>
   <div class="col-lg-10 col-offset-lg-1">
     <ul class="list-group">
@@ -46,10 +46,12 @@
 	<th> Class </th>
 	<th> Grade </th>
       </tr>
+      {%for class in gradelist%}
       <tr>
-	<td> Math</td>
-	<td> 39 </td>
+	<td> {{class}}</td>
+	<td> {{gradelist[class]}} </td>
       </tr>
+      {%endfor%}
     </table>
   </div>
 </div>
