@@ -214,11 +214,11 @@ def grade():
         return render_template('grade.html', loggedIn=True, teacher=False, gradeslist=gradeslist)
     return redirect(url_for('home'))
 
-@app.route('/addgrade/', methods=['GET'])
+@app.route('/addgrade/', methods=['POST'])
 def addgrade():
-    cid = request.args['classid']
-    sid = request.args['studentid']
-    grade = request.args['grade']
+    cid = request.form['classid']
+    sid = request.form['studentid']
+    grade = request.form['grade']
     database.changegrade(cid,sid,grade)
     return redirect(url_for('grade'))
 
