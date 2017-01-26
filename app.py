@@ -171,8 +171,8 @@ def absence():
         return redirect(url_for('home'))
     if (session['teach']):
         absencelist = abslist()
-        classlist = database.getclassestt(database.getteacherid(session['user']))
-        studentslist = snamesdict()
+        classeslist = database.getclassestt(database.getteacherid(session['user']))
+        studentslist = snamedict()
         return render_template('absence.html',loggedIn=True,teacher=True, absencelist=absencelist, classeslist=classeslist,studentslist=studentslist)
     absencelist = database.getabsences(database.getstudentid(session['user'])) 
     return render_template('absence.html',loggedIn=True,teacher=False, gradeslist=database.getstudentgrade(database.getstudentid(session['user'])))
@@ -180,7 +180,7 @@ def absence():
 
 def abslist():
     d = {}
-    l = database.getclassest(session['user'])
+    l = database.getclassest(database.getteacherid(session['user']))
     for i in l:
         d[i] = database.getallabsencec(i)
     return d
