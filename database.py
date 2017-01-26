@@ -1,4 +1,4 @@
-# PSA: new database!!! absence(classid,studentid,date) -- date=='mmddyy'
+# given studentid, return {class:grade}
 
 # TEACHERS
 # teachers(): username|password|name|id
@@ -325,6 +325,8 @@ def addperiod(classid,teacherid,period,rows,cols,classname):
     code = getcode()
     addpd(classid,teacherid,period,rows,cols,classname,code)
 
+#addperiod(3,-3,4,5,6,"calc")
+    
 # return class id; 0 if nonexistent
 def classauth(code):
     if(codecheck(code)):
@@ -586,7 +588,6 @@ def getabsencesbydate(classid,date): # mmddyy
             g.append(a[1])
     return g
 
-<<<<<<< HEAD
 # returns {classid: date}
 def getabsences(studentid):
     f = "utils/data/database.db"
@@ -609,8 +610,6 @@ def getallabsencec(classid):
         d[str(a[1])]==a[2]
     return d
     
-=======
->>>>>>> origin/master
 ##################################################################################################
 
 # changes seat of student
