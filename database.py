@@ -689,7 +689,7 @@ def go():
 
 go()
 
-
+'''
 #id=3,classid=12,tid=-1,pd=8,5x5,grade=90
 addstudent("nicole","nicole","nIcole",3,1)
 addperiod(12,-3,8,5,5,"trig")
@@ -709,9 +709,9 @@ addtoclass(10,4)
 #print getgrades()
 #print getstudentgrade(1)
 #print getstudentgrade(2)
+'''
 
-
-check()
+#check()
 
 #print getclassname(10)
 
