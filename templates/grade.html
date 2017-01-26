@@ -23,11 +23,20 @@
 	<tr>
 	  <th>Student</th>
 	  <th>Grade</th>
+	  <th>Change Grade</th>
 	</tr>
 	{%for studentid in gradeslist[dictkey]%} <!-- key = sid, value = grade -->
 	<tr>
 	  <td>{{studentslist[studentid]}}</td>
 	  <td>{{gradeslist[dictkey][studentid]}}</td>
+	  <form action="/addgrade/" method="POST">
+	    <td>
+	      <input type="number" name="grade">
+	      <input type="hidden" name="studentid" value="{{studentid}}">
+	      <input type="hidden" name="classid" value="{{dictkey}}">
+	    </td>
+	    <td><button type="submit" class="btn btn-default">Change</button></td>
+	  </form>
 	</tr>
 	{%endfor%}
       </table>
