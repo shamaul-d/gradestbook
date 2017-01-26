@@ -607,7 +607,7 @@ def getallabsencec(classid):
     m = c.execute("SELECT * FROM absences WHERE classid = "+str(classid))
     d = {}
     for a in m:
-        d[str(a[1])]==a[2]
+        d[a[1]]=a[2]
     return d
     
 ##################################################################################################
