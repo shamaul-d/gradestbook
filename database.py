@@ -133,11 +133,10 @@ def classcheck(classid, studentid):
     q = "SELECT * FROM classes WHERE classid = "+str(classid)
     d = c.execute(q)
     for a in d:
-        if (a[2]==studentid):
-            return False
+         if (a[2]==studentid):
+             return False
     return True
 
-#print classcheck(1,2)
 
 # True if class already exists
 def periodcheck(classid):
