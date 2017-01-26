@@ -205,9 +205,6 @@ def grade():
             gradeslist=database.getgrades()
             classeslist=database.getclassestt(database.getteacherid(session['user']))
             studentslist = snamedict()
-            print gradeslist
-            print classeslist
-            print studentslist
             return render_template('grade.html', loggedIn=True, teacher=True, gradeslist=gradeslist, classeslist=classeslist, studentslist=studentslist)
         gradeslist=database.getstudentgrade(database.getstudentid(session['user']))
         #print gradeslist
