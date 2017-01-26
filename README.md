@@ -8,7 +8,7 @@ This project with consist of a seating chart and a gradebook, with the possibili
 
 
 ## Before using our project, make sure to:
-Check if the /data folder in /utils exists, and if not, manually add it
-Then run python app.py and you're all good!
+### Check if the /data folder in /utils exists, and if not, manually add it. 
+### Then run python app.py and you're all good!
 
 ## youtube link:
