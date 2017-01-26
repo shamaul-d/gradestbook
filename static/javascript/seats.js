@@ -138,25 +138,12 @@ var attendance = function(event){
     timestamp += date.getDate();
     timestamp += "/"
     timestamp += date.getFullYear();
+
     if (event.target.checked){
         $.ajax({
             url: '/absent/',
             type: 'GET',
             data: {'sid':absentSid, 'cid':cid,'time':timestamp},
-            success: function(data){
-                console.log(data);
-            }
-
-        });
-    }
-    else{
-        $.ajax({
-            url: '/notAbsent/',
-            type: 'GET',
-            data: {'sid':absentSid, 'cid':cid,'time':timestamp},
-            success: function(data){
-                console.log(data);
-            }
 
         });
     }

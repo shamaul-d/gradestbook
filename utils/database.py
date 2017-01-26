@@ -134,10 +134,9 @@ def classcheck(classid, studentid):
     q = "SELECT * FROM classes WHERE classid = "+str(classid)
     d = c.execute(q)
     for a in d:
-         if (a[2]==studentid):
+        if (a[2]==studentid):
              return False
     return True
-
 
 # True if class already exists
 def periodcheck(classid):
@@ -267,8 +266,9 @@ def absencecheck(classid,studentid,date):
 def addabsence(classid,studentid,date):
     f = "utils/data/database.db"
     db = sqlite3.connect(f)
-    if(not classcheck(classid,studentid)): # if student is in class
-        if(absencecheck(classid,studentid,date)):
+    if(not classcheck(int(classid),int(studentid))): # if student is in class
+        print "student is in class"
+        if(absencecheck(int(classid),int(studentid),str(date))):
             c = db.cursor()
             q = "INSERT INTO absences VALUES ('"+str(classid)+"','"+str(studentid)+"','"+str(date)+"');"
             c.execute(q)
@@ -326,7 +326,7 @@ def addperiod(classid,teacherid,period,rows,cols,classname):
     addpd(classid,teacherid,period,rows,cols,classname,code)
 
 #addperiod(9,-3,9,5,7,"chorus")
-    
+
 # return class id; 0 if nonexistent
 def classauth(code):
     if(codecheck(code)):
@@ -362,8 +362,8 @@ def getgrades():
         q = db.cursor()
         n = q.execute("SELECT studentid,grade FROM classes WHERE classid = "+str(a[0]))
         for w in n:
-            g[w[0]] = w[1]
-        d[a[0]] = g
+            g[str(w[0])] = w[1]
+        d[str(a[0])] = g
     return d
 
 ##################################################################################################
@@ -619,7 +619,7 @@ def getperiod(classid):
         return a[0]
 
 #print getperiod(12)
-    
+
 ##################################################################################################
 
 # changes seat of student
@@ -692,7 +692,7 @@ def check():
 
 #print absences()
 
-#check()
+check()
 
 def go():
     teachers()

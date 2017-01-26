@@ -84,8 +84,6 @@ def seatHtml(classid):
         html += "<center><p>The Unseated</p>"
 
         for i in seatless:
-
-            sid = seatless[i]
             #open div; seat
             html += '<div class="filledseat seat" ondrop="drop(event)">'
 
@@ -93,7 +91,7 @@ def seatHtml(classid):
             html +='<div class="student" ondragstart="dragStart(event)" ondragover="allowDrop(event)">'
             html += seatless[i]
             #p; sid
-            if (database.checkglasses(sid)):
+            if (database.checkglasses(i)):
                 html += '<i class="fa fa-eye"></i>'
             html += '<p class="sid" hidden>' + str(i) + '</p>'
             #attend; attendance box
@@ -114,7 +112,6 @@ def seatHtml(classid):
     return html;
 
 def glassesSeatGen(classid):
-    print "=============="
     students = database.getstudents(classid).keys()
     random.shuffle(students)
 
@@ -138,12 +135,9 @@ def glassesSeatGen(classid):
         for y in range(cols):
             #seatid
             id = (cols*x) + y
-            print "id:"+str(id)
             if (id < len(withGlasses)):
-                print "personSiGlasses:"+str(withGlasses[id])
                 setSeat(classid,withGlasses[id],id+1)
             elif (id < (len(withGlasses) + len(withoutGlasses))):
-                print "personNoGlasses:" +str(withoutGlasses[id-len(withGlasses)])
                 setSeat(classid,withoutGlasses[id-len(withGlasses)],id+1)
 
     return 'success'
