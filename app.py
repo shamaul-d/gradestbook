@@ -187,7 +187,7 @@ def abslist():
 
 @app.route('/absent/')
 @app.route('/notAbsent')
-def absence():
+def absencej():
     cid = request.args.get('cid')
     sid = request.args.get('sid')
     timestamp = request.args.get('time')
