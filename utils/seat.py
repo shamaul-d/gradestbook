@@ -40,8 +40,8 @@ def seatHtml(classid):
                 #p; student
                 html +='<div class="student" ondragstart="dragStart(event)" ondragover="allowDrop(event)">'
                 html += name
-                #if (database.checkglasses(sid)):
-                #    html += '<span class="glyphicon glyphicon-sunglasses"></span>'
+                if (database.checkglasses(sid)):
+                    html += '<i class="fa fa-eye"></i>'
                 #p; sid
                 html += '<p class="sid" hidden>' + str(sid) + '</p>'
                 #attend; attendance box
@@ -93,7 +93,7 @@ def seatHtml(classid):
             html += i
             #p; sid
             if (database.checkglasses(sid)):
-                html += '<span class="glyphicon glyphicon-sunglasses"></span>'
+                html += '<i class="fa fa-eye"></i>'
             html += '<p class="sid" hidden>' + str(sid) + '</p>'
             #attend; attendance box
             html += '<div class="attend">'
