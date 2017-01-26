@@ -574,7 +574,7 @@ def getabsencesbystudent(classid,studentid):
     g = []
     for a in m:
         if(a[1]==studentid):
-            g.append(str(a[2]))
+            g.append(a[2])
     return g
 
 def getabsencesbydate(classid,date): # mmddyy
@@ -585,7 +585,7 @@ def getabsencesbydate(classid,date): # mmddyy
     g = []
     for a in m:
         if(a[2]==date):
-            g.append(str(a[1]))
+            g.append(a[1])
     return g
 
 # returns {classid: date}
@@ -596,7 +596,7 @@ def getabsences(studentid):
     m = c.execute("SELECT * FROM absences WHERE studentid = "+str(studentid))
     d = {}
     for a in m:
-        d[str(a[0])]=a[2]
+        d[a[0]]=a[2]
     return d
 
 # {studentid:date}
@@ -607,7 +607,7 @@ def getallabsencec(classid):
     m = c.execute("SELECT * FROM absences WHERE classid = "+str(classid))
     d = {}
     for a in m:
-        d[str(a[1])]=a[2]
+        d[a[1]]=a[2]
     return d
 
 def getperiod(classid):
