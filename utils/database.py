@@ -14,6 +14,7 @@
 # printstudents()
 
 # changegrade(classid,studentid,grade)
+
 # CLASSES/SEATS # more like "students and their classes"
 # classes(): classid|teacherid|studentid|name|period|seatid|glasses|row|col|grade
 # addtoclass(classid,studentid) # SHAMAUL THIS IS FOR YOU
@@ -562,7 +563,7 @@ def getseatless(classid):
     d = {}
     for a in m:
         if(a[5]==0):
-            d[a[3]] = a[2]
+            d[a[2]] = a[3]
     return d
 
 def getabsencesbystudent(classid,studentid):
