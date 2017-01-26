@@ -228,7 +228,7 @@ def snamedict():
     l = database.getsid()
     i = 1
     while (i < l):
-        d[i] = database.getstudentname(i)
+        d[str(i)] = database.getstudentname(i)
         i += 1
     return d
 
