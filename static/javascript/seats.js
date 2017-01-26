@@ -144,7 +144,7 @@ var attendance = function(event){
             type: 'GET',
             data: {'sid':absentSid, 'cid':cid,'time':timestamp},
             success: function(data){
-                console.log('absent');
+                console.log(data);
             }
 
         });
@@ -155,7 +155,7 @@ var attendance = function(event){
             type: 'GET',
             data: {'sid':absentSid, 'cid':cid,'time':timestamp},
             success: function(data){
-                console.log('not absent');
+                console.log(data);
             }
 
         });

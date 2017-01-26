@@ -36,15 +36,17 @@ def home():
         if session['teach']:
             tid = database.getteacherid(session['user'])
             l = database.getclassest(tid)
+            l.sort()
             for i in l:
                 classHTML += '<a type="button" class="btn btn-default btn-lg btn-block" href="/seating/'+str(i)+'">'+str(i)+'</a><br>'
-                cL += "<p> Period " + str(i) + "</p>"
+                cL += "<p> Period " + str(i) + ": " + database.getclassname(i) + "</p>"
             return render_template('home.html', teach = session['teach'], classes=classHTML, classList = cL, loggedIn=True,teacher=True)
         else:
             sid = database.getstudentid(session['user'])
             l = database.getclassess(sid)
+            l.sort()
             for i in l:
-                cL += str(i) + '<br>'
+                cL += "Period " + str(i) + ": " + database.getclassname(i) + '<br>'
             return render_template('home.html', teach = session['teach'], classes=classHTML, classList = cL, loggedIn=True,teacher=False)
     return redirect(url_for('login'))
 
@@ -107,7 +109,7 @@ def hashp(password):
 def seating(cid):
     if 'teach' in session:
         htmlString = seat.seatHtml(cid);
-        return render_template('seat.html', seats=htmlString, loggedIn = True, cid = cid, key = database.getsecretcode(cid))
+        return render_template('seat.html', seats=htmlString, loggedIn = True, cid = cid, key = database.getsecretcode(cid), className= database.getclassname(cid) )
     else:
         return redirect(url_for('home'))
 
@@ -175,13 +177,23 @@ def absence():
         return render_template('absence.html',loggedIn=True,teacher=True, absencelist=absencelist, classeslist=classeslist,studentslist=studentslist)
     absencelist =
     return render_template('absence.html',loggedIn=True,teacher=False, gradeslist=database.getstudentgrade(database.getstudentid(session['user'])))
-'''  
+'''
+
+@app.route('/absent/')
+@app.route('/notAbsent')
+def absence():
+    cid = request.args.get('cid')
+    sid = request.args.get('sid')
+    timestamp = request.args.get('time')
+    if (database.addabsence(cid,sid,timestamp)):
+        return 'success'
+    return 'failure'
 
 @app.route('/createClass/')
 def createClass():
     if (not 'user' in session):
         return redirect(url_for('home'))
-    return render_template('newClass.html',loggedIn=True)    
+    return render_template('newClass.html',loggedIn=True)
 
 @app.route('/grade/')
 def grade():
@@ -193,7 +205,7 @@ def grade():
             return render_template('grade.html', loggedIn=True, teacher=True, gradeslist=gradeslist, classeslist=classeslist, studentslist=studentslist)
         gradeslist=database.getstudentgrade(database.getstudentid(session['user']))
         print gradeslist
-        return render_template('grade.html', loggedIn=True, teacher=False, gradeslist=gradeslist)    
+        return render_template('grade.html', loggedIn=True, teacher=False, gradeslist=gradeslist)
     return redirect(url_for('home'))
 
 def snamedict():
