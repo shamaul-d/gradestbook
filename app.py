@@ -36,9 +36,10 @@ def home():
         if session['teach']:
             tid = database.getteacherid(session['user'])
             l = database.getclassest(tid)
+            l.sort()
             for i in l:
                 classHTML += '<a type="button" class="btn btn-default btn-lg btn-block" href="/seating/'+str(i)+'">'+str(i)+'</a><br>'
-                cL += "<p> Period " + str(i) + "</p>"
+                cL += "<p> Period " + str(i) + ": " + database.getclassname(i) + "</p>"
             return render_template('home.html', teach = session['teach'], classes=classHTML, classList = cL, loggedIn=True,teacher=True)
         else:
             sid = database.getstudentid(session['user'])
