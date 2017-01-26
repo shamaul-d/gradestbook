@@ -15,6 +15,7 @@
 # checkglasses(studentid) -- returns boolean of whether student wears glasses
 # printstudents()
 
+# changegrade(classid,studentid,grade)
 # CLASSES/SEATS # more like "students and their classes"
 # classes(): classid|teacherid|studentid|name|period|seatid|glasses|row|col|grade
 # addtoclass(classid,studentid) # SHAMAUL THIS IS FOR YOU
@@ -595,7 +596,7 @@ def getabsences(studentid):
     m = c.execute("SELECT * FROM absences WHERE studentid = "+str(studentid))
     d = {}
     for a in m:
-        d[str(a[0])]==a[2]
+        d[a[0]]=a[2]
     return d
 
 # {studentid:date}
@@ -681,7 +682,7 @@ def check():
 
 #print absences()
 
-#check()
+check()
 
 def go():
     teachers()
