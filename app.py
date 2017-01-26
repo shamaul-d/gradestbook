@@ -115,7 +115,7 @@ def seating(cid):
 
 @app.route('/changeseat/')
 def changeseat():
-    print "start"
+    #print "start"
     cid = request.args.get('cid')
     sid = request.args.get('sid')
     seatid = request.args.get('seatid')
@@ -126,7 +126,7 @@ def check():
     if 'user' not in session:
         return redirect(url_for('home'))
     cid = int(database.classauth(request.args.get("secretkey")))
-    print cid
+    #print cid
     if not intCheck(cid) or not database.periodcheck(cid):
         return 'Class does not exist'
     return adds(cid)
@@ -138,7 +138,7 @@ def adds(cid):
             #return redirect(url_for('home'))
             return 'success'
         return 'something went wrong'
-    print 'error'
+    #print 'error'
     return "error"
 
 def intCheck(s):
@@ -210,7 +210,7 @@ def grade():
             studentslist = snamedict()
             return render_template('grade.html', loggedIn=True, teacher=True, gradeslist=gradeslist, classeslist=classeslist, studentslist=studentslist)
         gradeslist=database.getstudentgrade(database.getstudentid(session['user']))
-        print gradeslist
+        #print gradeslist
         return render_template('grade.html', loggedIn=True, teacher=False, gradeslist=gradeslist)
     return redirect(url_for('home'))
 
