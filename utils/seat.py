@@ -79,7 +79,7 @@ def seatHtml(classid):
 
     html += "</center>"
     seatless = database.getseatless(classid)
-    #name: id
+    #id: name
     if seatless:
         html += "<center><p>The Unseated</p>"
 
@@ -91,11 +91,11 @@ def seatHtml(classid):
 
             #p; student
             html +='<div class="student" ondragstart="dragStart(event)" ondragover="allowDrop(event)">'
-            html += i
+            html += seatless[i]
             #p; sid
             if (database.checkglasses(sid)):
                 html += '<i class="fa fa-eye"></i>'
-            html += '<p class="sid" hidden>' + str(sid) + '</p>'
+            html += '<p class="sid" hidden>' + str(i) + '</p>'
             #attend; attendance box
             html += '<div class="attend">'
             html += '<input class="check" type="checkbox">'
